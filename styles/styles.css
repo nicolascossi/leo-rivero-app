@@ -1,0 +1,862 @@
+/* CLASES GLOBALES */
+
+:root {
+    --background-color: #F7F7FA;
+    --black-color: #000000;
+    --grey-color: #CCCC;
+    --white-color: #FFFF;
+    --red-color: #FF0000;
+    --blue-color: #0080ff;
+    --orange-color: #FF8000;
+    --green-color: #22B814;
+    --inputs-color: #F5F5F5;
+    --background-status-color: #F7F7FA;
+    --title-status: #BCBCBC;
+    --searchbar-color: #EBEBEB;
+
+    --tran-03: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+  body {
+    min-height: 100vh;
+    background-color: var(--background-color);
+    font-family: 'Poppins', sans-serif;
+  }
+
+/* TEMPORAL PARA NO MOSTRAR LOS CONTROLADORES DE UP & DOWN
+    LUEGO DEBEMOS ACTIVARLOS PARA CANTIDADES */
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+    margin: 0; 
+}
+
+
+/* CLASES INDEX.HTML*/
+
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-div {
+    height: 500px;
+    width: 350px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.login-div img {
+    margin-top: 20px;
+    width: 200px;
+    height: auto;
+}
+
+.user-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-input label {
+    margin-bottom: 5px;
+}
+
+.user-input input {
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--inputs-color);
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.password-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.password-input label {
+    margin-bottom: 5px;
+}
+
+.password-input input {
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--inputs-color);
+    padding-left: 15px;
+    margin-bottom: 50px;
+}
+
+
+.button-login-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button-login {
+    height: 40px;
+    width: 90%;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-login:hover {
+    border: 2px solid var(--black-color);
+    color: var(--black-color);
+    background-color: var(--white-color);
+}
+
+/* CLASES DASHBOARD.HTML*/
+
+.dashboard {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding-top: 50px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.heading-dashboard {
+    width: 1000px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons-heading button {
+    height: 55px;
+}
+
+.filter {
+    border: 3px solid var(--black-color);
+    background-color: var(--inputs-color);
+    width: 150px;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: var(--black-color);
+}
+
+.filter:hover {
+    background-color: var(--black-color);
+    color: var(--background-color);
+    border: none;
+}
+
+.nuevo-pedido {
+    background-color: var(--black-color);
+    font-size: 20px;
+    border-radius: 5px;
+    width: 200px;
+    font-weight: 500;
+    border: none;
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.nuevo-pedido:hover {
+    background-color: var(--background-color);
+    color: var(--black-color);
+    border: 3px solid var(--black-color);
+}
+
+/* ESTILOS STATUS CARDS */
+
+.cards-container {
+    width: 1000px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.status-card{
+    height: 80px;
+    width: 32%;
+    border-radius: 5px;
+    background-color:   var(--white-color);
+    display: flex;
+}
+
+.logo-status {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-status i {
+    font-size: 30px;
+    background-color: var(--background-status-color);
+    padding: 15px;
+    border-radius: 100%;
+}
+
+.status-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 10px;
+
+}
+
+.status-title {
+    color: var(--title-status);
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.status-number {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* ESTILOS SEARCHBAR PEDIDOS */
+
+.searchbar-container {
+    height: 50px;
+    width: 1000px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.searchbar-container input {
+    margin: 0;
+    height: 50px;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    background-color: var(--searchbar-color);
+}
+
+.searchbar-container input::placeholder {
+   font-size: 15px;
+
+}
+
+/* ESTILOS PEDIDOS RESUMEN DASHBOARD */
+
+.invoices-list {
+    height: auto;
+    width: 1000px;
+    margin-top: 20px;
+}
+
+.invoice {
+    width: 100%;
+    height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.invoice p {
+    margin-bottom: 0px;
+}
+
+.order-number {
+    font-size: 20px;
+    
+}
+
+.order-number span {
+    font-weight: 600;
+}
+
+.invoice-total {
+    font-size: 20px;
+}
+
+.invoice-total span {
+    font-weight: 500;
+}
+
+.invoice p {
+    margin-bottom: 0px;
+}
+
+
+
+.invoice button {
+    height: 70%;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    color: var(--white-color);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.pending {
+    background-color: var(--orange-color);
+    
+}
+
+.pending:hover {
+    color: var(--orange-color);
+    border: 3px var(--orange-color) solid;
+    background-color: var(--white-color);
+    
+}
+
+.forcharge {
+    background-color: var(--blue-color);
+}
+
+.forcharge:hover {
+    background-color: var(--white-color);
+    border: 3px var(--blue-color) solid;
+    color: var(--blue-color);
+}
+
+.undelivered {
+    background-color: var(--grey-color);
+}
+
+.undelivered:hover {
+    background-color: var(--white-color);
+    border: var(--grey-color) solid 3px;
+    color: var(--grey-color);
+}
+
+/* ESTILOS PARA LA LISTA DE CLIENTES */
+
+.clients-list {
+    height: auto;
+    width: 1000px;
+    margin-top: 20px;
+    
+}
+
+.client {
+    width: 100%;
+    height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.client p {
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.active-invoices span {
+    font-weight: 500;
+}
+
+.client-button {
+    width: 250px;
+    height: 70%;
+    border: none;
+    background-color: var(--black-color);
+    border-radius: 8px;
+    color: var(--white-color);
+    font-size: 18px;
+}
+
+.client-button:hover {
+    background-color: var(--white-color);
+    border: var(--black-color) solid 3px;
+    color: var(--black-color);
+}
+
+
+
+
+/* ESTILOS MODAL NUEVO PEDIDO/EDITANDO PEDIDO */
+.modalBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    margin-top: 0; 
+  }
+  
+  .modal-content {
+    margin: 0;
+  }
+
+  .modal-content-new-client {
+    margin: 0;
+    width: auto;
+    background-color: var(--white-color);
+    border-radius: 8px;
+  }
+  
+  .modal-container {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    
+  }
+
+.center-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  
+  .modal-content {
+    margin: auto;
+  }
+  
+
+.modal-new-invoice {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+
+.modal-newinvoice-heading {
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.modal-new-invoice input {
+   height: 50px;
+   border: 2px solid var(--black-color);
+   border-radius: 5px;
+   padding-left: 10px;
+   padding-right: 10px;
+   font-size: 16px;
+}
+
+.add-icon {
+    font-size: 32px;
+}
+
+.modal-new-invoice button {
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.section-modal-title {
+    margin-bottom: 0px;
+}
+
+.items-information p {
+    margin-bottom: 10px;
+}
+
+.invoice-number {
+    font-size: 22px;
+    margin-bottom: 0;
+}
+
+.invoice-number span{
+    font-weight: bold;
+}
+
+.contract-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.contract-information input {
+    margin-top: 10px;
+}
+
+.client-invoice-information{
+    margin-top: 10px;
+}
+.clientname-section {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.clientname-section input {
+    width: 68%;
+}
+
+.clientname-section button {
+    padding-left: 0;
+    width: 30%;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.checkbox-section {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-section input {
+   margin-right: 10px;
+   height: 40px;
+} 
+
+.iva {
+    height: 20px;
+    width: 20px;
+    border: 3px solid var(--black-color);
+    cursor: pointer;
+}
+
+.iva:checked {
+    background-color: var(--black-color);
+}
+
+.inputs-item-information {
+    max-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-input {
+    width: 150px;
+}
+
+.date-input {
+    width: 160px;
+}
+
+.number-input {
+    width: 60px;
+    
+}
+
+.save-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.save-discard-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.save-discard-buttons button {
+    width: 150px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.save {
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+/* ESTILOS MODAL NUEVO CLIENTE */
+
+.newclient-form {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.modal-content-new-client {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+}
+.title-modal {
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.inputs-newclient {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs-newclient p{
+   margin-bottom: 10px;
+}
+
+.subheading-modal {
+    margin-bottom: 30px;
+}
+
+.inputs-newclient input {
+    width: 100%;
+    height: 50px;
+    border: 2px solid var(--black-color);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+.inputs-newclient input::placeholder {
+    font-size: 16px;
+    display: flex;
+}
+
+.extra-info {
+    height: 150px !important;
+}
+
+.button-save-client {
+    height: 50px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+}
+
+.button-save-client button{
+    background-color: var(--black-color);
+    border: none;
+    color: var(--white-color);
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+
+/* MODAL PEDIDO RESUME */
+
+.modal-resume-invoice{
+    height: auto;
+    width: 750px;
+    border-radius: 8px;
+    background-color: var(--white-color);
+    margin: 15px 20px;
+}
+
+.modal-resume-invoice p{
+    margin-bottom: 5px !important;
+}
+
+.left-heading-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+
+.edit-button {
+    height: 50px;
+    color: var(--white-color);
+    background-color: var(--black-color);
+    font-size: 18px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: var(--white-color);
+    color: var(--black-color);
+    border: 3px solid var(--black-color);
+}
+
+.modal-resume-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px !important;
+}
+.resume-number {
+    font-weight: 600;
+    font-size: 30px;
+    margin-right: 20px;
+}
+
+.adress-heading {
+    color: #A5ABB3;
+    font-size: 18px;
+}
+
+.subtitle-payment {
+    font-weight: 500;
+    color: #A9A9AA;
+    font-size: 18px;
+}
+
+.resume-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 30px !important;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.parent-items-resume {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #F8F9FE;
+    border-radius: 8px;
+    width: 100%;
+    min-height: 250px;
+    height: auto;
+    padding: 15px 40px;
+    margin-top: 20px;
+    }
+
+.parent-items-resume p {
+    margin-bottom: 10px !important;
+}
+
+.title-column {
+    color: #8D8D8D;
+    font-weight: 500;
+}
+
+.div1 {
+    text-align: start;
+}
+
+.div4, .div3, .div2 {
+    text-align: center;
+}
+
+.div5 {
+    text-align: end;
+}
+
+.pending-total {
+    color: #BCBCBC;
+}
+
+.amount-due-resume {
+    height: 50px;
+    border-radius: 5px;
+    background-color: var(--black-color);
+    margin-top: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amount-due-resume p {
+    color: var(--white-color);
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 0 !important;
+}
+
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ESTILOS CLIENT RESUME MODAL */
+
+.invoice-list-column-parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.column1 { 
+    grid-area: 1 / 1 / 2 / 2; 
+}
+.column2 { 
+    grid-area: 1 / 2 / 2 / 3; 
+}
+.column3 { grid-area: 1 / 3 / 2 / 4; 
+}
+
