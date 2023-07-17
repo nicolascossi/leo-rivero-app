@@ -1,0 +1,51 @@
+{
+    "clientes": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "phone": "+1 555-123-4567",
+        "address": "123 Main St, City, State, Zip",
+        "cuit": "20-44564367-0",
+        "extras" : "Comentarios sobre el cliente"
+
+      }
+    ],
+  
+    "pedidos": [
+      {
+        "id": 12345,
+        "client_id": 1,
+        "date": "2023-07-10",
+        "delivery_adress": "Leopoldo Lugones 443",
+        "total_amount": 25000.00,
+        "items": [
+          {
+            "id": 1,
+            "name": "Obrador",
+            "description": "Product C",
+            "item_number": "#80",
+            "quantity": 3,
+            "period_price": 15000.00
+          },
+          {
+            "id": 2,
+            "name": "Volquete",
+            "description": "Product C",
+            "item_number": "#105",
+            "quantity": 1,
+            "period_price": 10000.00
+          },
+          {
+            "id": 2,
+            "name": "Volquete",
+            "description": "Product C",
+            "item_number": "#110",
+            "quantity": 1,
+            "unit_price": 10000.00
+          }
+        ]
+      }
+    ]
+  }
+  
