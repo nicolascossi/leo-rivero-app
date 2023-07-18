@@ -1,51 +1,344 @@
 {
-    "clients": [
-      {
-        "id": 1,
-        "name": "John Doe",
-        "email": "johndoe@example.com",
-        "phone": "+1 555-123-4567",
-        "address": "123 Main St, City, State, Zip",
-        "cuit": "20-44564367-0",
-        "extras" : "Comentarios sobre el cliente"
-
-      }
-    ],
-  
-    "invoices": [
-      {
-        "id": 12345,
-        "clientId": 1,
-        "date": "2023-07-10",
-        "delivery_adress": "Leopoldo Lugones 443",
-        "total_amount": 25000.00,
-        "items": [
-          {
-            "id": 1,
-            "name": "Obrador",
-            "description": "Product C",
-            "item_number": "#80",
-            "quantity": 3,
-            "period_price": 15000.00
-          },
-          {
-            "id": 2,
-            "name": "Volquete",
-            "description": "Product C",
-            "item_number": "#105",
-            "quantity": 1,
-            "period_price": 10000.00
-          },
-          {
-            "id": 2,
-            "name": "Volquete",
-            "description": "Product C",
-            "item_number": "#110",
-            "quantity": 1,
-            "unit_price": 10000.00
-          }
-        ]
-      }
-    ]
-  }
-  
+  "clients": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "+1 555-123-4567",
+      "address": "123 Main St, City, State, Zip",
+      "cuit": "20-44564367-0",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "janesmith@example.com",
+      "phone": "+1 555-987-6543",
+      "address": "456 Oak Ave, City, State, Zip",
+      "cuit": "30-12345678-9",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "email": "alicejohnson@example.com",
+      "phone": "+1 555-555-5555",
+      "address": "789 Elm St, City, State, Zip",
+      "cuit": "40-98765432-1",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 4,
+      "name": "Bob Williams",
+      "email": "bobwilliams@example.com",
+      "phone": "+1 555-111-2222",
+      "address": "321 Pine St, City, State, Zip",
+      "cuit": "50-54321098-7",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 5,
+      "name": "Emma Davis",
+      "email": "emmadavis@example.com",
+      "phone": "+1 555-444-3333",
+      "address": "987 Maple Ave, City, State, Zip",
+      "cuit": "60-76543210-2",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 6,
+      "name": "Michael Wilson",
+      "email": "michaelwilson@example.com",
+      "phone": "+1 555-777-8888",
+      "address": "654 Cedar St, City, State, Zip",
+      "cuit": "70-21098765-3",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 7,
+      "name": "Olivia Taylor",
+      "email": "oliviataylor@example.com",
+      "phone": "+1 555-666-9999",
+      "address": "543 Oak Ave, City, State, Zip",
+      "cuit": "80-87654321-4",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 8,
+      "name": "William Miller",
+      "email": "williammiller@example.com",
+      "phone": "+1 555-222-1111",
+      "address": "876 Elm St, City, State, Zip",
+      "cuit": "90-43210987-5",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 9,
+      "name": "Samantha Johnson",
+      "email": "samanthajohnson@example.com",
+      "phone": "+1 555-333-4444",
+      "address": "789 Oak Ave, City, State, Zip",
+      "cuit": "10-12345678-9",
+      "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 10,
+      "name": "David Wilson",
+      "email": "davidwilson@example.com",
+      "phone": "+1 555-777-5555",
+      "address": "654 Elm St, City, State, Zip",
+      "cuit": "20-98765432-1",
+      "extras": "Comentarios sobre el cliente"
+    }
+  ],
+  "invoices": [
+    {
+      "id": 12345,
+      "clientId": 1,
+      "date": "2023-07-10",
+      "delivery_adress": "Leopoldo Lugones 443",
+      "items": [
+        {
+          "id": 1,
+          "name": "Volquete",
+          "item_number": "#80",
+          "quantity": 3,
+          "period_price": 10000.00
+        },
+        {
+          "id": 2,
+          "name": "Obrador",
+          "item_number": "#105",
+          "quantity": 1,
+          "period_price": 15000.00
+        },
+        {
+          "id": 3,
+          "name": "Volquete",
+          "item_number": "#110",
+          "quantity": 3,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12346,
+      "clientId": 2,
+      "date": "2023-07-11",
+      "delivery_adress": "Calle A 123",
+      "items": [
+        {
+          "id": 4,
+          "name": "Obrador",
+          "item_number": "#1",
+          "quantity": 2,
+          "period_price": 15000.00
+        },
+        {
+          "id": 5,
+          "name": "Volquete",
+          "item_number": "#2",
+          "quantity": 1,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12347,
+      "clientId": 3,
+      "date": "2023-07-12",
+      "delivery_adress": "Calle B 456",
+      "items": [
+        {
+          "id": 6,
+          "name": "Volquete",
+          "item_number": "#3",
+          "quantity": 4,
+          "period_price": 10000.00
+        },
+        {
+          "id": 7,
+          "name": "Obrador",
+          "item_number": "#4",
+          "quantity": 2,
+          "period_price": 15000.00
+        },
+        {
+          "id": 8,
+          "name": "Volquete",
+          "item_number": "#5",
+          "quantity": 3,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12348,
+      "clientId": 4,
+      "date": "2023-07-13",
+      "delivery_adress": "Calle C 789",
+      "items": [
+        {
+          "id": 9,
+          "name": "Obrador",
+          "item_number": "#6",
+          "quantity": 3,
+          "period_price": 15000.00
+        },
+        {
+          "id": 10,
+          "name": "Volquete",
+          "item_number": "#7",
+          "quantity": 1,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12349,
+      "clientId": 5,
+      "date": "2023-07-14",
+      "delivery_adress": "Calle D 987",
+      "items": [
+        {
+          "id": 11,
+          "name": "Volquete",
+          "item_number": "#8",
+          "quantity": 2,
+          "period_price": 10000.00
+        },
+        {
+          "id": 12,
+          "name": "Obrador",
+          "item_number": "#9",
+          "quantity": 2,
+          "period_price": 15000.00
+        }
+      ]
+    },
+    {
+      "id": 12350,
+      "clientId": 6,
+      "date": "2023-07-15",
+      "delivery_adress": "Calle E 654",
+      "items": [
+        {
+          "id": 13,
+          "name": "Obrador",
+          "item_number": "#10",
+          "quantity": 1,
+          "period_price": 15000.00
+        },
+        {
+          "id": 14,
+          "name": "Volquete",
+          "item_number": "#11",
+          "quantity": 3,
+          "period_price": 10000.00
+        },
+        {
+          "id": 15,
+          "name": "Volquete",
+          "item_number": "#12",
+          "quantity": 2,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12351,
+      "clientId": 7,
+      "date": "2023-07-16",
+      "delivery_adress": "Calle F 543",
+      "items": [
+        {
+          "id": 16,
+          "name": "Volquete",
+          "item_number": "#13",
+          "quantity": 3,
+          "period_price": 10000.00
+        },
+        {
+          "id": 17,
+          "name": "Obrador",
+          "item_number": "#14",
+          "quantity": 1,
+          "period_price": 15000.00
+        }
+      ]
+    },
+    {
+      "id": 12352,
+      "clientId": 8,
+      "date": "2023-07-17",
+      "delivery_adress": "Calle G 876",
+      "items": [
+        {
+          "id": 18,
+          "name": "Obrador",
+          "item_number": "#15",
+          "quantity": 2,
+          "period_price": 15000.00
+        },
+        {
+          "id": 19,
+          "name": "Volquete",
+          "item_number": "#16",
+          "quantity": 3,
+          "period_price": 10000.00
+        }
+      ]
+    },
+    {
+      "id": 12353,
+      "clientId": 9,
+      "date": "2023-07-18",
+      "delivery_adress": "Calle H 789",
+      "items": [
+        {
+          "id": 20,
+          "name": "Volquete",
+          "item_number": "#17",
+          "quantity": 1,
+          "period_price": 10000.00
+        },
+        {
+          "id": 21,
+          "name": "Obrador",
+          "item_number": "#18",
+          "quantity": 2,
+          "period_price": 15000.00
+        }
+      ]
+    },
+    {
+      "id": 12354,
+      "clientId": 10,
+      "date": "2023-07-19",
+      "delivery_adress": "Calle I 654",
+      "items": [
+        {
+          "id": 22,
+          "name": "Obrador",
+          "item_number": "#19",
+          "quantity": 3,
+          "period_price": 15000.00
+        },
+        {
+          "id": 23,
+          "name": "Volquete",
+          "item_number": "#20",
+          "quantity": 1,
+          "period_price": 10000.00
+        },
+        {
+          "id": 24,
+          "name": "Volquete",
+          "item_number": "#21",
+          "quantity": 2,
+          "period_price": 10000.00
+        }
+      ]
+    }
+  ]
+}

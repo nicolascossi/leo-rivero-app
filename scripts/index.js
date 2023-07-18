@@ -25,7 +25,7 @@ function mostrarPedidos(invoices) {
   
       const orderNumber = document.createElement('p');
       orderNumber.classList.add("order-number");
-      orderNumber.textContent = invoice.id;
+      orderNumber.textContent = "#" + invoice.id;
   
       const clientName = document.createElement('p');
       clientName.classList.add("client-name");
@@ -35,14 +35,15 @@ function mostrarPedidos(invoices) {
       invoiceAddress.classList.add("invoice-address");
       invoiceAddress.textContent = invoice.delivery_adress;
   
+      let totalSum = 0;
+      invoice.items.forEach(item => {
+        const itemTotal = item.quantity * item.period_price;
+        totalSum += itemTotal;
+      });
+  
       const invoiceTotal = document.createElement('p');
       invoiceTotal.classList.add("invoice-total");
-
-      const totalAmount =
-
-      invoiceTotal.textContent = "Total: $" + totalAmount;
-
-      console.log(totalAmount)
+      invoiceTotal.textContent = "$" + parseFloat(totalSum.toFixed(2));
   
       const statusButton = document.createElement('button');
       statusButton.classList.add("status-button");
@@ -57,9 +58,3 @@ function mostrarPedidos(invoices) {
     });
   }
   
-  
-
-
-
-
-
