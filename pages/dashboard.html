@@ -111,7 +111,7 @@
                     <li><a class="dropdown-item" href="#">Pendientes</a></li>
                     <li><a class="dropdown-item" href="#">Sin Entregar</a></li>
                   </ul>
-                <button class="nuevo-pedido" data-bs-toggle="modal" data-bs-target="#newInvoiceModal">Nuevo Pedido</button>
+                <button id="nuevo-pedido" class="nuevo-pedido" data-bs-toggle="modal" data-bs-target="#newInvoiceModal">Nuevo Pedido</button>
             </div>
           </div>
 
@@ -159,7 +159,7 @@
         <!-- LISTA DE PEDIDOS -->
 
         <div class="invoices-list" id="pedidos">
-            
+
 <!-- PEDIDOS DE PRUEBA PARA LOS ESTILOS
   <div class="invoice">
                 <p class="order-number"><span>#</span>0001</p>
@@ -205,13 +205,13 @@
             </div>
             <div class="contract-information">
                 <p class="section-modal-title">Informacion del contrato</p>
-                <input type="text" placeholder="Direccion de entrega">
-                <input type="date" placeholder="Fecha de creacion del pedido">
+                <input type="text" placeholder="Direccion de entrega" id="deliveryAddress">
+                <input type="date" placeholder="Fecha de creacion del pedido" id="InvoiceDate">
             </div>
             <div class="client-invoice-information">
                 <p class="section-modal-title">Datos del cliente y facturacion</p>
                 <div class="clientname-section">
-                    <input type="text" placeholder="Cliente" list="client-name">
+                    <input type="text" placeholder="Cliente" list="client-name" id="invoice-client">
                     <datalist id="client-name">
                         <option value="Nicolas Cossi">
                         <option value="Elon Musk">
@@ -244,7 +244,7 @@
                 </div>
                 <div class="save-discard-buttons">
                     <button class="discard">Descartar</button>
-                    <button class="save">Guardar</button>
+                    <button class="save" id="guardar-pedido">Guardar</button>
                 </div>
             </div>
     

@@ -103,21 +103,21 @@
           "name": "Volquete",
           "item_number": "#80",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 2,
           "name": "Obrador",
           "item_number": "#105",
           "quantity": 1,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 3,
           "name": "Volquete",
           "item_number": "#110",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -132,14 +132,14 @@
           "name": "Obrador",
           "item_number": "#1",
           "quantity": 2,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 5,
           "name": "Volquete",
           "item_number": "#2",
           "quantity": 1,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -154,21 +154,21 @@
           "name": "Volquete",
           "item_number": "#3",
           "quantity": 4,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 7,
           "name": "Obrador",
           "item_number": "#4",
           "quantity": 2,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 8,
           "name": "Volquete",
           "item_number": "#5",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -183,14 +183,14 @@
           "name": "Obrador",
           "item_number": "#6",
           "quantity": 3,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 10,
           "name": "Volquete",
           "item_number": "#7",
           "quantity": 1,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -205,14 +205,14 @@
           "name": "Volquete",
           "item_number": "#8",
           "quantity": 2,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 12,
           "name": "Obrador",
           "item_number": "#9",
           "quantity": 2,
-          "period_price": 15000.00
+          "period_price": 15000
         }
       ]
     },
@@ -227,21 +227,21 @@
           "name": "Obrador",
           "item_number": "#10",
           "quantity": 1,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 14,
           "name": "Volquete",
           "item_number": "#11",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 15,
           "name": "Volquete",
           "item_number": "#12",
           "quantity": 2,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -256,14 +256,14 @@
           "name": "Volquete",
           "item_number": "#13",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 17,
           "name": "Obrador",
           "item_number": "#14",
           "quantity": 1,
-          "period_price": 15000.00
+          "period_price": 15000
         }
       ]
     },
@@ -278,14 +278,14 @@
           "name": "Obrador",
           "item_number": "#15",
           "quantity": 2,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 19,
           "name": "Volquete",
           "item_number": "#16",
           "quantity": 3,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     },
@@ -300,14 +300,14 @@
           "name": "Volquete",
           "item_number": "#17",
           "quantity": 1,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 21,
           "name": "Obrador",
           "item_number": "#18",
           "quantity": 2,
-          "period_price": 15000.00
+          "period_price": 15000
         }
       ]
     },
@@ -322,23 +322,25 @@
           "name": "Obrador",
           "item_number": "#19",
           "quantity": 3,
-          "period_price": 15000.00
+          "period_price": 15000
         },
         {
           "id": 23,
           "name": "Volquete",
           "item_number": "#20",
           "quantity": 1,
-          "period_price": 10000.00
+          "period_price": 10000
         },
         {
           "id": 24,
           "name": "Volquete",
           "item_number": "#21",
           "quantity": 2,
-          "period_price": 10000.00
+          "period_price": 10000
         }
       ]
     }
+    
   ]
-}
+    }
+  
