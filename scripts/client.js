@@ -51,3 +51,46 @@ function guardarCliente() {
     const modalBootstrap = bootstrap.Modal.getInstance(modal);
     modalBootstrap.hide();
 }
+
+function consultarClientes() {
+    const url = 'http://localhost:4000/clients';
+
+    fetch(url)
+        .then(respuesta => respuesta.json())
+        .then(resultado => mostrarClientes(resultado))
+        .catch(error => console.log(error));
+}
+
+function mostrarClientes(clientes) {
+    const container = document.getElementById('clientes-container');
+
+    clientes.forEach(cliente => {
+        const divCliente = document.createElement('div');
+        divCliente.classList.add('cliente');
+
+        const nombre = document.createElement('p');
+        nombre.classList.add('client-name');
+        nombre.textContent = cliente.n;
+
+        const telefono = document.createElement('p');
+        telefono.classList.add('client-phone');
+        telefono.textContent = cliente.phone;
+
+        const cantidadPedido = document.createElement('p');
+        cantidadPedido.classList.add('client-order-amount');
+        cantidadPedido.textContent = cliente.email;
+
+        const btnMostrarInfo = document.createElement('button');
+        btnMostrarInfo.classList.add('client-button')
+        btnMostrarInfo.textContent = 'Informacion del cliente';
+        
+
+        divCliente.appendChild(nombre);
+        divCliente.appendChild(telefono);
+        divCliente.appendChild(cantidadPedido);
+        divCliente.appendChild(btnMostrarInfo);
+
+        container.appendChild(divCliente);
+    });
+}
+
