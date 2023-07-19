@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>Leo Rivero | Dashboard</title>
+    <title>Leo Rivero | Clientes</title>
 </head>
 <body>
     <!-- SIDE BAR -->
@@ -140,16 +140,16 @@
               </div>
           <div class="inputs-newclient">
               <p class="subheading-modal">Informacion del cliente</p>
-              <input type="text" placeholder="Nombre del cliente">
-              <input type="number" placeholder="Numero de telefono">
-              <input type="number" name="" id="" placeholder="CUIT">
-              <input type="email" placeholder="Correo electronico">
-              <input type="text" placeholder="Domicilio del cliente">
+              <input type="text" placeholder="Nombre del cliente" id="newclient-name">
+              <input type="number" placeholder="Numero de telefono" id="newclient-phone">
+              <input type="number" placeholder="CUIT" id="newclient-cuit">
+              <input type="email" placeholder="Correo electronico" id="newclient-email">
+              <input type="text" placeholder="Domicilio del cliente" id="newclient-adress">
               <p class="extra-info-client">Datos adicionales del cliente</p>
-              <input type="text " class="extra-info" >
+              <input type="text " class="extra-info" id="newclient-extras">
           </div>
           <div class="button-save-client">
-              <button class="save-client">Guardar cliente</button>
+              <button class="save-client" id="newclient-button">Guardar cliente</button>
           </div>
   </div>
       </div>
@@ -215,6 +215,7 @@
   </div>
 
       <script src="../scripts/navbar.js"></script>
+      <script src="../scripts/client.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
       
     

@@ -89,6 +89,15 @@
       "address": "654 Elm St, City, State, Zip",
       "cuit": "20-98765432-1",
       "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 2386,
+      "name": "Nicolas Cossi",
+      "email": "nicolasmartincossi@gmail.com",
+      "phone": "2914126578",
+      "adress": "Leopoldo Lugones 443",
+      "CUIT": "20485203",
+      "extras": "Descuento del 10%"
     }
   ],
   "invoices": [
@@ -122,225 +131,32 @@
       ]
     },
     {
-      "id": 12346,
-      "clientId": 2,
-      "date": "2023-07-11",
-      "delivery_adress": "Calle A 123",
-      "items": [
-        {
-          "id": 4,
-          "name": "Obrador",
-          "item_number": "#1",
-          "quantity": 2,
-          "period_price": 15000
-        },
-        {
-          "id": 5,
-          "name": "Volquete",
-          "item_number": "#2",
-          "quantity": 1,
-          "period_price": 10000
-        }
-      ]
-    },
-    {
-      "id": 12347,
-      "clientId": 3,
-      "date": "2023-07-12",
-      "delivery_adress": "Calle B 456",
-      "items": [
-        {
-          "id": 6,
-          "name": "Volquete",
-          "item_number": "#3",
-          "quantity": 4,
-          "period_price": 10000
-        },
-        {
-          "id": 7,
-          "name": "Obrador",
-          "item_number": "#4",
-          "quantity": 2,
-          "period_price": 15000
-        },
-        {
-          "id": 8,
-          "name": "Volquete",
-          "item_number": "#5",
-          "quantity": 3,
-          "period_price": 10000
-        }
-      ]
-    },
-    {
-      "id": 12348,
-      "clientId": 4,
-      "date": "2023-07-13",
-      "delivery_adress": "Calle C 789",
-      "items": [
-        {
-          "id": 9,
-          "name": "Obrador",
-          "item_number": "#6",
-          "quantity": 3,
-          "period_price": 15000
-        },
-        {
-          "id": 10,
-          "name": "Volquete",
-          "item_number": "#7",
-          "quantity": 1,
-          "period_price": 10000
-        }
-      ]
-    },
-    {
-      "id": 12349,
-      "clientId": 5,
-      "date": "2023-07-14",
-      "delivery_adress": "Calle D 987",
-      "items": [
-        {
-          "id": 11,
-          "name": "Volquete",
-          "item_number": "#8",
-          "quantity": 2,
-          "period_price": 10000
-        },
-        {
-          "id": 12,
-          "name": "Obrador",
-          "item_number": "#9",
-          "quantity": 2,
-          "period_price": 15000
-        }
-      ]
-    },
-    {
-      "id": 12350,
-      "clientId": 6,
-      "date": "2023-07-15",
-      "delivery_adress": "Calle E 654",
-      "items": [
-        {
-          "id": 13,
-          "name": "Obrador",
-          "item_number": "#10",
-          "quantity": 1,
-          "period_price": 15000
-        },
-        {
-          "id": 14,
-          "name": "Volquete",
-          "item_number": "#11",
-          "quantity": 3,
-          "period_price": 10000
-        },
-        {
-          "id": 15,
-          "name": "Volquete",
-          "item_number": "#12",
-          "quantity": 2,
-          "period_price": 10000
-        }
-      ]
-    },
-    {
-      "id": 12351,
-      "clientId": 7,
-      "date": "2023-07-16",
-      "delivery_adress": "Calle F 543",
-      "items": [
-        {
-          "id": 16,
-          "name": "Volquete",
-          "item_number": "#13",
-          "quantity": 3,
-          "period_price": 10000
-        },
-        {
-          "id": 17,
-          "name": "Obrador",
-          "item_number": "#14",
-          "quantity": 1,
-          "period_price": 15000
-        }
-      ]
-    },
-    {
-      "id": 12352,
+      "id": 3963,
       "clientId": 8,
-      "date": "2023-07-17",
-      "delivery_adress": "Calle G 876",
-      "items": [
-        {
-          "id": 18,
-          "name": "Obrador",
-          "item_number": "#15",
-          "quantity": 2,
-          "period_price": 15000
-        },
-        {
-          "id": 19,
-          "name": "Volquete",
-          "item_number": "#16",
-          "quantity": 3,
-          "period_price": 10000
-        }
-      ]
+      "date": "2003-10-14",
+      "delivery_address": "Vicente Lopez 749",
+      "items": []
     },
     {
-      "id": 12353,
+      "id": 6051,
       "clientId": 9,
-      "date": "2023-07-18",
-      "delivery_adress": "Calle H 789",
-      "items": [
-        {
-          "id": 20,
-          "name": "Volquete",
-          "item_number": "#17",
-          "quantity": 1,
-          "period_price": 10000
-        },
-        {
-          "id": 21,
-          "name": "Obrador",
-          "item_number": "#18",
-          "quantity": 2,
-          "period_price": 15000
-        }
-      ]
+      "date": "",
+      "delivery_address": "Avenida Alem 1440",
+      "items": []
     },
     {
-      "id": 12354,
+      "id": 3507,
+      "clientId": 3,
+      "date": "2003-10-12",
+      "delivery_address": "Solares Nortes 2450",
+      "items": []
+    },
+    {
+      "id": 7285,
       "clientId": 10,
-      "date": "2023-07-19",
-      "delivery_adress": "Calle I 654",
-      "items": [
-        {
-          "id": 22,
-          "name": "Obrador",
-          "item_number": "#19",
-          "quantity": 3,
-          "period_price": 15000
-        },
-        {
-          "id": 23,
-          "name": "Volquete",
-          "item_number": "#20",
-          "quantity": 1,
-          "period_price": 10000
-        },
-        {
-          "id": 24,
-          "name": "Volquete",
-          "item_number": "#21",
-          "quantity": 2,
-          "period_price": 10000
-        }
-      ]
+      "date": "0021-12-12",
+      "delivery_address": "jesucito21222",
+      "items": []
     }
-    
   ]
-    }
-  
+}
