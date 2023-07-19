@@ -136,5 +136,18 @@ fetch('http://localhost:4000/clients')
     });
 
 
-/* Guardamos clientes */
+/* Rediccionamos a clientes.html si tocan en el modal nuevo cliente */
 
+
+
+// Función para redireccionar al hacer clic en el botón
+function redireccionarAlSitio() {
+    const url = '../pages/clients.html'; // Reemplaza con la URL a la que quieres redireccionar
+
+    // Redireccionar al sitio
+    window.location.href = url;
+}
+
+// Agregar un evento clic al botón que llame a la función de redireccionamiento
+const miBoton = document.getElementById('new-client-href');
+miBoton.addEventListener('click', redireccionarAlSitio)

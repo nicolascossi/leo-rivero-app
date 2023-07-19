@@ -62,35 +62,45 @@ function consultarClientes() {
 }
 
 function mostrarClientes(clientes) {
-    const container = document.getElementById('clientes-container');
+    const container = document.querySelector('.clients-list');
 
     clientes.forEach(cliente => {
-        const divCliente = document.createElement('div');
-        divCliente.classList.add('cliente');
+        const divCliente = document.createElement('DIV');
+        divCliente.classList.add('client');
 
-        const nombre = document.createElement('p');
+        const nombre = document.createElement('P');
         nombre.classList.add('client-name');
-        nombre.textContent = cliente.n;
+        nombre.textContent = cliente.name
 
-        const telefono = document.createElement('p');
-        telefono.classList.add('client-phone');
-        telefono.textContent = cliente.phone;
+        const telefono = document.createElement('P');
+        telefono.classList.add('celphone');
+        telefono.textContent = cliente.phone
 
-        const cantidadPedido = document.createElement('p');
-        cantidadPedido.classList.add('client-order-amount');
-        cantidadPedido.textContent = cliente.email;
+        const email = document.createElement('P');
+        email.classList.add('client-email');
+        email.textContent = cliente.email
 
-        const btnMostrarInfo = document.createElement('button');
-        btnMostrarInfo.classList.add('client-button')
-        btnMostrarInfo.textContent = 'Informacion del cliente';
-        
+        const btnInfoClient = document.createElement('BUTTON');
+        btnInfoClient.classList.add('client-button');
+        btnInfoClient.textContent = 'Informacion del Cliente'
 
         divCliente.appendChild(nombre);
         divCliente.appendChild(telefono);
-        divCliente.appendChild(cantidadPedido);
-        divCliente.appendChild(btnMostrarInfo);
+        divCliente.appendChild(email);
+        divCliente.appendChild(btnInfoClient)
 
         container.appendChild(divCliente);
     });
 }
 
+function consultarClientes() {
+    const url = 'http://localhost:4000/clients';
+
+    fetch(url)
+        .then(respuesta => respuesta.json())
+        .then(resultado => mostrarClientes(resultado))
+        .catch(error => console.log(error));
+}
+
+// Llamada a la función para obtener y mostrar los clientes
+consultarClientes();
