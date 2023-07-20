@@ -1,3 +1,7 @@
+let newInvoice = { items: [
+    
+]
+}
 /* Imprimimos pedidos y agregamos pedidos. Falta la funcion de agregar Items*/
 
 document.addEventListener('DOMContentLoaded', consultarPedidos);
@@ -83,13 +87,15 @@ function guardarPedido() {
     const date = document.getElementById('InvoiceDate').value;
     const deliveryAddress = document.getElementById('deliveryAddress').value;
 
-    const nuevoInvoice = {
-        id: nuevoId,
-        clientId: parseInt(clientId),
-        date: date,
-        delivery_address: deliveryAddress,
-        items: []
-    };
+    if( newInvoice.id === "" || newInvoice.clientId === "" || newInvoice.date === "" || newInvoice.deliveryAddress === "") {
+        return
+    }
+
+    newInvoice.id = nuevoId;
+    newInvoice.clientId = clientId;
+    newInvoice.date = date;
+    newInvoice.delivery_address = deliveryAddress;
+
 
     const url = 'http://localhost:4000/invoices';
 
@@ -98,11 +104,16 @@ function guardarPedido() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(nuevoInvoice)
+        body: JSON.stringify(newInvoice)
     })
         .then(response => response.json())
         .then(result => {
             console.log('El post ha sido creado:', result);
+            newInvoice = {
+                items : [
+
+                ]
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -112,6 +123,34 @@ function guardarPedido() {
     const modalBootstrap = bootstrap.Modal.getInstance(modal);
     modalBootstrap.hide();
 }
+
+const addItem = document.getElementById('save-item-invoice')
+addItem.addEventListener('click', guardarItemPedido)
+
+function guardarItemPedido() {
+
+    const itemInput = document.getElementById('item-input').value
+    const itemNumber = document.getElementById('item-number').value
+    const itemDate = document.getElementById('date-item').value
+    
+    if (itemInput === "" || itemNumber === "" || itemDate === ""){
+        return alert("Completa todos los campos")
+        
+    }
+
+    const nuevoItem = {
+        "id": itemInput === "Obrador" ? 1 : 2,
+        "name": itemInput,
+        "item_number": itemNumber,
+        "quantity": 1,
+        "period_price": itemInput === "Volquete" ? 10000 : 15000,
+        "start_date": itemDate
+    }
+
+    newInvoice.items.push(nuevoItem)
+}
+
+
 
 function generarIdUnico() {
     const max = 9999;

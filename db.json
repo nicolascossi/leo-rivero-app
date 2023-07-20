@@ -17,6 +17,15 @@
       "address": "456 Oak Ave, City, State, Zip",
       "cuit": "30-12345678-9",
       "extras": "Comentarios sobre el cliente"
+    },
+    {
+      "id": 5942,
+      "name": "Ch1k1",
+      "email": "ch1k1@gmail.com",
+      "phone": "0112222222",
+      "adress": "Hurligam 3000",
+      "CUIT": "2222222222",
+      "extras": ""
     }
   ],
   "invoices": [
@@ -55,6 +64,76 @@
       "date": "2023-11-12",
       "delivery_address": "Avenida Colon 1440",
       "items": []
+    },
+    {
+      "id": 4728,
+      "clientId": null,
+      "date": "",
+      "delivery_address": "",
+      "items": []
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "quantity": 1,
+          "period_price": 10000,
+          "start_date": "2023-07-20"
+        },
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "quantity": 1,
+          "period_price": 10000,
+          "start_date": "2023-07-20"
+        }
+      ],
+      "id": 7742,
+      "clientId": "2",
+      "date": "2023-07-19",
+      "delivery_address": "Hurgligam 3000"
+    },
+    {
+      "items": [],
+      "id": 5528,
+      "clientId": "2",
+      "date": "0023-02-17",
+      "delivery_address": "jOSESITO 2000"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "11",
+          "quantity": 1,
+          "period_price": 10000,
+          "start_date": "1111-11-11"
+        }
+      ],
+      "id": 5259,
+      "clientId": "2",
+      "date": "1212-12-12",
+      "delivery_address": "rodirguez 749"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "quantity": 1,
+          "period_price": 10000,
+          "start_date": "2023-07-20"
+        }
+      ],
+      "id": 7192,
+      "clientId": "5942",
+      "date": "2023-07-19",
+      "delivery_address": "Cabildo 4000"
     }
   ]
 }
