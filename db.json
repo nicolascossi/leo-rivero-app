@@ -26,6 +26,24 @@
       "adress": "Hurligam 3000",
       "CUIT": "2222222222",
       "extras": ""
+    },
+    {
+      "id": 2025,
+      "name": "Agustin Barbero",
+      "email": "nicolasmartincossi@gmail.com",
+      "phone": "",
+      "adress": "Leopoldo Lugones 443",
+      "CUIT": "20444444446",
+      "extras": "Jefecitoo"
+    },
+    {
+      "id": 5462,
+      "name": "ramiro isa",
+      "email": "ram@isa",
+      "phone": "2011111111",
+      "adress": "Leopoldo Lugones 443",
+      "CUIT": "11111",
+      "extras": "asdada"
     }
   ],
   "invoices": [

@@ -61,6 +61,10 @@ async function mostrarPedidos(invoices) {
         invoiceTotal.classList.add("invoice-total");
         invoiceTotal.textContent = "$" + parseFloat(totalSum.toFixed(2));
 
+        const infoPedidoBtn = document.createElement('BUTTON')
+        infoPedidoBtn.classList.add('status-button')
+        infoPedidoBtn.textContent = "Status"
+
         // Utilizar consultarClientesID para obtener el nombre del cliente y asignarlo a clientName
         return consultarClientesID(invoice.clientId)
             .then(client => {
@@ -69,6 +73,7 @@ async function mostrarPedidos(invoices) {
                 div.appendChild(clientName);
                 div.appendChild(invoiceAddress);
                 div.appendChild(invoiceTotal);
+                div.appendChild(infoPedidoBtn)
                 contenido.appendChild(div);
             });
     });
