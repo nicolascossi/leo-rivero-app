@@ -1,34 +1,7 @@
 {
   "clients": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "phone": "+1 555-123-4567",
-      "address": "123 Main St, City, State, Zip",
-      "cuit": "20-44564367-0",
-      "extras": "Comentarios sobre el cliente"
-    },
-    {
-      "id": 2,
-      "name": "Jane Smith",
-      "email": "janesmith@example.com",
-      "phone": "+1 555-987-6543",
-      "address": "456 Oak Ave, City, State, Zip",
-      "cuit": "30-12345678-9",
-      "extras": "Comentarios sobre el cliente"
-    },
-    {
-      "id": 5942,
-      "name": "Ch1k1",
-      "email": "ch1k1@gmail.com",
-      "phone": "0112222222",
-      "adress": "Hurligam 3000",
-      "CUIT": "2222222222",
-      "extras": ""
-    },
-    {
-      "id": 2025,
+      "id": 12345,
       "name": "Agustin Barbero",
       "email": "nicolasmartincossi@gmail.com",
       "phone": "",
@@ -57,101 +30,55 @@
           "id": 1,
           "name": "Volquete",
           "item_number": "#80",
-          "quantity": 3,
-          "period_price": 10000
-        },
-        {
-          "id": 2,
-          "name": "Obrador",
-          "item_number": "#105",
-          "quantity": 1,
-          "period_price": 15000
-        },
-        {
-          "id": 3,
-          "name": "Volquete",
-          "item_number": "#110",
-          "quantity": 3,
+          "delivery_date": 0,
+          "withdraw_date": 0,
+          "total_periods": 0,
           "period_price": 10000
         }
       ]
     },
     {
-      "id": 3655,
-      "clientId": 1,
-      "date": "2023-11-12",
-      "delivery_address": "Avenida Colon 1440",
-      "items": []
-    },
-    {
-      "id": 4728,
-      "clientId": null,
-      "date": "",
-      "delivery_address": "",
-      "items": []
-    },
-    {
       "items": [
         {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "quantity": 1,
-          "period_price": 10000,
-          "start_date": "2023-07-20"
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "100",
+          "delivery_date": "2023-07-21",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 15000
         },
         {
           "id": 2,
           "name": "Volquete",
-          "item_number": "80",
-          "quantity": 1,
-          "period_price": 10000,
-          "start_date": "2023-07-20"
+          "item_number": "22",
+          "delivery_date": "2023-07-21",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
         }
       ],
-      "id": 7742,
-      "clientId": "2",
-      "date": "2023-07-19",
-      "delivery_address": "Hurgligam 3000"
-    },
-    {
-      "items": [],
-      "id": 5528,
-      "clientId": "2",
-      "date": "0023-02-17",
-      "delivery_address": "jOSESITO 2000"
+      "id": 9324,
+      "clientId": "12345",
+      "date": "2023-07-20",
+      "delivery_address": "Witcomb 5500"
     },
     {
       "items": [
         {
           "id": 2,
           "name": "Volquete",
-          "item_number": "11",
-          "quantity": 1,
-          "period_price": 10000,
-          "start_date": "1111-11-11"
+          "item_number": "12",
+          "delivery_date": "0012-01-12",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
         }
       ],
-      "id": 5259,
-      "clientId": "2",
-      "date": "1212-12-12",
-      "delivery_address": "rodirguez 749"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "quantity": 1,
-          "period_price": 10000,
-          "start_date": "2023-07-20"
-        }
-      ],
-      "id": 7192,
-      "clientId": "5942",
-      "date": "2023-07-19",
-      "delivery_address": "Cabildo 4000"
+      "id": 3660,
+      "clientId": "12345",
+      "date": "1332-03-12",
+      "delivery_address": "pollo"
     }
   ]
 }

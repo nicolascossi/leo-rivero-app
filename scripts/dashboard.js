@@ -52,10 +52,21 @@ async function mostrarPedidos(invoices) {
         invoiceAddress.textContent = invoice.delivery_address;
 
         let totalSum = 0;
+        const checkboxIVA = document.getElementById('iva');
+        const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
+
         invoice.items.forEach(item => {
-            const itemTotal = item.quantity * item.period_price;
+            const itemTotal = item.total_periods * item.period_price;
             totalSum += itemTotal;
         });
+
+        if (checkboxIVA.checked) {
+        const ivaAmount = totalSum * ivaPercentage;
+        totalSum += ivaAmount;
+}
+
+
+
 
         const invoiceTotal = document.createElement('p');
         invoiceTotal.classList.add("invoice-total");
@@ -100,6 +111,7 @@ function guardarPedido() {
     newInvoice.clientId = clientId;
     newInvoice.date = date;
     newInvoice.delivery_address = deliveryAddress;
+    
 
 
     const url = 'http://localhost:4000/invoices';
@@ -144,12 +156,14 @@ function guardarItemPedido() {
     }
 
     const nuevoItem = {
+
         "id": itemInput === "Obrador" ? 1 : 2,
         "name": itemInput,
         "item_number": itemNumber,
-        "quantity": 1,
-        "period_price": itemInput === "Volquete" ? 10000 : 15000,
-        "start_date": itemDate
+        "delivery_date": itemDate,
+        "withdraw_date": 0,
+        "total_periods": 0,
+        "period_price": itemInput === "Obrador" ? 15000 : 10000,
     }
 
     newInvoice.items.push(nuevoItem)
