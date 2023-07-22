@@ -17,14 +17,25 @@
       "adress": "Leopoldo Lugones 443",
       "CUIT": "11111",
       "extras": "asdada"
+    },
+    {
+      "id": 2,
+      "name": "ramisdadaa",
+      "email": "ramasdada@isa",
+      "phone": "20asdada11111111",
+      "adress": "Leoasdadpoldo Lugones 443",
+      "CUIT": "11adasd111",
+      "extras": "asadssadada"
     }
+    
   ],
   "invoices": [
     {
       "id": 12345,
-      "clientId": 1,
+      "clientId": 12345,
       "date": "2023-07-10",
       "delivery_address": "Leopoldo Lugones 443",
+      "iva": true,
       "items": [
         {
           "id": 1,
@@ -40,45 +51,56 @@
     {
       "items": [
         {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "100",
-          "delivery_date": "2023-07-21",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000
-        },
-        {
           "id": 2,
           "name": "Volquete",
-          "item_number": "22",
-          "delivery_date": "2023-07-21",
+          "item_number": "80",
+          "delivery_date": "2023-10-15",
           "withdraw_date": 0,
           "total_periods": 0,
           "period_price": 10000
         }
       ],
-      "id": 9324,
-      "clientId": "12345",
-      "date": "2023-07-20",
-      "delivery_address": "Witcomb 5500"
+      "id": 8387,
+      "clientId": "5462",
+      "date": "2023-02-10",
+      "delivery_address": "aspijuk 5500",
+      "iva": "on"
     },
     {
       "items": [
         {
           "id": 2,
           "name": "Volquete",
-          "item_number": "12",
-          "delivery_date": "0012-01-12",
+          "item_number": "22",
+          "delivery_date": "0222-02-22",
           "withdraw_date": 0,
           "total_periods": 0,
           "period_price": 10000
         }
       ],
-      "id": 3660,
+      "id": 4562,
+      "clientId": "5462",
+      "date": "",
+      "delivery_address": "aspijuk 2025",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "24",
+          "delivery_date": "1111-11-11",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
+        }
+      ],
+      "id": 2219,
       "clientId": "12345",
-      "date": "1332-03-12",
-      "delivery_address": "pollo"
+      "date": "0011-11-11",
+      "delivery_address": "leopoldo lugones 443",
+      "iva": "on"
     }
   ]
 }
