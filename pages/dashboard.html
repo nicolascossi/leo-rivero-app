@@ -252,78 +252,24 @@
 
     <!-- MODAL RESUMEN PEDIDO -->
 
-    <div class="modal fade" id="resumeModal" tabindex="-1" aria-labelledby="resumeInvoiceModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-resume modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-    <div class="modal-container">
-        <div class="modal-resume-invoice">
-        <div class="modal-resume-heading">
-            <div class="left-heading-content">
-                <p class="resume-number">#0001</p>
-            <p class="adress-heading">Leopoldo Lugones 443,  Bahia Blanca</p>
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Detalles del Pedido</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            
-            <button class="edit-button" data-bs-toggle="modal" data-bs-target="#editingInvoiceModal">Editar Pedido</button>
-        </div>
-        <div class="resume-info">
-            <div class="paymentdays">
-                <p class="subtitle-payment">Fecha del Pedido</p>
-                <p class="date-payment">15/03/2023</p>
-                <p class="subtitle-payment">Proxima fecha de pago</p>
-                <p class="date-payment">30/03/2023</p>
+            <div class="modal-body" id="modalContenido">
+              <!-- Aquí se mostrará el contenido dinámico del modal -->
             </div>
-            <div class="client-info">
-                <p class="subtitle-payment">Informacion del Cliente</p>
-                <p class="clientinfo">Nicolas Cossi</p>
-                <p class="clientinfo">291-4126578</p>
-                <p class="clientinfo">nicolascossi@gmail.com</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
-            <div class="items-rent">
-                <p class="subtitle-payment">Items alquilados</p>
-                <p class="date-payment"><s>Volquete #80</s></p>
-                <p class="date-payment">Volquete #82</p>
-            </div>
+          </div>
         </div>
-
-        <div class="items-resume">
-            <div class="parent-items-resume">
-                <div class="div1"> 
-                    <p class="title-column">Item</p>
-                    <p><s>Volquete #80</s></p>
-                    <p>Volquete #82</p>
-                </div>
-                <div class="div2">
-                    <p class="title-column">Quantity</p>
-                    <p>1</p>
-                    <p>1</p>
-                </div>
-                <div class="div3"> 
-                    <p class="title-column">Periodos</p>
-                    <p>1</p>
-                    <p>1</p>
-                </div>
-                <div class="div4"> 
-                    <p class="title-column">Precio/Periodo</p>
-                    <p>$10000</p>
-                    <p>$10000</p>
-                </div>
-                <div class="div5"> 
-                    <p class="title-column">Total</p>
-                    <p>$10000</p>
-                    <p class="pending-total">$10000</p>
-                </div>
-                </div>
-        </div>
-        <div class="amount-due-resume">
-            <p class="">Total confirmado</p>
-            <p>$10000</p>
-        </div>
-    </div>
-    </div>
-        </div>
-        </div>
-    </div>
-
+      </div>
 
     <!-- MODAL EDITANDO PEDIDO -->
 

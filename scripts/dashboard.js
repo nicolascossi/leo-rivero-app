@@ -1,7 +1,7 @@
 let newInvoice = { 
     items: []
   };
-  
+
   document.addEventListener('DOMContentLoaded', () => {
     consultarClientes();
     consultarPedidos();
@@ -108,13 +108,7 @@ let newInvoice = {
       button.addEventListener('click', imprimirModal);
     });
   }
-  
-  function imprimirModal() {
 
-    const orderId = this.dataset.invoiceId;
-    console.log(`Imprimiendo modal del pedido con ID: ${orderId}`);
-  }
-  
   function redireccionarAlSitio() {
     const url = '../pages/clients.html';
     window.location.href = url;
@@ -199,4 +193,33 @@ let newInvoice = {
     const min = 1000;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
+
+document.getElementById('btnAbrirModal').addEventListener('click', imprimirModal);
+
+function imprimirModal() {
+    const orderId = this.dataset.invoiceId;
+    const url = `http://localhost:4000/invoices/${orderId}`;
   
+    fetch(url)
+      .then(respuesta => respuesta.json())
+      .then(pedido => {
+        console.log(pedido); // Imprime el objeto pedido en la consola
+  
+        // Imprime los distintos items en la consola
+        pedido.items.forEach(item => {
+          console.log(`Item ID: ${item.id}`);
+          console.log(`Nombre del artículo: ${item.name}`);
+          console.log(`Precio por período: $${item.period_price}`);
+          console.log('----------------------');
+        });
+  
+        console.log(url);
+        console.log(`Imprimiendo modal del pedido con ID: ${orderId}`);
+      })
+      .catch(error => console.log(error));
+  }
+  
+
+
+
