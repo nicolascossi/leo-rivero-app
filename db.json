@@ -26,8 +26,16 @@
       "adress": "Leoasdadpoldo Lugones 443",
       "CUIT": "11adasd111",
       "extras": "asadssadada"
+    },
+    {
+      "id": 7658,
+      "name": "DOLORES RIVERO",
+      "email": "1231313",
+      "phone": "123131313",
+      "adress": "131231231",
+      "CUIT": "13213213",
+      "extras": "1231312"
     }
-    
   ],
   "invoices": [
     {
@@ -100,6 +108,60 @@
       "clientId": "12345",
       "date": "0011-11-11",
       "delivery_address": "leopoldo lugones 443",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "delivery_date": "20023-01-20",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
+        },
+        {
+          "id": 2,
+          "name": "obrador",
+          "item_number": "50",
+          "delivery_date": "20023-01-20",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
+        }
+      ],
+      "id": 8153,
+      "clientId": 7658,
+      "date": "2023-08-20",
+      "delivery_address": "SOLARESNORTES2000",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "80",
+          "delivery_date": "2323-12-12",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 15000
+        },
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "50",
+          "delivery_date": "2323-12-12",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000
+        }
+      ],
+      "id": 6918,
+      "clientId": "7658",
+      "date": "13213-03-12",
+      "delivery_address": "villa20023",
       "iva": "on"
     }
   ]

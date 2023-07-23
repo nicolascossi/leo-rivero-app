@@ -27,7 +27,7 @@ let newInvoice = {
           data.forEach(cliente => {
             const option = document.createElement('option');
             option.text = cliente.name;
-            option.value = cliente.name;
+            option.value = cliente.id;
             dataList.appendChild(option);
           });
         } else {
@@ -200,22 +200,21 @@ document.getElementById('btnAbrirModal').addEventListener('click', imprimirModal
 function imprimirModal() {
     const orderId = this.dataset.invoiceId;
     const url = `http://localhost:4000/invoices/${orderId}`;
-  
+
+    console.log(`Imprimiendo modal del pedido con ID: ${orderId}`);
+    console.log(url);
     fetch(url)
       .then(respuesta => respuesta.json())
       .then(pedido => {
-        console.log(pedido); // Imprime el objeto pedido en la consola
-  
-        // Imprime los distintos items en la consola
+        console.log(pedido); 
+        
         pedido.items.forEach(item => {
           console.log(`Item ID: ${item.id}`);
           console.log(`Nombre del artículo: ${item.name}`);
           console.log(`Precio por período: $${item.period_price}`);
-          console.log('----------------------');
+          console.log('----------------------------------');
         });
-  
-        console.log(url);
-        console.log(`Imprimiendo modal del pedido con ID: ${orderId}`);
+        
       })
       .catch(error => console.log(error));
   }
