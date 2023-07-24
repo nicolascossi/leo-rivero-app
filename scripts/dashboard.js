@@ -1,4 +1,3 @@
-// dashboard.js
 let newInvoice = {
   items: []
 };
@@ -146,6 +145,7 @@ function guardarItemPedido() {
     "withdraw_date": 0,
     "total_periods": 0,
     "period_price": itemInput === "Obrador" ? 15000 : 10000,
+    "quantity": 1 // Agregamos la propiedad quantity con valor 1
   };
 
   newInvoice.items.push(nuevoItem);
@@ -162,7 +162,7 @@ function guardarPedido() {
   const deliveryAddress = document.getElementById('deliveryAddress').value;
   const iva = document.getElementById('iva').value;
 
-  if (newInvoice.id === "" || newInvoice.clientId === "" || date === "" || deliveryAddress === "") {
+  if (newInvoice.id === "" || clientId === "" || date === "" || deliveryAddress === "") {
     return;
   }
 
@@ -203,82 +203,58 @@ function generarIdUnico() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function obtenerInformacionFactura(event) {
-  const orderId = event.target.dataset.invoiceId;
+function obtenerInformacionFactura(orderId) {
   const url = `http://localhost:4000/invoices/${orderId}`;
 
   fetch(url)
     .then(respuesta => respuesta.json())
     .then(pedido => {
-      // Actualiza la información del modal con los datos obtenidos
-      const modalContent = document.querySelector('.modal-content');
-      const itemContainer = document.querySelector('.item-list');
+      document.getElementById('id').textContent = `#${pedido.id}`;
+      document.getElementById('delivery_address').textContent = pedido.delivery_address;
+      document.getElementById('date').textContent = pedido.date;
 
-      // Limpia la lista de items antes de agregar los nuevos
-      itemContainer.innerHTML = '';
-
-      // Recorre los items y agrega la información al modal
-      pedido.items.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.classList.add('item');
-
-        const itemName = document.createElement('p');
-        itemName.classList.add('item-name');
-        itemName.textContent = item.name;
-        itemElement.appendChild(itemName);
-
-        const itemQuantity = document.createElement('p');
-        itemQuantity.classList.add('item-quantity');
-        itemQuantity.textContent = item.quantity;
-        itemElement.appendChild(itemQuantity);
-
-        const itemPeriods = document.createElement('p');
-        itemPeriods.classList.add('item-periods');
-        itemPeriods.textContent = item.periods;
-        itemElement.appendChild(itemPeriods);
-
-        const itemPrice = document.createElement('p');
-        itemPrice.classList.add('item-price');
-        itemPrice.textContent = `$${item.period_price}`;
-        itemElement.appendChild(itemPrice);
-
-        const itemTotal = document.createElement('p');
-        itemTotal.classList.add('item-total');
-        itemTotal.textContent = `$${item.total}`;
-        itemElement.appendChild(itemTotal);
-
-        itemContainer.appendChild(itemElement);
-      });
-
-      // Obtener información del cliente
+      // Obtener y mostrar los datos del cliente utilizando el clientId
       consultarClientesID(pedido.clientId)
         .then(cliente => {
-          // Actualizar el contenido del modal con la información del cliente
-          const modalClienteInfo = document.querySelector('.resume-info');
-          modalClienteInfo.innerHTML = `
-            <p><strong>Nombre del cliente:</strong> ${cliente.name}</p>
-            <p><strong>Email:</strong> ${cliente.email}</p>
-            <p><strong>Teléfono:</strong> ${cliente.phone}</p>
-            <p><strong>Dirección:</strong> ${cliente.adress}</p>
-          `;
-
-          // Actualizar el encabezado del pedido con número de factura, dirección, etc.
-          const modalResumeHeading = document.querySelector('.modal-resume-heading');
-          modalResumeHeading.innerHTML = `
-            <p><strong>Número de Factura:</strong> #${pedido.id}</p>
-            <p><strong>Dirección de entrega:</strong> ${pedido.delivery_address}</p>
-          `;
-
-          // Actualizar el total confirmado
-          const totalConfirmado = document.querySelector('.amount-due-resume');
-          totalConfirmado.innerHTML = `<p>Total confirmado: $${pedido.totalConfirmado}</p>`;
-
-          // Mostrar el modal después de obtener la información del cliente
-          const modal = document.getElementById('invoiceResumeModal');
-          const modalBootstrap = new bootstrap.Modal(modal);
-          modalBootstrap.show();
+          document.getElementById('client-name').textContent = cliente.name;
+          document.getElementById('client-phone').textContent = cliente.phone;
+          document.getElementById('client-email').textContent = cliente.email;
         })
-        .catch(error => console.error('Error al obtener los datos del cliente:', error));
+        .catch(error => {
+          console.error('Error al obtener los datos del cliente:', error);
+        });
+
+      let totalSum = 0;
+      let itemNamesAndNumbers = '';
+      let quantities = '';
+      let totalPeriods = '';
+      let periodPrices = '';
+      let itemTotals = '';
+
+      pedido.items.forEach(item => {
+        totalSum += item.total;
+
+        // Concatenar la información de los items
+        itemNamesAndNumbers += `<p>${item.name} #${item.item_number}</p>`;
+        quantities += `<p>${item.quantity}</p>`;
+        totalPeriods += `<p>${item.total_periods}</p>`;
+        periodPrices += `<p>$${item.period_price}</p>`;
+        itemTotals += `<p>$${item.total}</p>`;
+      });
+
+      // Mostrar los datos de los items en las columnas correspondientes
+      document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
+      document.getElementById('quantity').innerHTML = quantities;
+      document.getElementById('total_periods').innerHTML = totalPeriods;
+      document.getElementById('period_price').innerHTML = periodPrices;
+      document.getElementById('total').innerHTML = itemTotals;
+
+      document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
+
+      // Mostrar el modal después de actualizar los datos
+      const modal = document.getElementById('invoiceResumeModal');
+      const modalBootstrap = new bootstrap.Modal(modal);
+      modalBootstrap.show();
     })
     .catch(error => console.error('Error al obtener los datos de la factura:', error));
 }

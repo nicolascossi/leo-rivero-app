@@ -224,33 +224,79 @@
 </div>
 </div>
 
+<!-- HTML del modal -->
+<!-- HTML del modal -->
 <div class="modal fade" id="invoiceResumeModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <!-- Contenido del modal -->
         <div class="modal-container">
           <div class="modal-resume-invoice">
             <div class="modal-resume-heading">
-              <!-- Aquí van los detalles del encabezado del pedido, como número de factura, dirección, etc. -->
-            </div>
-            <div class="resume-info">
-              <!-- Aquí van los detalles de la información del cliente y fechas de pago, etc. -->
-            </div>
-            <div class="items-rent">
-              <!-- Aquí van los detalles de los items alquilados -->
-              <p class="subtitle-payment">Items alquilados</p>
-              <div class="item-list">
-                <!-- Aquí se agregarán los items uno por uno -->
+              <div class="left-heading-content">
+                <p class="resume-number" id="id"></p>
+                <p class="adress-heading" id="delivery_address"></p>
               </div>
+  
+              <button class="edit-button">Editar Pedido</button>
             </div>
-          </div>
-          <div class="amount-due-resume">
-            <!-- Aquí va el total confirmado -->
+            
+                <div class="resume-info">
+                    <div class="paymentdays">
+                      <p class="subtitle-payment">Fecha del Pedido</p>
+                      <p class="date-payment" id="date"></p>
+                    </div>
+                    <div class="client-info">
+                      <p class="subtitle-payment">Informacion del Cliente</p>
+                      <p class="clientinfo" id="client-name"></p>
+                      <p class="clientinfo" id="client-phone"></p>
+                      <p class="clientinfo" id="client-email"></p>
+                    </div>
+                    <div class="items-alquilados">
+                        <p class="subtitle-payment">Items alquilados</p>
+                    </div>
+                    
+                  </div>
+           
+            
+            <div class="items-rent">
+                <div class="items-resume" id="item-list">
+                  <div class="parent-items-resume">
+                    <div class="div1">
+                      <p class="title-column">Item</p>
+                      <p id="itemnameandnumber"></p>
+                    </div>
+                    <div class="div2">
+                      <p class="title-column">Quantity</p>
+                      <p id="quantity"></p>
+                    </div>
+                    <div class="div3">
+                      <p class="title-column">Periodos</p>
+                      <p id="total_periods"></p>
+                    </div>
+                    <div class="div4">
+                      <p class="title-column">Precio/Periodo</p>
+                      <p id="period_price"></p>
+                    </div>
+                    <div class="div5">
+                      <p class="title-column">Total</p>
+                      <p id="total"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="amount-due-resume">
+              <p class="">Total confirmado</p>
+              <p id="invoiceTotal">$10000</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
+  
+  
     <!-- MODAL EDITANDO PEDIDO -->
 
     <div class="modal fade" id="editingInvoiceModal" tabindex="-1" aria-labelledby="editingInvoiceModalLabel" aria-hidden="true">

@@ -3,201 +3,50 @@
     {
       "id": 12345,
       "name": "Agustin Barbero",
-      "email": "nicolasmartincossi@gmail.com",
-      "phone": "",
-      "adress": "Leopoldo Lugones 443",
-      "CUIT": "20444444446",
-      "extras": "Jefecitoo"
+      "email": "agusbarbero@gmail.com",
+      "phone": "291-4125437",
+      "adress": "Panama 932",
+      "CUIT": "20-44564322-2",
+      "extras": "Necesita factura A, hay que sumarle el IVA"
     },
     {
       "id": 5462,
-      "name": "ramiro isa",
-      "email": "ram@isa",
-      "phone": "2011111111",
-      "adress": "Leopoldo Lugones 443",
-      "CUIT": "11111",
-      "extras": "asdada"
-    },
-    {
-      "id": 2,
-      "name": "ramisdadaa",
-      "email": "ramasdada@isa",
-      "phone": "20asdada11111111",
-      "adress": "Leoasdadpoldo Lugones 443",
-      "CUIT": "11adasd111",
-      "extras": "asadssadada"
-    },
-    {
-      "id": 7658,
-      "name": "DOLORES RIVERO",
-      "email": "1231313",
-      "phone": "123131313",
-      "adress": "131231231",
-      "CUIT": "13213213",
-      "extras": "1231312"
-    },
-    {
-      "id": 2100,
-      "name": "jorguito",
-      "email": "2222",
-      "phone": "222",
-      "adress": "22222",
-      "CUIT": "2222",
-      "extras": "2222"
+      "name": "Ramiro Isa",
+      "email": "ramiroisa@gmail.com",
+      "phone": "291-4122345",
+      "adress": "Cabelleros 5000",
+      "CUIT": "20-44564311-7",
+      "extras": "Hay que cobrarle por la casa, su domicilio no por la obra."
     }
   ],
   "invoices": [
     {
-      "id": 12345,
-      "clientId": 12345,
-      "date": "2023-07-10",
-      "delivery_address": "Leopoldo Lugones 443",
-      "iva": true,
-      "items": [
-        {
-          "id": 1,
-          "name": "Volquete",
-          "item_number": "#80",
-          "delivery_date": 0,
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        }
-      ]
-    },
-    {
       "items": [
         {
           "id": 2,
           "name": "Volquete",
           "item_number": "80",
-          "delivery_date": "2023-10-15",
+          "delivery_date": "2023-07-25",
           "withdraw_date": 0,
           "total_periods": 0,
-          "period_price": 10000
-        }
-      ],
-      "id": 8387,
-      "clientId": "5462",
-      "date": "2023-02-10",
-      "delivery_address": "aspijuk 5500",
-      "iva": "on"
-    },
-    {
-      "items": [
+          "period_price": 10000,
+          "quantity": 1
+        },
         {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "22",
-          "delivery_date": "0222-02-22",
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "100",
+          "delivery_date": "2023-07-25",
           "withdraw_date": 0,
           "total_periods": 0,
-          "period_price": 10000
+          "period_price": 15000,
+          "quantity": 1
         }
       ],
-      "id": 4562,
-      "clientId": "5462",
-      "date": "",
-      "delivery_address": "aspijuk 2025",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "24",
-          "delivery_date": "1111-11-11",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        }
-      ],
-      "id": 2219,
+      "id": 3146,
       "clientId": "12345",
-      "date": "0011-11-11",
-      "delivery_address": "leopoldo lugones 443",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "delivery_date": "20023-01-20",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        },
-        {
-          "id": 2,
-          "name": "obrador",
-          "item_number": "50",
-          "delivery_date": "20023-01-20",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        }
-      ],
-      "id": 8153,
-      "clientId": 7658,
-      "date": "2023-08-20",
-      "delivery_address": "SOLARESNORTES2000",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "80",
-          "delivery_date": "2323-12-12",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000
-        },
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "50",
-          "delivery_date": "2323-12-12",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        }
-      ],
-      "id": 6918,
-      "clientId": "7658",
-      "date": "13213-03-12",
-      "delivery_address": "villa20023",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "delivery_date": "7777-07-07",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000
-        },
-        {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "90",
-          "delivery_date": "7777-07-07",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000
-        }
-      ],
-      "id": 5399,
-      "clientId": "2100",
-      "date": "",
-      "delivery_address": "barbiland 2500",
+      "date": "2023-07-24",
+      "delivery_address": "Leopoldo Lugones 443",
       "iva": "on"
     }
   ]
