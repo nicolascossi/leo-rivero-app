@@ -17,8 +17,8 @@
         <div class="modal-resume-invoice">
         <div class="modal-resume-heading">
             <div class="left-heading-content">
-                <p class="resume-number">#0001</p>
-            <p class="adress-heading">Leopoldo Lugones 443,  Bahia Blanca</p>
+                <p class="resume-number" id="id"></p>
+            <p class="adress-heading" id="delivery_address"></p>
             </div>
             
             <button class="edit-button">Editar Pedido</button>
@@ -26,20 +26,17 @@
         <div class="resume-info">
             <div class="paymentdays">
                 <p class="subtitle-payment">Fecha del Pedido</p>
-                <p class="date-payment">15/03/2023</p>
-                <p class="subtitle-payment">Proxima fecha de pago</p>
-                <p class="date-payment">30/03/2023</p>
+                <p class="date-payment" id="date"></p>
             </div>
             <div class="client-info">
                 <p class="subtitle-payment">Informacion del Cliente</p>
-                <p class="clientinfo">Nicolas Cossi</p>
-                <p class="clientinfo">291-4126578</p>
-                <p class="clientinfo">nicolascossi@gmail.com</p>
+                <p class="clientinfo" id="client-name"></p>
+                <p class="clientinfo" id="client-phone"></p>
+                <p class="clientinfo" id="client-email"></p>
             </div>
             <div class="items-rent">
                 <p class="subtitle-payment">Items alquilados</p>
-                <p class="date-payment"><s>Volquete #80</s></p>
-                <p class="date-payment">Volquete #82</p>
+                <p class="date-payment" id="item-name-and-number"></p>
             </div>
         </div>
 
@@ -47,23 +44,19 @@
             <div class="parent-items-resume">
                 <div class="div1"> 
                     <p class="title-column">Item</p>
-                    <p><s>Volquete #80</s></p>
-                    <p>Volquete #82</p>
+                    <p id="itemnameandnumber"></p>
                 </div>
                 <div class="div2">
                     <p class="title-column">Quantity</p>
-                    <p>1</p>
-                    <p>1</p>
+                    <p id="quantity"></p>
                 </div>
                 <div class="div3"> 
                     <p class="title-column">Periodos</p>
-                    <p>1</p>
-                    <p>1</p>
+                    <p id="total_periods"></p>
                 </div>
                 <div class="div4"> 
                     <p class="title-column">Precio/Periodo</p>
-                    <p>$10000</p>
-                    <p>$10000</p>
+                    <p id="period_price"></p>
                 </div>
                 <div class="div5"> 
                     <p class="title-column">Total</p>
