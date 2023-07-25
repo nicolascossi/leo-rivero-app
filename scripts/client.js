@@ -90,6 +90,9 @@ function guardarCliente() {
   modalBootstrap.hide();
 }
 
+
+
+
 function consultarClientes() {
   const url = 'http://localhost:4000/clients';
 
