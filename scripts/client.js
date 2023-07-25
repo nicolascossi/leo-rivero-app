@@ -50,7 +50,7 @@ function guardarCliente() {
   const clientId = generarIdUnico();
   const name = document.getElementById('newclient-name').value;
   const phone = document.getElementById('newclient-phone').value;
-  const cuit = document.getElementById('newclient-cuit-dni').value;
+  const cuit = document.getElementById('newclient-cuit').value;
   const email = document.getElementById('newclient-email').value;
   const address = document.getElementById('newclient-adress').value;
   const extras = document.getElementById('newclient-extras').value;
