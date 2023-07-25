@@ -1,4 +1,3 @@
-
 function generarIdUnico() {
     const max = 9999;
     const min = 1000;
@@ -7,28 +6,30 @@ function generarIdUnico() {
 
 const guardarClienteBtn = document.getElementById('newclient-button');
 
-guardarClienteBtn.addEventListener('click' , guardarCliente)
+guardarClienteBtn.addEventListener('click', guardarCliente);
 
 function guardarCliente() {
-
     const clientId = generarIdUnico();
     const name = document.getElementById('newclient-name').value;
-    const phone = document.getElementById('newclient-phone').value;
-    const cuit = document.getElementById('newclient-cuit').value;
+    const phone = document.getElementById('newclient-celphone').value;
+    const cuit = document.getElementById('newclient-cuit-dni').value;
     const email = document.getElementById('newclient-email').value;
-    const adress = document.getElementById('newclient-adress').value;
+    const address = document.getElementById('newclient-adress').value;
     const extras = document.getElementById('newclient-extras').value;
-    
 
     const nuevoCliente = {
         id: clientId,
         name: name,
         email: email,
-        phone: phone,
-        adress: adress,
+        phone: phone, 
+        address: address, 
         CUIT: cuit,
         extras: extras
     };
+
+    console.log('phone:', phone);
+    console.log('cuit:', cuit);
+
 
     const url = 'http://localhost:4000/clients';
 
@@ -70,36 +71,27 @@ function mostrarClientes(clientes) {
 
         const nombre = document.createElement('P');
         nombre.classList.add('client-name');
-        nombre.textContent = cliente.name
+        nombre.textContent = cliente.name;
 
         const telefono = document.createElement('P');
         telefono.classList.add('celphone');
-        telefono.textContent = cliente.phone
+        telefono.textContent = cliente.phone;
 
         const email = document.createElement('P');
         email.classList.add('client-email');
-        email.textContent = cliente.email
+        email.textContent = cliente.email;
 
         const btnInfoClient = document.createElement('BUTTON');
         btnInfoClient.classList.add('client-button');
-        btnInfoClient.textContent = 'Informacion del Cliente'
+        btnInfoClient.textContent = 'Informacion del Cliente';
 
         divCliente.appendChild(nombre);
         divCliente.appendChild(telefono);
         divCliente.appendChild(email);
-        divCliente.appendChild(btnInfoClient)
+        divCliente.appendChild(btnInfoClient);
 
         container.appendChild(divCliente);
     });
-}
-
-function consultarClientes() {
-    const url = 'http://localhost:4000/clients';
-
-    fetch(url)
-        .then(respuesta => respuesta.json())
-        .then(resultado => mostrarClientes(resultado))
-        .catch(error => console.log(error));
 }
 
 // Llamada a la función para obtener y mostrar los clientes

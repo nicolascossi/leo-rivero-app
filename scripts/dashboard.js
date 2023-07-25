@@ -1,3 +1,7 @@
+// mostrarAlerta('success', '¡Operación exitosa!');
+// mostrarAlerta('danger', '¡Error! Algo salió mal.');
+// mostrarAlerta('info', 'Información importante.');
+
 let newInvoice = {
   items: []
 };
@@ -14,6 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function mostrarAlerta(tipo, mensaje) {
+  // Crea un elemento div para la alerta
+  const alertaDiv = document.createElement('div');
+
+  // Asigna las clases de Bootstrap para el estilo
+  alertaDiv.classList.add('alert', `alert-${tipo}`);
+
+  // Agrega el mensaje al contenido de la alerta
+  alertaDiv.textContent = mensaje;
+
+  // Obtén el contenedor de las alertas
+  const alertContainer = document.getElementById('alert-container');
+
+  // Agrega la alerta al contenedor
+  alertContainer.appendChild(alertaDiv);
+
+  // Remueve la alerta después de un tiempo (3 segundos en este ejemplo)
+  setTimeout(() => {
+    alertContainer.removeChild(alertaDiv);
+  }, 3000);
+}
+
 
 function consultarPedidos() {
   const url = 'http://localhost:4000/invoices';
@@ -145,11 +172,12 @@ function guardarItemPedido() {
     "withdraw_date": 0,
     "total_periods": 0,
     "period_price": itemInput === "Obrador" ? 15000 : 10000,
+    "period_days": itemInput === "Obrador" ? 15 : 7,
     "quantity": 1 // Agregamos la propiedad quantity con valor 1
   };
 
   newInvoice.items.push(nuevoItem);
-  console.log("Nuevo item agregado:", nuevoItem);
+  mostrarAlerta('success', '¡Nuevo Item Agregado!');
 }
 
 const guardarPedidoBtn = document.getElementById('guardar-pedido');
@@ -183,7 +211,7 @@ function guardarPedido() {
   })
     .then(response => response.json())
     .then(result => {
-      console.log('El post ha sido creado:', result);
+      mostrarAlerta('success', '¡Pedido Guardado!');
       newInvoice = {
         items: []
       };
@@ -224,6 +252,8 @@ function obtenerInformacionFactura(orderId) {
           console.error('Error al obtener los datos del cliente:', error);
         });
 
+        
+
       let totalSum = 0;
       let itemNamesAndNumbers = '';
       let quantities = '';
@@ -240,15 +270,20 @@ function obtenerInformacionFactura(orderId) {
         totalPeriods += `<p>${item.total_periods}</p>`;
         periodPrices += `<p>$${item.period_price}</p>`;
         itemTotals += `<p>$${item.total}</p>`;
+
+      const itemsAlquiladosPedido = document.querySelector('.items-alquilados')
+      const itemAlquilado = document.createElement('p');
+      itemAlquilado.textContent = `${item.name} #${item.item_number}`;
+      itemsAlquiladosPedido.appendChild(itemAlquilado);
       });
 
+      
       // Mostrar los datos de los items en las columnas correspondientes
       document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
       document.getElementById('quantity').innerHTML = quantities;
       document.getElementById('total_periods').innerHTML = totalPeriods;
       document.getElementById('period_price').innerHTML = periodPrices;
       document.getElementById('total').innerHTML = itemTotals;
-
       document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
 
       // Mostrar el modal después de actualizar los datos
@@ -258,3 +293,4 @@ function obtenerInformacionFactura(orderId) {
     })
     .catch(error => console.error('Error al obtener los datos de la factura:', error));
 }
+
