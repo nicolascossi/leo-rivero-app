@@ -52,35 +52,6 @@
         {
           "id": 2,
           "name": "Volquete",
-          "item_number": "80",
-          "delivery_date": "2023-07-25",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "quantity": 1
-        },
-        {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "100",
-          "delivery_date": "2023-07-25",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000,
-          "quantity": 1
-        }
-      ],
-      "id": 3146,
-      "clientId": "12345",
-      "date": "2023-07-24",
-      "delivery_address": "Leopoldo Lugones 443",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
           "item_number": "100",
           "delivery_date": "2023-07-01",
           "withdraw_date": 0,
@@ -166,6 +137,57 @@
       "clientId": "3064",
       "date": "2023-07-24",
       "delivery_address": "Fuegia Basket 276",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "delivery_date": "2023-07-26",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        },
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "105",
+          "delivery_date": "2023-07-26",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 15000,
+          "period_days": 15,
+          "quantity": 1
+        }
+      ],
+      "id": 4608,
+      "clientId": "12345",
+      "date": "2023-07-25",
+      "delivery_address": "Leopoldo Lugones 443",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete 80",
+          "item_number": "2",
+          "delivery_date": "2023-07-26",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        }
+      ],
+      "id": 2198,
+      "clientId": "12345",
+      "date": "2023-07-25",
+      "delivery_address": "Avenida Alem 1440",
       "iva": "on"
     }
   ]

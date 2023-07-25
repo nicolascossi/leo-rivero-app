@@ -161,7 +161,7 @@ function guardarItemPedido() {
   const itemDate = document.getElementById('date-item').value;
 
   if (itemInput === "" || itemNumber === "" || itemDate === "") {
-    return alert("Completa todos los campos");
+    mostrarAlerta('danger', '¡Completa todos los campos.');;
   }
 
   const nuevoItem = {
