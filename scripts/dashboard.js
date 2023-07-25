@@ -271,10 +271,20 @@ function obtenerInformacionFactura(orderId) {
         periodPrices += `<p>$${item.period_price}</p>`;
         itemTotals += `<p>$${item.total}</p>`;
 
-      const itemsAlquiladosPedido = document.querySelector('.items-alquilados')
-      const itemAlquilado = document.createElement('p');
-      itemAlquilado.textContent = `${item.name} #${item.item_number}`;
-      itemsAlquiladosPedido.appendChild(itemAlquilado);
+      
+        const itemsAlquiladosPedido = document.querySelector('.items-alquilados');
+        const itemsPedidosTitle = document.createElement('p');
+        itemsPedidosTitle.classList.add('subtitle-payment');
+        itemsPedidosTitle.textContent = 'Items Alquilados';
+        itemsAlquiladosPedido.innerHTML = '';
+        itemsAlquiladosPedido.appendChild(itemsPedidosTitle);
+
+        // Create a div element to wrap all the concatenated item information
+        const itemInfoDiv = document.createElement('div');
+        itemInfoDiv.innerHTML = `${itemNamesAndNumbers}`;
+
+      // Append the div element to the itemsAlquiladosPedido container
+        itemsAlquiladosPedido.appendChild(itemInfoDiv);
       });
 
       
