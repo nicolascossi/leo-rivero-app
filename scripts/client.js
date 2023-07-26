@@ -70,9 +70,9 @@ function guardarCliente() {
   console.log('phone:', phone);
   console.log('cuit:', cuit);
 
-  const url = `${url}clients`;
+  const urlApi = `${url}clients`;
 
-  fetch(url, {
+  fetch(urlApi, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
