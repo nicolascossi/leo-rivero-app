@@ -44,6 +44,15 @@
       "address": "Fuegia Basket 276",
       "CUIT": "20-14610115-0",
       "extras": ""
+    },
+    {
+      "id": 6676,
+      "name": "Santiago Spinsanti",
+      "email": "santispin@gmail.com",
+      "phone": "",
+      "address": "Solares Norte 100",
+      "CUIT": "",
+      "extras": ""
     }
   ],
   "invoices": [
@@ -188,6 +197,26 @@
       "clientId": "12345",
       "date": "2023-07-25",
       "delivery_address": "Avenida Alem 1440",
+      "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "22",
+          "delivery_date": "2023-07-26",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        }
+      ],
+      "id": 6307,
+      "clientId": "2765",
+      "date": "2023-07-25",
+      "delivery_address": "Witcomb 5500",
       "iva": "on"
     }
   ]
