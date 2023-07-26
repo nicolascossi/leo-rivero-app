@@ -227,6 +227,34 @@
       "date": "2023-07-26",
       "delivery_address": "Solares Nortes Club House",
       "iva": "on"
+    },
+    {
+      "items": [
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "200",
+          "delivery_date": "2023-07-27",
+          "withdraw_date": 0,
+          "total_periods": 0,
+          "period_price": 15000,
+          "period_days": 15,
+          "quantity": 1
+        }
+      ],
+      "id": 1839,
+      "clientId": "5226",
+      "date": "2023-07-26",
+      "delivery_address": "Pehuenco 5500",
+      "iva": "on"
+    },
+    {
+      "items": [],
+      "id": 9936,
+      "clientId": "5226",
+      "date": "2023-07-26",
+      "delivery_address": "Pehuenco 5500",
+      "iva": "on"
     }
   ]
 }
