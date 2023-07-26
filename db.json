@@ -44,6 +44,24 @@
       "address": "Fuegia Basket 276",
       "CUIT": "20-14610115-0",
       "extras": ""
+    },
+    {
+      "id": 7587,
+      "name": "Santino Spinsanti",
+      "email": "santispin@gmail.com",
+      "phone": "291-41283822",
+      "address": "Solares Nortes 100",
+      "CUIT": "20-427328292-2",
+      "extras": ""
+    },
+    {
+      "id": 5226,
+      "name": "Martino Rodriguez",
+      "email": "martino@gmail.com",
+      "phone": "291-3182931283",
+      "address": "Solares Norte 15",
+      "CUIT": "20-427328292-2",
+      "extras": ""
     }
   ],
   "invoices": [
@@ -195,8 +213,8 @@
         {
           "id": 2,
           "name": "Volquete",
-          "item_number": "22",
-          "delivery_date": "2023-07-26",
+          "item_number": "5",
+          "delivery_date": "2023-05-27",
           "withdraw_date": 0,
           "total_periods": 0,
           "period_price": 10000,
@@ -204,10 +222,10 @@
           "quantity": 1
         }
       ],
-      "id": 6307,
-      "clientId": "2765",
-      "date": "2023-07-25",
-      "delivery_address": "Witcomb 5500",
+      "id": 3361,
+      "clientId": "7587",
+      "date": "2023-07-26",
+      "delivery_address": "Solares Nortes Club House",
       "iva": "on"
     }
   ]

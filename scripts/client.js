@@ -79,7 +79,7 @@ function guardarCliente() {
   })
     .then(response => response.json())
     .then(result => {
-      mostrarAlerta('success', '¡Cliente guardado correctamente!');
+      console.error(result);
     })
     .catch(error => {
       console.error('Error:', error);
