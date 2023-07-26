@@ -1,4 +1,4 @@
-const url = 'http://localhost:443/'
+const url = 'https://json-server-rivero.onrender.com/'
 
 document.addEventListener('DOMContentLoaded', () => {
   // Resto de tu código...
