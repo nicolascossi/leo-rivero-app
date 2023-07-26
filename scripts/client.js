@@ -70,7 +70,7 @@ function guardarCliente() {
   console.log('phone:', phone);
   console.log('cuit:', cuit);
 
-  const url = 'http://localhost:4000/clients';
+  const url = `${url}clients`;
 
   fetch(url, {
     method: 'POST',
@@ -150,9 +150,9 @@ document.addEventListener('click', (event) => {
 });
 
 function obtenerInformacionCliente(clientId) {
-  const url = `${url}clients/${clientId}`;
+  const urlApi = `${url}clients/${clientId}`;
 
-  fetch(url)
+  fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(cliente => {
       document.getElementById('name').textContent = cliente.name;

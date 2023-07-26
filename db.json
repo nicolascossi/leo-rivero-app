@@ -1,7 +1,7 @@
 {
   "clients": [
     {
-      "id": 12345,
+      "id": 9995,
       "name": "Agustin Barbero",
       "email": "agusbarbero@gmail.com",
       "phone": "291-4125437",
@@ -17,51 +17,6 @@
       "adress": "Cabelleros 5000",
       "CUIT": "20-44564311-7",
       "extras": "Hay que cobrarle por la casa, su domicilio no por la obra."
-    },
-    {
-      "id": 9995,
-      "name": "Tomas Cossi ",
-      "email": "tomascossi@gmail.com",
-      "phone": "291-4126578",
-      "adress": "Leopoldo Lugones 443",
-      "CUIT": "20-46198130-2",
-      "extras": ""
-    },
-    {
-      "id": 6360,
-      "name": "Fernanda Colletta",
-      "email": "fercolletta@gmail.com",
-      "phone": "291-154121469",
-      "adress": "Vicente Lopez 749",
-      "CUIT": "20-44564367-0",
-      "extras": ""
-    },
-    {
-      "id": 3064,
-      "name": "Alejandro Cossi",
-      "email": "alecossi@hotmail.com",
-      "phone": "291-155727719",
-      "address": "Fuegia Basket 276",
-      "CUIT": "20-14610115-0",
-      "extras": ""
-    },
-    {
-      "id": 7587,
-      "name": "Santino Spinsanti",
-      "email": "santispin@gmail.com",
-      "phone": "291-41283822",
-      "address": "Solares Nortes 100",
-      "CUIT": "20-427328292-2",
-      "extras": ""
-    },
-    {
-      "id": 5226,
-      "name": "Martino Rodriguez",
-      "email": "martino@gmail.com",
-      "phone": "291-3182931283",
-      "address": "Solares Norte 15",
-      "CUIT": "20-427328292-2",
-      "extras": ""
     }
   ],
   "invoices": [
@@ -115,145 +70,6 @@
       "clientId": "9995",
       "date": "2023-07-01",
       "delivery_address": "Cabrera 5000",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "delivery_date": "2023-07-15",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "period_days": 7,
-          "quantity": 1
-        }
-      ],
-      "id": 7990,
-      "clientId": "6360",
-      "date": "2023-05-10",
-      "delivery_address": "Avenida Colon 1140",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "20",
-          "delivery_date": "2023-07-24",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "period_days": 7,
-          "quantity": 1
-        }
-      ],
-      "id": 5419,
-      "clientId": "3064",
-      "date": "2023-07-24",
-      "delivery_address": "Fuegia Basket 276",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "80",
-          "delivery_date": "2023-07-26",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "period_days": 7,
-          "quantity": 1
-        },
-        {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "105",
-          "delivery_date": "2023-07-26",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000,
-          "period_days": 15,
-          "quantity": 1
-        }
-      ],
-      "id": 4608,
-      "clientId": "12345",
-      "date": "2023-07-25",
-      "delivery_address": "Leopoldo Lugones 443",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete 80",
-          "item_number": "2",
-          "delivery_date": "2023-07-26",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "period_days": 7,
-          "quantity": 1
-        }
-      ],
-      "id": 2198,
-      "clientId": "12345",
-      "date": "2023-07-25",
-      "delivery_address": "Avenida Alem 1440",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 2,
-          "name": "Volquete",
-          "item_number": "5",
-          "delivery_date": "2023-05-27",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 10000,
-          "period_days": 7,
-          "quantity": 1
-        }
-      ],
-      "id": 3361,
-      "clientId": "7587",
-      "date": "2023-07-26",
-      "delivery_address": "Solares Nortes Club House",
-      "iva": "on"
-    },
-    {
-      "items": [
-        {
-          "id": 1,
-          "name": "Obrador",
-          "item_number": "200",
-          "delivery_date": "2023-07-27",
-          "withdraw_date": 0,
-          "total_periods": 0,
-          "period_price": 15000,
-          "period_days": 15,
-          "quantity": 1
-        }
-      ],
-      "id": 1839,
-      "clientId": "5226",
-      "date": "2023-07-26",
-      "delivery_address": "Pehuenco 5500",
-      "iva": "on"
-    },
-    {
-      "items": [],
-      "id": 9936,
-      "clientId": "5226",
-      "date": "2023-07-26",
-      "delivery_address": "Pehuenco 5500",
       "iva": "on"
     }
   ]

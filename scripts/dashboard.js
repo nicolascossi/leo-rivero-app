@@ -2,6 +2,8 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
+const url = 'http://localhost:4000/'
+
 let newInvoice = {
   items: []
 };
@@ -43,18 +45,18 @@ function mostrarAlerta(tipo, mensaje) {
 
 
 function consultarPedidos() {
-  const url = 'http://localhost:4000/invoices';
+  const urlApi = `${url}invoices`;
 
-  fetch(url)
+  fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(resultado => mostrarPedidos(resultado))
     .catch(error => console.log(error));
 }
 
 function consultarClientes() {
-  const url = 'http://localhost:4000/clients';
+  const urlApi = `${url}clients`;
 
-  fetch(url)
+  fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(data => {
       if (Array.isArray(data)) {
@@ -75,9 +77,9 @@ function consultarClientes() {
 }
 
 function consultarClientesID(id) {
-  const url = `http://localhost:4000/clients/${id}`;
+  const urlApi = `${url}clients/${id}`;
 
-  return fetch(url)
+  return fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(resultado => resultado)
     .catch(error => console.log(error));
@@ -200,9 +202,9 @@ function guardarPedido() {
   newInvoice.delivery_address = deliveryAddress;
   newInvoice.iva = iva;
 
-  const url = 'http://localhost:4000/invoices';
+  const urlApi = `${url}invoices`;
 
-  fetch(url, {
+  fetch(urlApi, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -232,9 +234,9 @@ function generarIdUnico() {
 }
 
 function obtenerInformacionFactura(orderId) {
-  const url = `http://localhost:4000/invoices/${orderId}`;
+  const urlApi = `${url}invoices/${orderId}`;
 
-  fetch(url)
+  fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(pedido => {
       document.getElementById('id').textContent = `#${pedido.id}`;
