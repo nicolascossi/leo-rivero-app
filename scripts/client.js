@@ -1,3 +1,5 @@
+const url = 'http://localhost:4000/'
+
 document.addEventListener('DOMContentLoaded', () => {
   // Resto de tu código...
 
@@ -94,9 +96,10 @@ function guardarCliente() {
 
 
 function consultarClientes() {
-  const url = 'http://localhost:4000/clients';
+  const urlApi = `${url}clients`;
+  
 
-  fetch(url)
+  fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(resultado => mostrarClientes(resultado))
     .catch(error => console.log(error));
@@ -147,7 +150,7 @@ document.addEventListener('click', (event) => {
 });
 
 function obtenerInformacionCliente(clientId) {
-  const url = `http://localhost:4000/clients/${clientId}`;
+  const url = `${url}clients/${clientId}`;
 
   fetch(url)
     .then(respuesta => respuesta.json())
@@ -165,7 +168,7 @@ function obtenerInformacionCliente(clientId) {
       // Asignamos el evento shown.bs.modal para mostrar las facturas del cliente una vez que el modal esté completamente cargado
       modal.addEventListener('shown.bs.modal', function () {
         // Buscar invoices del cliente
-        const invoicesUrl = `http://localhost:4000/invoices?clientId=${clientId}`;
+        const invoicesUrl = `${url}invoices?clientId=${clientId}`;
         fetch(invoicesUrl)
           .then(respuesta => respuesta.json())
           .then(invoices => {
