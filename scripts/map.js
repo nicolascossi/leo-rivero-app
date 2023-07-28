@@ -12,15 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var marker = new mapboxgl.Marker()
         .setLngLat([-62.235690, -38.689509])
         .addTo(map);
-      map.on('click', function(e) {
-        var coordinates = e.lngLat;
-  
-        var newMarker = new mapboxgl.Marker()
-          .setLngLat(coordinates)
-          .addTo(map);
-          newMarker.setColor('red')
-          
-      });
+
   
       fetch('https://json-server-rivero.onrender.com/invoices')
         .then(response => response.json())
