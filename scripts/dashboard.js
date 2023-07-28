@@ -2,7 +2,7 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'http://localhost:4000/'
+const url = 'https://json-server-rivero.onrender.com/'
 
 let newInvoice = {
   items: []

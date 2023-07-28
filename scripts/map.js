@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
       });
   
-      fetch('http://localhost:4000/invoices')
+      fetch('https://json-server-rivero.onrender.com/invoices')
         .then(response => response.json())
         .then(data => {
           data.forEach(invoice => {
