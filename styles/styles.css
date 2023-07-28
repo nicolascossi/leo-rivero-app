@@ -1051,3 +1051,11 @@
     margin-right: 10px;
 }
 
+/* MAPA CONTAINER */
+
+.map-container {
+    width: 80%;
+    margin-top: 20px;
+    height: 100vh;
+    border-radius: 10px;
+}

@@ -2,7 +2,7 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'https://json-server-rivero.onrender.com/'
+const url = 'http://localhost:4000/'
 
 let newInvoice = {
   items: []
@@ -201,7 +201,9 @@ function guardarPedido() {
   newInvoice.date = date;
   newInvoice.delivery_address = deliveryAddress;
   newInvoice.iva = iva;
-
+  newInvoice.city = "Bahia Blanca"
+  newInvoice.postalCode = 8000
+ 
   const urlApi = `${url}invoices`;
 
   fetch(urlApi, {

@@ -1,4 +1,4 @@
-const url = 'https://json-server-rivero.onrender.com/'
+const url = 'http://localhost:4000/'
 
 document.addEventListener('DOMContentLoaded', () => {
   // Resto de tu código...
@@ -86,6 +86,8 @@ function guardarCliente() {
     .catch(error => {
       console.error('Error:', error);
     });
+  
+    
 
   const modal = document.getElementById('newClientModal');
   const modalBootstrap = bootstrap.Modal.getInstance(modal);
