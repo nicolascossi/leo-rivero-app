@@ -1,3 +1,7 @@
 
 db.json
 modals/
+keys.env
+packge-lock.json
+packge.json
+node_modules/
