@@ -26,6 +26,15 @@
       "address": "Solares Nortes Casa 11",
       "CUIT": "20-33233232-2",
       "extras": ""
+    },
+    {
+      "id": 3124,
+      "name": "Carina Spinsanti",
+      "email": "carinaspin@gmail.com",
+      "phone": "291-41263553",
+      "address": "Solares Norte 5000",
+      "CUIT": "20-2392392932-2",
+      "extras": ""
     }
   ],
   "invoices": [

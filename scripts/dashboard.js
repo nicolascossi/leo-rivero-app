@@ -2,7 +2,7 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'https://json-server-rivero.onrender.com/'
+const url = 'http://localhost:3000/'
 
 let newInvoice = {
   items: []
@@ -74,6 +74,15 @@ function consultarClientes() {
     .catch(error => {
       console.error('Error al obtener los datos de los clientes:', error);
     });
+}
+
+function eliminarItemPedido(nuevoItem) {
+  const index = newInvoice.items.indexOf(nuevoItem);
+  if (index !== -1) {
+    newInvoice.items.splice(index, 1);
+  }
+
+  mostrarAlerta('success', '¡Item eliminado!');
 }
 
 function consultarClientesID(id) {
@@ -162,6 +171,11 @@ function guardarItemPedido() {
   const itemNumber = document.getElementById('item-number').value;
   const itemDate = document.getElementById('date-item').value;
 
+  const listaItems = document.getElementById('lista-items')
+  const itemAdded = itemInput + ` #${itemNumber}` 
+  
+
+
   if (itemInput === "" || itemNumber === "" || itemDate === "") {
     mostrarAlerta('danger', '¡Completa todos los campos.');;
   }
@@ -171,14 +185,40 @@ function guardarItemPedido() {
     "name": itemInput,
     "item_number": itemNumber,
     "delivery_date": itemDate,
-    "withdraw_date": 0,
-    "total_periods": 0,
+    "total_cost": (period_price * total_periods) - charged_amount,
+    "charged_amount": 0,
+    "total_periods": (delivery_date - actualDate) = total-de-dias / period_days,
     "period_price": itemInput === "Obrador" ? 15000 : 10000,
     "period_days": itemInput === "Obrador" ? 15 : 7,
     "quantity": 1 // Agregamos la propiedad quantity con valor 1
   };
 
   newInvoice.items.push(nuevoItem);
+
+  const div = document.createElement('div');
+    div.classList.add('item-added');
+
+    const deleteItemBtn = document.createElement('BUTTON')
+    deleteItemBtn.classList.add('buttonModalNewInvoice')
+    deleteItemBtn.textContent = "X"
+    deleteItemBtn.addEventListener( 'click' , () => {
+      eliminarItemPedido(nuevoItem)
+      listaItems.removeChild(div)
+    })
+
+    const itemType = document.createElement('p');
+    itemType.textContent = itemAdded
+
+    const dateItem = document.createElement('p');
+    dateItem.textContent = itemDate
+
+    div.appendChild(itemType);
+    div.appendChild(dateItem);
+    div.appendChild(deleteItemBtn)
+    listaItems.appendChild(div);
+
+
+
   mostrarAlerta('success', '¡Nuevo Item Agregado!');
 }
 
@@ -191,6 +231,8 @@ function guardarPedido() {
   const date = document.getElementById('InvoiceDate').value;
   const deliveryAddress = document.getElementById('deliveryAddress').value;
   const iva = document.getElementById('iva').value;
+
+  
 
   if (newInvoice.id === "" || clientId === "" || date === "" || deliveryAddress === "") {
     return;
