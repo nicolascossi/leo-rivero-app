@@ -35,6 +35,24 @@
       "address": "Solares Norte 5000",
       "CUIT": "20-2392392932-2",
       "extras": ""
+    },
+    {
+      "id": 5249,
+      "name": "Julian Monteverde",
+      "email": "julimonteverde@gmail.com",
+      "phone": "291-12313232",
+      "address": "Spilimbergo 2041",
+      "CUIT": "20-46198130-7",
+      "extras": ""
+    },
+    {
+      "id": 5592,
+      "name": "Perrys",
+      "email": "julimonteverde@gmail.com",
+      "phone": "292817272",
+      "address": "dasd",
+      "CUIT": "1231231231",
+      "extras": ""
     }
   ],
   "invoices": [
@@ -112,6 +130,99 @@
       "clientId": "1215",
       "date": "2023-07-27",
       "delivery_address": "Avenida Colon 1440",
+      "iva": "on",
+      "city": "Bahia Blanca",
+      "postalCode": 8000
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "100",
+          "delivery_date": "2023-08-08",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        }
+      ],
+      "id": 8135,
+      "clientId": "3124",
+      "date": "2023-08-08",
+      "delivery_address": "Casanova 500",
+      "iva": "on",
+      "city": "Bahia Blanca",
+      "postalCode": 8000
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "100",
+          "delivery_date": "2023-08-08",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        },
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "55",
+          "delivery_date": "2023-08-08",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 15000,
+          "period_days": 15,
+          "quantity": 1
+        }
+      ],
+      "id": 7430,
+      "clientId": "5249",
+      "date": "2023-08-07",
+      "delivery_address": "Lino Spilimbergo 2041",
+      "iva": "on",
+      "city": "Bahia Blanca",
+      "postalCode": 8000
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "delivery_date": "2023-08-10",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        },
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "105",
+          "delivery_date": "2023-08-10",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 15000,
+          "period_days": 15,
+          "quantity": 1
+        }
+      ],
+      "id": 6022,
+      "clientId": "5592",
+      "date": "2023-08-09",
+      "delivery_address": "Tucuman 1241",
       "iva": "on",
       "city": "Bahia Blanca",
       "postalCode": 8000

@@ -2,7 +2,7 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'http://localhost:3000/'
+const url = 'https://json-server-rivero.onrender.com/'
 
 let newInvoice = {
   items: []
@@ -185,13 +185,15 @@ function guardarItemPedido() {
     "name": itemInput,
     "item_number": itemNumber,
     "delivery_date": itemDate,
-    "total_cost": (period_price * total_periods) - charged_amount,
-    "charged_amount": 0,
-    "total_periods": (delivery_date - actualDate) = total-de-dias / period_days,
+    "charged_amount": 0, 
+    "total_periods": 0, 
+    "total_cost": 0,
     "period_price": itemInput === "Obrador" ? 15000 : 10000,
     "period_days": itemInput === "Obrador" ? 15 : 7,
-    "quantity": 1 // Agregamos la propiedad quantity con valor 1
-  };
+    "quantity": 1 
+  }
+
+  nuevoItem.total_cost = (nuevoItem.period_price * nuevoItem.total_periods) - nuevoItem.charged_amount;
 
   newInvoice.items.push(nuevoItem);
 

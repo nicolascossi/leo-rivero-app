@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .addTo(map);
 
   
-      fetch('http://localhost:3000/invoices')
+      fetch('https://json-server-rivero.onrender.com/invoices')
         .then(response => response.json())
         .then(data => {
           data.forEach(invoice => {
