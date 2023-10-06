@@ -1,8 +1,8 @@
-const url = 'https://json-server-rivero.onrender.com/'
+const url = 'http://localhost:4000/'
 
 document.addEventListener('DOMContentLoaded', () => {
   // Resto de tu código...
-
+  consultarResolucion()
   // Inicializar el modal
   const resumeClientModal = document.getElementById('resumeClientModal');
   const modalBootstrap = new bootstrap.Modal(resumeClientModal);
@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function consultarResolucion() {
+  if (screen.width < 1024) 
+  location.href ="../pages/no-support.html"
+}
 
 function generarIdUnico() {
   const max = 9999;
@@ -125,6 +130,7 @@ function mostrarClientes(clientes) {
     const email = document.createElement('P');
     email.classList.add('client-email');
     email.textContent = cliente.email;
+    
 
     const btnInfoClient = document.createElement('BUTTON');
     btnInfoClient.classList.add('client-button');
@@ -163,6 +169,13 @@ function obtenerInformacionCliente(clientId) {
       document.getElementById('adress').textContent = cliente.address || cliente.adress;
       document.getElementById('CUIT').textContent = cliente.CUIT;
       document.getElementById('extras').textContent = cliente.extras;
+
+      const editarClienteBtn = document.querySelector('#editar-cliente-modal');
+      editarClienteBtn.dataset.clientId = cliente.id
+
+      const borrarClientBtn = document.querySelector('#borrar-cliente-modal')
+      borrarClientBtn.dataset.clientId = cliente.id
+
 
       // Mostrar el modal después de actualizar los datos
       const modal = document.getElementById('resumeClientModal');
@@ -230,3 +243,143 @@ function obtenerInformacionCliente(clientId) {
     .catch(error => console.error('Error al obtener los datos del cliente:', error));
 }
 
+// BORRAR CLIENTE
+
+const botonBorrarCliente = document.querySelector('#borrar-cliente-modal')
+botonBorrarCliente.addEventListener('click', borrarCliente)
+
+function borrarCliente(e) {
+  const clienteId = e.target.dataset.clientId;
+
+  const confirmar = confirm('¿Deseas eliminar este cliente?');
+  if (confirmar) {
+    eliminarCliente(clienteId);
+  }
+}
+
+async function eliminarCliente(id) {
+  try {
+    const response = await fetch(`${url}clients/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      console.log(`Cliente con ID ${id} eliminado correctamente.`);
+      // Puedes realizar otras acciones aquí después de eliminar con éxito.
+    } else {
+      console.error(`Error al eliminar el cliente con ID ${id}.`);
+    }
+  } catch (error) {
+    console.error('Error al eliminar el cliente:', error);
+  }
+}
+
+// EDITAR CLIENTE
+const botonEditarCliente = document.querySelector('#editar-cliente-modal');
+botonEditarCliente.addEventListener('click', editarCliente);
+
+function editarCliente(e) {
+  const clienteId = e.target.dataset.clientId; // Obtener el valor correcto del atributo "data-client-id"
+  console.log(`Editando cliente... ${clienteId}`);
+
+  // Oculta el modal actual (resumeClientModal)
+  const resumeClientModal = document.getElementById('resumeClientModal');
+  resumeClientModal.classList.remove('show')
+
+  // Obtén el modal de edición (editingClientModal)
+  const editingClientModal = document.getElementById('editingClientModal');
+
+  // Asigna el evento "shown.bs.modal" para mostrar el modal de edición cuando esté completamente cargado
+  editingClientModal.addEventListener('shown.bs.modal', function () {
+    // Agregar manualmente la clase "show" al modal de edición
+    editingClientModal.classList.add('show');
+  });
+
+  // Muestra el modal de edición
+  const editingClientModalInstance = new bootstrap.Modal(editingClientModal);
+  editingClientModalInstance.show();
+
+  // Luego, puedes continuar con la lógica para obtener los datos del cliente y llenar el modal.
+  const urlApi = `${url}clients`;
+
+  // Realiza una solicitud a la API para obtener los datos del cliente
+  fetch(`${urlApi}/${clienteId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Llena los campos del modal con los datos del cliente
+      const nombreInput = document.querySelector('#client-name');
+      const phoneInput = document.querySelector('#client-phone');
+      const cuitInput = document.querySelector('#client-cuit');
+      const emailInput = document.querySelector('#client-email');
+      const adressInput = document.querySelector('#client-adress');
+      const extrasInput = document.querySelector('#client-extras');
+
+      nombreInput.value = data.name;
+      phoneInput.value = data.phone;
+      cuitInput.value = data.CUIT;
+      emailInput.value = data.email;
+      adressInput.value = data.address;
+      extrasInput.value = data.extras;
+
+      // Oculta el modal después de cargar los datos
+      const modal = document.getElementById('editingClientModal');
+      const modalBootstrap = new bootstrap.Modal(modal);
+      modalBootstrap.hide();
+
+      // Agregar un manejador de eventos al botón "patch-client-button"
+      const patchClientButton = document.getElementById('patch-client-button');
+      patchClientButton.dataset.clientId = clienteId; // Asignar el ID del cliente al botón
+      patchClientButton.addEventListener('click', actualizarCliente);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cliente:', error);
+    });
+}
+
+// Función para actualizar al cliente
+function actualizarCliente(e) {
+  e.preventDefault(); // Evitar que el formulario se envíe si estás usando un formulario
+
+  // Obtener el ID del cliente
+  const clienteId = e.target.dataset.clientId;
+
+  // Obtener los valores actualizados de los campos del modal
+  const nuevoNombre = document.querySelector('#client-name').value;
+  const nuevoPhone = document.querySelector('#client-phone').value;
+  const nuevoCuit = document.querySelector('#client-cuit').value;
+  const nuevoEmail = document.querySelector('#client-email').value;
+  const nuevoAdress = document.querySelector('#client-adress').value;
+  const nuevosExtras = document.querySelector('#client-extras').value;
+
+  // Crear un objeto con los datos actualizados
+  const datosActualizados = {
+    name: nuevoNombre,
+    phone: nuevoPhone,
+    CUIT: nuevoCuit,
+    email: nuevoEmail,
+    address: nuevoAdress,
+    extras: nuevosExtras
+  };
+
+  // Realizar una solicitud PATCH a la API para actualizar al cliente
+  fetch(`${url}clients/${clienteId}`, {
+    method: 'PATCH', // Usa el método PATCH para actualizar
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(datosActualizados)
+  })
+    .then(response => {
+      if (response.ok) {
+        // La actualización fue exitosa
+        console.log('Cliente actualizado correctamente.');
+        // Puedes realizar otras acciones aquí después de la actualización.
+      } else {
+        // Error al actualizar
+        console.error('Error al actualizar el cliente.');
+      }
+    })
+    .catch(error => {
+      console.error('Error al enviar la solicitud de actualización:', error);
+    });
+}

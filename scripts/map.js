@@ -1,4 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+  consultarResolucion();
+  ImprimirMapa()
+  
+});
+
+function consultarResolucion() {
+  if (screen.width < 1024) 
+  location.href ="../pages/no-support.html"
+}
+
+
+function ImprimirMapa() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiY29zc2lkZXZlbG9wIiwiYSI6ImNsaWNmcHh2bzBmNXkzdG56Yzd4N3R6NW4ifQ.VwKn5MbLV8Gg4SSEiC4qmQ';
   
     var map = new mapboxgl.Map({
@@ -14,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .addTo(map);
 
   
-      fetch('https://json-server-rivero.onrender.com/invoices')
+      fetch('  http://localhost:4000/invoices')
         .then(response => response.json())
         .then(data => {
           data.forEach(invoice => {
@@ -48,5 +60,5 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('Error fetching invoice data:', error);
         });
     });
-  });
+  };
   

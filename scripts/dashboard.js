@@ -2,15 +2,17 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'https://json-server-rivero.onrender.com/'
+const url = 'http://localhost:4000/'
 
 let newInvoice = {
   items: []
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  consultarResolucion();
   consultarClientes();
   consultarPedidos();
+
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
@@ -42,6 +44,12 @@ function mostrarAlerta(tipo, mensaje) {
     alertContainer.removeChild(alertaDiv);
   }, 3000);
 }
+
+function consultarResolucion() {
+  if (screen.width < 1024) 
+  location.href ="../pages/no-support.html"
+}
+
 
 
 function consultarPedidos() {
@@ -91,7 +99,7 @@ function consultarClientesID(id) {
   return fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(resultado => resultado)
-    .catch(error => console.log(error));
+    .catch(error => console.log(error)); 
 }
 
 async function mostrarPedidos(invoices) {
@@ -289,6 +297,12 @@ function obtenerInformacionFactura(orderId) {
       document.getElementById('delivery_address').textContent = pedido.delivery_address;
       document.getElementById('date').textContent = pedido.date;
 
+      const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
+      finalizarPedidoBtn.dataset.pedidoId = pedido.id
+
+      const editarPedidoBtn = document.querySelector('#editar-pedido');
+      editarPedidoBtn.dataset.pedidoId = pedido.id
+
       // Obtener y mostrar los datos del cliente utilizando el clientId
       consultarClientesID(pedido.clientId)
         .then(cliente => {
@@ -352,3 +366,31 @@ function obtenerInformacionFactura(orderId) {
     .catch(error => console.error('Error al obtener los datos de la factura:', error));
 }
 
+const finalizarPedidoBtn = document.querySelector('#finalizar-pedido')
+finalizarPedidoBtn.addEventListener('click', finalizarPedido)
+
+function finalizarPedido(e) {
+  const pedidoId = e.target.dataset.pedidoId;
+
+  const confirmar = confirm('¿Deseas arhivar/eliminar este cliente?');
+  if (confirmar) {
+    eliminarPedido(pedidoId);
+  }
+}
+
+function eliminarPedido(id) {
+  try {
+    const response = fetch(`${url}invoices/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      console.log(`Pedido con ID ${id} eliminado correctamente.`);
+      // Puedes realizar otras acciones aquí después de eliminar con éxito.
+    } else {
+      console.error(`Error al eliminar el pedido con ID ${id}.`);
+    }
+  } catch (error) {
+    console.error('Error al eliminar el pedido:', error);
+  }
+}

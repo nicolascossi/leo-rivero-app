@@ -16,7 +16,6 @@
 </head>
 <body>
     <!-- SIDE BAR -->
-
       <nav class="sidebar close">
           <header>
               <div class="image-text">
@@ -226,8 +225,8 @@
 </div>
 </div>
 
-<!-- HTML del modal -->
-<!-- HTML del modal -->
+
+<!-- HTML del modal resumen pedido -->
 <div class="modal fade" id="invoiceResumeModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -239,8 +238,8 @@
                 <p class="resume-number" id="id"></p>
                 <p class="adress-heading" id="delivery_address"></p>
               </div>
-  
-              <button class="edit-button">Editar Pedido</button>
+              <button class="edit-button" id="finalizar-pedido">Finalizar Pedido</button>
+              <button class="edit-button" id="editar-pedido">Editar Pedido</button>
             </div>
             
                 <div class="resume-info">
@@ -297,9 +296,7 @@
     </div>
   </div>
   
-  
-  
-    <!-- MODAL EDITANDO PEDIDO -->
+<!-- MODAL EDITANDO PEDIDO -->
 
     <div class="modal fade" id="editingInvoiceModal" tabindex="-1" aria-labelledby="editingInvoiceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-resume modal-dialog-centered modal-dialog-scrollable modal-lg">
