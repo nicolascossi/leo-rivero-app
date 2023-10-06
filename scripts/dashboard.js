@@ -298,10 +298,10 @@ function obtenerInformacionFactura(orderId) {
       document.getElementById('date').textContent = pedido.date;
 
       const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-      finalizarPedidoBtn.dataset.pedidoId = pedido.id
+      finalizarPedidoBtn.dataset.pedidoId = pedido.id;
 
       const editarPedidoBtn = document.querySelector('#editar-pedido');
-      editarPedidoBtn.dataset.pedidoId = pedido.id
+      editarPedidoBtn.dataset.pedidoId = pedido.id;
 
       // Obtener y mostrar los datos del cliente utilizando el clientId
       consultarClientesID(pedido.clientId)
@@ -314,11 +314,8 @@ function obtenerInformacionFactura(orderId) {
           console.error('Error al obtener los datos del cliente:', error);
         });
 
-        
-
       let totalSum = 0;
       let itemNamesAndNumbers = '';
-      let quantities = '';
       let totalPeriods = '';
       let periodPrices = '';
       let itemTotals = '';
@@ -328,31 +325,45 @@ function obtenerInformacionFactura(orderId) {
 
         // Concatenar la información de los items
         itemNamesAndNumbers += `<p>${item.name} #${item.item_number}</p>`;
-        quantities += `<p>${item.quantity}</p>`;
         totalPeriods += `<p>${item.total_periods}</p>`;
         periodPrices += `<p>$${item.period_price}</p>`;
         itemTotals += `<p>$${item.total}</p>`;
 
-      
-        const itemsAlquiladosPedido = document.querySelector('.items-alquilados');
-        const itemsPedidosTitle = document.createElement('p');
-        itemsPedidosTitle.classList.add('subtitle-payment');
-        itemsPedidosTitle.textContent = 'Items Alquilados';
-        itemsAlquiladosPedido.innerHTML = '';
-        itemsAlquiladosPedido.appendChild(itemsPedidosTitle);
+        // Agregar botón "Cobrar" para cada elemento
+        const controlesColumn = document.getElementById('controles');
 
-        // Create a div element to wrap all the concatenated item information
-        const itemInfoDiv = document.createElement('div');
-        itemInfoDiv.innerHTML = `${itemNamesAndNumbers}`;
+        const controlesItem = document.createElement('DIV');
+        controlesItem.classList.add('controlesDiv')
 
-      // Append the div element to the itemsAlquiladosPedido container
-        itemsAlquiladosPedido.appendChild(itemInfoDiv);
+        const cobrarButton = document.createElement('button');
+        cobrarButton.textContent = 'Cobre';
+        cobrarButton.classList.add('btn', 'btn-success');
+        cobrarButton.dataset.itemNumber = item.item_number;
+
+        const retirarButton = document.createElement('button');
+        retirarButton.textContent = 'Retire';
+        retirarButton.classList.add('btn', 'btn-danger');
+        retirarButton.dataset.itemNumber = item.item_number;
+
+        cobrarButton.addEventListener('click', function () {
+          // Acción a realizar cuando se hace clic en "Cobrar Button"
+          console.log('Hiciste clic en "Cobrar Button" para el elemento con Item Number:', item.item_number);
+          // Puedes personalizar esta acción según tus necesidades
+        });
+
+        retirarButton.addEventListener('click', function () {
+          // Acción a realizar cuando se hace clic en "Retirar Button"
+          console.log('Hiciste clic en "Retirar Button" para el elemento con Item Number:', item.item_number);
+          // Puedes personalizar esta acción según tus necesidades
+        });
+
+        controlesItem.appendChild(cobrarButton);
+        controlesItem.appendChild(retirarButton);
+        controlesColumn.appendChild(controlesItem);
       });
 
-      
       // Mostrar los datos de los items en las columnas correspondientes
       document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
-      document.getElementById('quantity').innerHTML = quantities;
       document.getElementById('total_periods').innerHTML = totalPeriods;
       document.getElementById('period_price').innerHTML = periodPrices;
       document.getElementById('total').innerHTML = itemTotals;
@@ -365,6 +376,9 @@ function obtenerInformacionFactura(orderId) {
     })
     .catch(error => console.error('Error al obtener los datos de la factura:', error));
 }
+
+
+
 
 const finalizarPedidoBtn = document.querySelector('#finalizar-pedido')
 finalizarPedidoBtn.addEventListener('click', finalizarPedido)
@@ -393,4 +407,115 @@ function eliminarPedido(id) {
   } catch (error) {
     console.error('Error al eliminar el pedido:', error);
   }
+}
+
+
+// EDITAR PEDIDO
+const botonEditarCliente = document.querySelector('#editar-cliente-modal');
+botonEditarCliente.addEventListener('click', editarCliente);
+
+function editarCliente(e) {
+  const clienteId = e.target.dataset.clientId; // Obtener el valor correcto del atributo "data-client-id"
+  console.log(`Editando cliente... ${clienteId}`);
+
+  // Oculta el modal actual (resumeClientModal)
+  const resumeClientModal = document.getElementById('resumeClientModal');
+  resumeClientModal.classList.remove('show')
+
+  // Obtén el modal de edición (editingClientModal)
+  const editingClientModal = document.getElementById('editingClientModal');
+
+  // Asigna el evento "shown.bs.modal" para mostrar el modal de edición cuando esté completamente cargado
+  editingClientModal.addEventListener('shown.bs.modal', function () {
+    // Agregar manualmente la clase "show" al modal de edición
+    editingClientModal.classList.add('show');
+  });
+
+  // Muestra el modal de edición
+  const editingClientModalInstance = new bootstrap.Modal(editingClientModal);
+  editingClientModalInstance.show();
+
+  // Luego, puedes continuar con la lógica para obtener los datos del cliente y llenar el modal.
+  const urlApi = `${url}clients`;
+
+  // Realiza una solicitud a la API para obtener los datos del cliente
+  fetch(`${urlApi}/${clienteId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Llena los campos del modal con los datos del cliente
+      const nombreInput = document.querySelector('#client-name');
+      const phoneInput = document.querySelector('#client-phone');
+      const cuitInput = document.querySelector('#client-cuit');
+      const emailInput = document.querySelector('#client-email');
+      const adressInput = document.querySelector('#client-adress');
+      const extrasInput = document.querySelector('#client-extras');
+
+      nombreInput.value = data.name;
+      phoneInput.value = data.phone;
+      cuitInput.value = data.CUIT;
+      emailInput.value = data.email;
+      adressInput.value = data.address;
+      extrasInput.value = data.extras;
+
+      // Oculta el modal después de cargar los datos
+      const modal = document.getElementById('editingClientModal');
+      const modalBootstrap = new bootstrap.Modal(modal);
+      modalBootstrap.hide();
+
+      // Agregar un manejador de eventos al botón "patch-client-button"
+      const patchClientButton = document.getElementById('patch-client-button');
+      patchClientButton.dataset.clientId = clienteId; // Asignar el ID del cliente al botón
+      patchClientButton.addEventListener('click', actualizarCliente);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cliente:', error);
+    });
+}
+
+// Función para actualizar al cliente
+function actualizarCliente(e) {
+  e.preventDefault(); // Evitar que el formulario se envíe si estás usando un formulario
+
+  // Obtener el ID del cliente
+  const clienteId = e.target.dataset.clientId;
+
+  // Obtener los valores actualizados de los campos del modal
+  const nuevoNombre = document.querySelector('#client-name').value;
+  const nuevoPhone = document.querySelector('#client-phone').value;
+  const nuevoCuit = document.querySelector('#client-cuit').value;
+  const nuevoEmail = document.querySelector('#client-email').value;
+  const nuevoAdress = document.querySelector('#client-adress').value;
+  const nuevosExtras = document.querySelector('#client-extras').value;
+
+  // Crear un objeto con los datos actualizados
+  const datosActualizados = {
+    name: nuevoNombre,
+    phone: nuevoPhone,
+    CUIT: nuevoCuit,
+    email: nuevoEmail,
+    address: nuevoAdress,
+    extras: nuevosExtras
+  };
+
+  // Realizar una solicitud PATCH a la API para actualizar al cliente
+  fetch(`${url}clients/${clienteId}`, {
+    method: 'PATCH', // Usa el método PATCH para actualizar
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(datosActualizados)
+  })
+    .then(response => {
+      if (response.ok) {
+        // La actualización fue exitosa
+        console.log('Cliente actualizado correctamente.');
+        // Puedes realizar otras acciones aquí después de la actualización.
+      } else {
+        // Error al actualizar
+        console.error('Error al actualizar el cliente.');
+      }
+    })
+    .catch(error => {
+      console.error('Error al enviar la solicitud de actualización:', error);
+    });
 }

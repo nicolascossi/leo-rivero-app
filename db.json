@@ -1,14 +1,4 @@
 {
-  "clients": [
-    {
-      "id": 8937,
-      "name": "Nicolas Cossi",
-      "email": "nicolasmartincossi@gmail.com",
-      "phone": "011-4126578-021",
-      "address": "Lugones 443",
-      "CUIT": "20-2323232323-232",
-      "extras": "Nico ama a lolo, lolo es muy linda, y esta estudiando!"
-    }
-  ],
+  "clients": [],
   "invoices": []
 }
