@@ -161,8 +161,31 @@
 .agregar-nota-clase button {
     width: 20%;
 }
+
+.button-eliminar-nota button {
+    height: 80%;
+    width: auto;
+}
+
+.agregar-nota-clase input {
+    border: #000000 3px solid;
+    border-radius: 8px;
+}
 .notes-list {
     width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nota {
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: white;
+    width: 80%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .agregar-nota-clase input {
 width: 75%;
@@ -1278,3 +1301,4 @@ height: 55px;
 .support-card p{
     margin-bottom: 0px;
 }
+
