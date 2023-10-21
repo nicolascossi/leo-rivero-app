@@ -1,0 +1,47 @@
+{
+  "clients": [
+    {
+      "id": 5621,
+      "name": "Nicolas Cossi",
+      "email": "nicolasmartincossi@gmail.com",
+      "phone": "291-4126578",
+      "address": "Leopoldo Lugones 443",
+      "CUIT": "20-44564367-0",
+      "extras": "Debemos facturarle el precio +21% de IVA"
+    },
+    {
+      "id": 5429,
+      "name": "Santiago Zeppa",
+      "email": "santiagozeppa11@gmail.com",
+      "phone": "291-4369619",
+      "address": "Los Pinos 189",
+      "CUIT": "20-45811984-0",
+      "extras": ""
+    }
+  ],
+  "invoices": [
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "delivery_date": "2222-02-22",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        }
+      ],
+      "id": 3507,
+      "clientId": "5621",
+      "date": "275760-02-23",
+      "delivery_address": "Leopoldo Lugones 443",
+      "iva": "on",
+      "city": "Bahia Blanca",
+      "postalCode": 8000
+    }
+  ]
+}
