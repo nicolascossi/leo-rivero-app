@@ -163,8 +163,18 @@
 }
 
 .button-eliminar-nota button {
-    height: 80%;
-    width: auto;
+    height: 50px;
+    width: 50px;
+    border-radius: 6px;
+    color: white;
+    background-color: #000000;
+    border: none;
+}
+.button-eliminar-nota button:hover {
+    background-color: transparent;
+    border: 3px solid black;
+    transform: scale(1.1);
+    color: black;
 }
 
 .agregar-nota-clase input {
@@ -177,6 +187,9 @@
     flex-direction: column;
     align-items: center;
 }
+.noteinnote p {
+    margin-bottom: 0px;
+}
 .nota {
     padding-left: 50px;
     padding-right: 50px;
@@ -186,6 +199,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 8px;
 }
 .agregar-nota-clase input {
 width: 75%;
@@ -1300,5 +1314,58 @@ height: 55px;
 
 .support-card p{
     margin-bottom: 0px;
+}
+
+.centrar-divs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0px !important;
+}
+
+.retire-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 25px 50px;
+}
+.retire-modal h1{
+    margin-bottom: 25px;
+}
+
+.retire-modal input{
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 100%;
+    border-radius: 6px;
+    border: 3px solid black;
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.retire-modal button{
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+    background-color: black;
+    color: white;
+    height: 50px;
+    font-weight: 500;
+    font-size: 18px;
+    
+}
+.indicaciones {
+    margin-bottom: 0px !important;
+}
+
+.retire-modal button:hover{
+    border: 3px solid black;
+    color: black;
+    background-color: transparent;
+    
 }
 
