@@ -17,6 +17,15 @@
       "address": "Los Pinos 189",
       "CUIT": "20-45811984-0",
       "extras": ""
+    },
+    {
+      "id": 8090,
+      "name": "Pablo tantignonnni",
+      "email": "pablo@gmail.com",
+      "phone": "291312312312",
+      "address": "Paul Harris 3440",
+      "CUIT": "20-12312313123-2",
+      "extras": "Pablo paga en cuotas!"
     }
   ],
   "invoices": [
@@ -38,6 +47,41 @@
       "id": 3507,
       "clientId": "5621",
       "date": "275760-02-23",
+      "delivery_address": "Leopoldo Lugones 443",
+      "iva": "on",
+      "city": "Bahia Blanca",
+      "postalCode": 8000
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "name": "Volquete",
+          "item_number": "80",
+          "delivery_date": "2023-12-12",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 10000,
+          "period_days": 7,
+          "quantity": 1
+        },
+        {
+          "id": 1,
+          "name": "Obrador",
+          "item_number": "105",
+          "delivery_date": "20202-02-20",
+          "charged_amount": 0,
+          "total_periods": 0,
+          "total_cost": 0,
+          "period_price": 15000,
+          "period_days": 15,
+          "quantity": 1
+        }
+      ],
+      "id": 9439,
+      "clientId": "8090",
+      "date": "0232-03-12",
       "delivery_address": "Leopoldo Lugones 443",
       "iva": "on",
       "city": "Bahia Blanca",
