@@ -2,7 +2,7 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'http://localhost:4000/'
+const url = 'http://localhost:4000/';
 
 let newInvoice = {
   items: []
@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   consultarResolucion();
   consultarClientes();
   consultarPedidos();
-
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
@@ -24,33 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function mostrarAlerta(tipo, mensaje) {
-  // Crea un elemento div para la alerta
   const alertaDiv = document.createElement('div');
-
-  // Asigna las clases de Bootstrap para el estilo
   alertaDiv.classList.add('alert', `alert-${tipo}`);
-
-  // Agrega el mensaje al contenido de la alerta
   alertaDiv.textContent = mensaje;
-
-  // Obtén el contenedor de las alertas
   const alertContainer = document.getElementById('alert-container');
-
-  // Agrega la alerta al contenedor
   alertContainer.appendChild(alertaDiv);
 
-  // Remueve la alerta después de un tiempo (3 segundos en este ejemplo)
   setTimeout(() => {
     alertContainer.removeChild(alertaDiv);
   }, 3000);
 }
 
 function consultarResolucion() {
-  if (screen.width < 1024) 
-  location.href ="../pages/no-support.html"
+  if (screen.width < 1024)
+    location.href = "../pages/no-support.html";
 }
-
-
 
 function consultarPedidos() {
   const urlApi = `${url}invoices`;
@@ -99,7 +86,7 @@ function consultarClientesID(id) {
   return fetch(urlApi)
     .then(respuesta => respuesta.json())
     .then(resultado => resultado)
-    .catch(error => console.log(error)); 
+    .catch(error => console.log(error));
 }
 
 async function mostrarPedidos(invoices) {
@@ -179,13 +166,12 @@ function guardarItemPedido() {
   const itemNumber = document.getElementById('item-number').value;
   const itemDate = document.getElementById('date-item').value;
 
-  const listaItems = document.getElementById('lista-items')
-  const itemAdded = itemInput + ` #${itemNumber}` 
-  
-
+  const listaItems = document.getElementById('lista-items');
+  const itemAdded = itemInput + ` #${itemNumber}`;
 
   if (itemInput === "" || itemNumber === "" || itemDate === "") {
-    mostrarAlerta('danger', '¡Completa todos los campos.');;
+    mostrarAlerta('danger', '¡Completa todos los campos.');
+    return;
   }
 
   const nuevoItem = {
@@ -193,48 +179,47 @@ function guardarItemPedido() {
     "name": itemInput,
     "item_number": itemNumber,
     "delivery_date": itemDate,
-    "charged_amount": 0, 
-    "total_periods": 0, 
+    "charged_amount": 0,
+    "total_periods": 0,
     "total_cost": 0,
     "period_price": itemInput === "Obrador" ? 15000 : 10000,
     "period_days": itemInput === "Obrador" ? 15 : 7,
-    "quantity": 1 
-  }
+    "quantity": 1
+  };
 
   nuevoItem.total_cost = (nuevoItem.period_price * nuevoItem.total_periods) - nuevoItem.charged_amount;
 
   newInvoice.items.push(nuevoItem);
 
   const div = document.createElement('div');
-    div.classList.add('item-added');
+  div.classList.add('item-added');
 
-    const deleteItemBtn = document.createElement('BUTTON')
-    deleteItemBtn.classList.add('buttonModalNewInvoice')
-    deleteItemBtn.textContent = "X"
-    deleteItemBtn.addEventListener( 'click' , () => {
-      eliminarItemPedido(nuevoItem)
-      listaItems.removeChild(div)
-    })
+  const deleteItemBtn = document.createElement('button');
+  deleteItemBtn.classList.add('buttonModalNewInvoice');
+  deleteItemBtn.textContent = "X";
+  deleteItemBtn.addEventListener('click', () => {
+    eliminarItemPedido(nuevoItem);
+    listaItems.removeChild(div);
+  });
 
-    const itemType = document.createElement('p');
-    itemType.textContent = itemAdded
+  const itemType = document.createElement('p');
+  itemType.textContent = itemAdded;
 
-    const dateItem = document.createElement('p');
-    dateItem.textContent = itemDate
+  const dateItem = document.createElement('p');
+  dateItem.textContent = itemDate;
 
-    div.appendChild(itemType);
-    div.appendChild(dateItem);
-    div.appendChild(deleteItemBtn)
-    listaItems.appendChild(div);
+  div.appendChild(itemType);
+  div.appendChild(dateItem);
+  div.appendChild(deleteItemBtn);
+  listaItems.appendChild(div);
 
-    const itemInputD = document.getElementById('item-input')
-    const itemNumberD = document.getElementById('item-number')
-    const itemDateD = document.getElementById('date-item')
+  const itemInputD = document.getElementById('item-input');
+  const itemNumberD = document.getElementById('item-number');
+  const itemDateD = document.getElementById('date-item');
 
-    itemInputD.value = "";
-    itemNumberD.value = "";
-    itemDateD.value = "";
-
+  itemInputD.value = "";
+  itemNumberD.value = "";
+  itemDateD.value = "";
 
   mostrarAlerta('success', '¡Nuevo Item Agregado!');
 }
@@ -249,9 +234,7 @@ function guardarPedido() {
   const deliveryAddress = document.getElementById('deliveryAddress').value;
   const iva = document.getElementById('iva').value;
 
-  
-
-  if (newInvoice.id === "" || clientId === "" || date === "" || deliveryAddress === "") {
+  if (nuevoId === "" || clientId === "" || date === "" || deliveryAddress === "") {
     return;
   }
 
@@ -260,9 +243,9 @@ function guardarPedido() {
   newInvoice.date = date;
   newInvoice.delivery_address = deliveryAddress;
   newInvoice.iva = iva;
-  newInvoice.city = "Bahia Blanca"
-  newInvoice.postalCode = 8000
- 
+  newInvoice.city = "Bahia Blanca";
+  newInvoice.postalCode = 8000;
+
   const urlApi = `${url}invoices`;
 
   fetch(urlApi, {
@@ -294,7 +277,14 @@ function generarIdUnico() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function obtenerInformacionFactura(orderId) {
+function obtenerInformacionFactura(event) {
+  const orderId = event.target.dataset.invoiceId;
+
+  if (!orderId) {
+    console.error('No se pudo obtener el ID del pedido');
+    return;
+  }
+
   const urlApi = `${url}invoices/${orderId}`;
 
   fetch(urlApi)
@@ -310,7 +300,6 @@ function obtenerInformacionFactura(orderId) {
       const editarPedidoBtn = document.querySelector('#editar-pedido');
       editarPedidoBtn.dataset.pedidoId = pedido.id;
 
-      // Obtener y mostrar los datos del cliente utilizando el clientId
       consultarClientesID(pedido.clientId)
         .then(cliente => {
           document.getElementById('client-name').textContent = cliente.name;
@@ -330,53 +319,18 @@ function obtenerInformacionFactura(orderId) {
       pedido.items.forEach(item => {
         totalSum += item.total;
 
-        // Concatenar la información de los items
         itemNamesAndNumbers += `<p>${item.name} #${item.item_number}</p>`;
         totalPeriods += `<p>${item.total_periods}</p>`;
         periodPrices += `<p>$${item.period_price}</p>`;
         itemTotals += `<p>$${item.total}</p>`;
-
-        // Agregar botón "Cobrar" para cada elemento
-        const controlesColumn = document.getElementById('controles');
-
-        const controlesItem = document.createElement('DIV');
-        controlesItem.classList.add('controlesDiv')
-
-        const cobrarButton = document.createElement('button');
-        cobrarButton.textContent = 'Cobre';
-        cobrarButton.classList.add('btn', 'btn-success');
-        cobrarButton.dataset.itemNumber = item.item_number;
-
-        const retirarButton = document.createElement('button');
-        retirarButton.textContent = 'Retire';
-        retirarButton.classList.add('btn', 'btn-danger');
-        retirarButton.dataset.itemNumber = item.item_number;
-
-        cobrarButton.addEventListener('click', function () {
-          // Acción a realizar cuando se hace clic en "Cobrar Button"
-          console.log('Hiciste clic en "Cobrar Button" para el elemento con Item Number:', item.item_number);
-          // Puedes personalizar esta acción según tus necesidades
-        });
-
-        retirarButton.addEventListener('click', function () {
-          // Acción a realizar cuando se hace clic en "Retirar Button"
-          console.log('Hiciste clic en "Retirar Button" para el elemento con Item Number:', item.item_number);
-          // Puedes personalizar esta acción según tus necesidades
-        });
-
-        controlesItem.appendChild(cobrarButton);
-        controlesItem.appendChild(retirarButton);
-        controlesColumn.appendChild(controlesItem);
       });
 
-      // Mostrar los datos de los items en las columnas correspondientes
       document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
       document.getElementById('total_periods').innerHTML = totalPeriods;
       document.getElementById('period_price').innerHTML = periodPrices;
       document.getElementById('total').innerHTML = itemTotals;
       document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
 
-      // Mostrar el modal después de actualizar los datos
       const modal = document.getElementById('invoiceResumeModal');
       const modalBootstrap = new bootstrap.Modal(modal);
       modalBootstrap.show();
@@ -384,16 +338,13 @@ function obtenerInformacionFactura(orderId) {
     .catch(error => console.error('Error al obtener los datos de la factura:', error));
 }
 
+const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
+finalizarPedidoBtn.addEventListener('click', finalizarPedido);
 
+function finalizarPedido(event) {
+  const pedidoId = event.target.dataset.pedidoId;
 
-
-const finalizarPedidoBtn = document.querySelector('#finalizar-pedido')
-finalizarPedidoBtn.addEventListener('click', finalizarPedido)
-
-function finalizarPedido(e) {
-  const pedidoId = e.target.dataset.pedidoId;
-
-  const confirmar = confirm('¿Deseas arhivar/eliminar este pedido?');
+  const confirmar = confirm('¿Deseas archivar/eliminar este pedido?');
   if (confirmar) {
     eliminarPedido(pedidoId);
   }
@@ -401,55 +352,48 @@ function finalizarPedido(e) {
 
 function eliminarPedido(id) {
   try {
-    const response = fetch(`${url}invoices/${id}`, {
+    fetch(`${url}invoices/${id}`, {
       method: 'DELETE',
-    });
-
-    if (response.ok) {
-      console.log(`Pedido con ID ${id} eliminado correctamente.`);
-      // Puedes realizar otras acciones aquí después de eliminar con éxito.
-    } else {
-      console.error(`Error al eliminar el pedido con ID ${id}.`);
-    }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log(`Pedido con ID ${id} eliminado correctamente.`);
+        } else {
+          console.error(`Error al eliminar el pedido con ID ${id}.`);
+        }
+      })
+      .catch(error => {
+        console.error('Error al eliminar el pedido:', error);
+      });
   } catch (error) {
     console.error('Error al eliminar el pedido:', error);
   }
 }
 
-
 // EDITAR PEDIDO
 const botonEditarCliente = document.querySelector('#editar-cliente-modal');
 botonEditarCliente.addEventListener('click', editarCliente);
 
-function editarCliente(e) {
-  const clienteId = e.target.dataset.clientId; // Obtener el valor correcto del atributo "data-client-id"
-  console.log(`Editando cliente... ${clienteId}`);
+function editarCliente(event) {
+  const clienteId = event.target.dataset.clientId;
 
-  // Oculta el modal actual (resumeClientModal)
   const resumeClientModal = document.getElementById('resumeClientModal');
-  resumeClientModal.classList.remove('show')
+  resumeClientModal.classList.remove('show');
 
-  // Obtén el modal de edición (editingClientModal)
   const editingClientModal = document.getElementById('editingClientModal');
 
-  // Asigna el evento "shown.bs.modal" para mostrar el modal de edición cuando esté completamente cargado
   editingClientModal.addEventListener('shown.bs.modal', function () {
-    // Agregar manualmente la clase "show" al modal de edición
     editingClientModal.classList.add('show');
   });
 
-  // Muestra el modal de edición
   const editingClientModalInstance = new bootstrap.Modal(editingClientModal);
   editingClientModalInstance.show();
 
-  // Luego, puedes continuar con la lógica para obtener los datos del cliente y llenar el modal.
   const urlApi = `${url}clients`;
 
-  // Realiza una solicitud a la API para obtener los datos del cliente
   fetch(`${urlApi}/${clienteId}`)
     .then(response => response.json())
     .then(data => {
-      // Llena los campos del modal con los datos del cliente
       const nombreInput = document.querySelector('#client-name');
       const phoneInput = document.querySelector('#client-phone');
       const cuitInput = document.querySelector('#client-cuit');
@@ -464,18 +408,15 @@ function editarCliente(e) {
       adressInput.value = data.address;
       extrasInput.value = data.extras;
 
-      // Oculta el modal después de cargar los datos
       const modal = document.getElementById('editingClientModal');
       const modalBootstrap = new bootstrap.Modal(modal);
       modalBootstrap.hide();
 
-      // Agregar un manejador de eventos al botón "patch-client-button"
       const patchClientButton = document.getElementById('patch-client-button');
-      patchClientButton.dataset.clientId = clienteId; // Asignar el ID del cliente al botón
+      patchClientButton.dataset.clientId = clienteId;
       patchClientButton.addEventListener('click', actualizarCliente);
     })
     .catch(error => {
       console.error('Error al obtener los datos del cliente:', error);
     });
 }
-
