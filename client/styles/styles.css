@@ -404,12 +404,12 @@ height: 55px;
     margin-top: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .status-card{
     height: 80px;
-    width: 32%;
+    width: 45%;
     border-radius: 5px;
     background-color:   var(--white-color);
     display: flex;
@@ -1389,3 +1389,62 @@ height: 55px;
     
 }
 
+.product-button {
+    width: 200px;
+    height: 70%;
+    border: none;
+    background-color: var(--black-color);
+    border-radius: 8px;
+    color: var(--white-color);
+    font-size: 18px;
+}
+
+.product-button:hover {
+    width: 200px;
+    height: 70%;
+    border: 3px solid black;
+    background-color: transparent;
+    border-radius: 8px;
+    color: black;
+    font-size: 18px;
+}
+
+.product-button2 {
+    width: 70px;
+    height: 70%;
+    border: 3px solid black;
+    color: black;
+    background-color: transparent;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.product-button2:hover {
+    border: none;
+    background-color: #000000;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.product-botones {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 300px;
+}
+
+.product {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    background-color: white;
+    margin-bottom: 25px;
+}
+
+.product p {
+    margin-bottom: 0px !important;
+}

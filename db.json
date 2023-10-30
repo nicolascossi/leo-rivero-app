@@ -123,16 +123,22 @@
   ],
   "notas": [
     {
-      "nota": "le queod a favor a janono 10000",
-      "id": 4
+      "nota": "Aca podes anotar cosas que son relevantes, que creas que el equpo debe saber",
+      "id": 1
     }
   ],
   "productos": [
     {
-      "name": "AMOLADORA",
-      "price": "1000",
-      "period": "1",
+      "name": "Volquete",
+      "price": "7000",
+      "period": "7",
       "id": 1
+    },
+    {
+      "name": "Obrador",
+      "price": "15000",
+      "period": "15",
+      "id": 2
     }
   ]
 }
