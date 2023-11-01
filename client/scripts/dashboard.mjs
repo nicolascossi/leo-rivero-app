@@ -2,9 +2,12 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-import { getInvoices } from "./services/invoices";
-import { mostrarAlerta } from "./utils/alert";
-import { checkResoulution } from "./utils/resolution";
+import { createInvoice, getInvoice, getInvoices } from "./services/invoices.js";
+import { getClient } from "./services/client.js";
+import { mostrarAlerta } from "./utils/alert.js";
+import { checkResoulution } from "./utils/resolution.js";
+import { createInvoiceProduct } from "./services/invoice-products.js";
+import { getProducts } from "./services/product.js"; 
 
 let newInvoice = {
   items: []
@@ -14,8 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
   checkResoulution(1024, null, () => {
     location.href = "../pages/no-support.html";
   })
-  consultarClientes();
   mostrarPedidos();
+  const nuevoPedido = document.getElementById("nuevo-pedido");
+  nuevoPedido.addEventListener("click", async () => {
+    const { data: products } = await getProducts();
+    const itemlist = document.getElementById("item");
+    itemlist.innerHTML = "";
+    products.forEach((product) => {
+      const option = document.createElement("option");
+      option.value = product.name;
+      option.addEventListener("click", () => {
+        console.log("EAEAEAAE");
+        const itemInput = document.getElementById("item-input");
+        itemInput.dataset.id = product.id;
+      })
+      itemlist.appendChild(option);
+    })
+  })
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
@@ -72,7 +90,7 @@ async function mostrarPedidos() {
     const { data: invoices } = await getInvoices();
     const contenido = document.querySelector('#pedidos');
   
-    const promises = invoices.map((invoice) => {
+    const promises = invoices.map(async (invoice) => {
       const div = document.createElement('div');
       div.classList.add('invoice');
   
@@ -85,18 +103,24 @@ async function mostrarPedidos() {
   
       const invoiceAddress = document.createElement('p');
       invoiceAddress.classList.add('invoice-address');
-      invoiceAddress.textContent = invoice.delivery_address;
+      invoiceAddress.textContent = invoice.address;
   
       let totalSum = 0;
-      const checkboxIVA = document.getElementById('iva');
       const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
   
-      invoice.items.forEach(item => {
-        const itemTotal = item.total_periods * item.period_price;
+      console.log(invoice.products);
+
+      invoice.products.forEach(item => {
+        const date = new Date(item.deliveryDate);
+        const difference = new Date().getTime() - date.getTime();
+        const days = Math.floor(difference / 1000 / 60 / 60 / 24);
+        const totalPeriods = Math.floor(days / item.period);
+        const itemTotal = totalPeriods * item.price;
+
         totalSum += itemTotal;
       });
   
-      if (checkboxIVA.checked) {
+      if (invoice.IVA) {
         const ivaAmount = totalSum * ivaPercentage;
         totalSum += ivaAmount;
       }
@@ -109,19 +133,16 @@ async function mostrarPedidos() {
       infoPedidoBtn.classList.add('status-button');
       infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
       infoPedidoBtn.textContent = 'Status';
-  
-      return consultarClientesID(invoice.clientId)
-        .then(client => {
-          clientName.textContent = client.name;
-          div.appendChild(orderNumber);
-          div.appendChild(clientName);
-          div.appendChild(invoiceAddress);
-          div.appendChild(invoiceTotal);
-          div.appendChild(infoPedidoBtn);
-          contenido.appendChild(div);
-  
-          return infoPedidoBtn;
-        });
+
+      clientName.textContent = invoice.client.name;
+      div.appendChild(orderNumber);
+      div.appendChild(clientName);
+      div.appendChild(invoiceAddress);
+      div.appendChild(invoiceTotal);
+      div.appendChild(infoPedidoBtn);
+      contenido.appendChild(div);
+
+      return infoPedidoBtn;
     });
   
     const buttons = await Promise.all(promises);
@@ -158,19 +179,10 @@ function guardarItemPedido() {
   }
 
   const nuevoItem = {
-    id: itemInput === "Obrador" ? 1 : 2,
-    name: itemInput,
-    item_number: itemNumber,
-    delivery_date: itemDate,
-    charged_amount: 0,
-    total_periods: 0,
-    total_cost: 0,
-    period_price: itemInput === "Obrador" ? 15000 : 10000,
-    period_days: itemInput === "Obrador" ? 15 : 7,
-    quantity: 1
+    
+    numberId: id,
+    deliveryDate: itemDate,
   };
-
-  nuevoItem.total_cost = (nuevoItem.period_price * nuevoItem.total_periods) - nuevoItem.charged_amount;
 
   newInvoice.items.push(nuevoItem);
 
@@ -210,8 +222,7 @@ function guardarItemPedido() {
 const guardarPedidoBtn = document.getElementById('guardar-pedido');
 guardarPedidoBtn.addEventListener('click', guardarPedido);
 
-function guardarPedido() {
-  const nuevoId = generarIdUnico();
+async function guardarPedido() {
   const clientId = document.getElementById('invoice-client').value;
   const date = document.getElementById('InvoiceDate').value;
   const deliveryAddress = document.getElementById('deliveryAddress').value;
@@ -221,46 +232,32 @@ function guardarPedido() {
     return;
   }
 
-  newInvoice.id = nuevoId;
-  newInvoice.clientId = clientId;
-  newInvoice.date = date;
-  newInvoice.delivery_address = deliveryAddress;
+  newInvoice.numberId = 
+  newInvoice.client = clientId;
+  newInvoice.date = new Date(date).toISOString();
+  newInvoice.address = deliveryAddress;
   newInvoice.iva = iva;
   newInvoice.city = "Bahia Blanca";
   newInvoice.postalCode = 8000;
 
-  const urlApi = `${url}invoices`;
+  try {
+    const invoice = await createInvoice(newInvoice);
 
-  fetch(urlApi, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newInvoice)
-  })
-    .then(response => response.json())
-    .then(result => {
-      mostrarAlerta('success', '¡Pedido Guardado!');
-      newInvoice = {
-        items: []
-      };
+    const promises = newInvoice.items.map(async (item) => {
+      createInvoiceProduct(item)
     })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+
+    mostrarAlerta('success', '¡Pedido Guardado!');
+  } catch (error) {
+    console.error('Error:', error);    
+  }
 
   const modal = document.getElementById('myModal');
   const modalBootstrap = new bootstrap.Modal(modal);
   modalBootstrap.hide();
 }
 
-function generarIdUnico() {
-  const max = 9999;
-  const min = 1000;
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function obtenerInformacionFactura(event) {
+async function obtenerInformacionFactura(event) {
   const orderId = event.target.dataset.invoiceId;
 
   if (!orderId) {
@@ -268,60 +265,54 @@ function obtenerInformacionFactura(event) {
     return;
   }
 
-  const urlApi = `${url}invoices/${orderId}`;
+  try {
+    const { data: pedido } = await getInvoice(orderId);
+    document.getElementById('id').textContent = `#${pedido.id}`;
+    document.getElementById('delivery_address').textContent = pedido.address;
+    document.getElementById('date').textContent = pedido.deliveryDate;
 
-  fetch(urlApi)
-    .then(respuesta => respuesta.json())
-    .then(pedido => {
-      document.getElementById('id').textContent = `#${pedido.id}`;
-      document.getElementById('delivery_address').textContent = pedido.delivery_address;
-      document.getElementById('date').textContent = pedido.date;
+    const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
+    finalizarPedidoBtn.dataset.pedidoId = pedido.id;
 
-      const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-      finalizarPedidoBtn.dataset.pedidoId = pedido.id;
+    const editarPedidoBtn = document.querySelector('#editar-pedido');
+    editarPedidoBtn.dataset.pedidoId = pedido.id;
 
-      const editarPedidoBtn = document.querySelector('#editar-pedido');
-      editarPedidoBtn.dataset.pedidoId = pedido.id;
+    const { client: cliente } = pedido; 
+    document.getElementById('client-name').textContent = cliente.name;
+    document.getElementById('client-phone').textContent = cliente.phone;
+    document.getElementById('client-email').textContent = cliente.email;
+    console.error('Error al obtener los datos del cliente:', error);
 
-      consultarClientesID(pedido.clientId)
-        .then(cliente => {
-          document.getElementById('client-name').textContent = cliente.name;
-          document.getElementById('client-phone').textContent = cliente.phone;
-          document.getElementById('client-email').textContent = cliente.email;
-        })
-        .catch(error => {
-          console.error('Error al obtener los datos del cliente:', error);
-        });
+    let totalSum = 0;
+    let itemNamesAndNumbers = '';
+    let totalPeriods = '';
+    let periodPrices = '';
+    let itemTotals = '';
+    let deliveryDate = '';
 
-      let totalSum = 0;
-      let itemNamesAndNumbers = '';
-      let totalPeriods = '';
-      let periodPrices = '';
-      let itemTotals = '';
-      let deliveryDate = '';
+    pedido.products.forEach(item => {
+      totalSum += item.total;
 
-      pedido.items.forEach(item => {
-        totalSum += item.total;
+      itemNamesAndNumbers += `<p>${item.name} #${item.id}</p>`;
+      totalPeriods += `<p>${item.total_periods}</p>`;
+      periodPrices += `<p>${item.period_price}</p>`;
+      itemTotals += `<p>$${item.total}</p>`;
+      deliveryDate += `<p>${item.delivery_date}</p>`;
+    });
 
-        itemNamesAndNumbers += `<p>${item.name} #${item.item_number}</p>`;
-        totalPeriods += `<p>${item.total_periods}</p>`;
-        periodPrices += `<p>${item.period_price}</p>`;
-        itemTotals += `<p>$${item.total}</p>`;
-        deliveryDate += `<p>${item.delivery_date}</p>`;
-      });
+    document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
+    document.getElementById('delivery_date').innerHTML = deliveryDate;
+    document.getElementById('total_periods').innerHTML = totalPeriods;
+    document.getElementById('period_price').innerHTML = periodPrices;
+    document.getElementById('total').innerHTML = itemTotals;
+    document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
 
-      document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
-      document.getElementById('delivery_date').innerHTML = deliveryDate;
-      document.getElementById('total_periods').innerHTML = totalPeriods;
-      document.getElementById('period_price').innerHTML = periodPrices;
-      document.getElementById('total').innerHTML = itemTotals;
-      document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
-
-      const modal = document.getElementById('invoiceResumeModal');
-      const modalBootstrap = new bootstrap.Modal(modal);
-      modalBootstrap.show();
-    })
-    .catch(error => console.error('Error al obtener los datos de la factura:', error));
+    const modal = document.getElementById('invoiceResumeModal');
+    const modalBootstrap = new bootstrap.Modal(modal);
+    modalBootstrap.show();
+  } catch (error) { 
+    console.error('Error al obtener los datos de la factura:', error);
+  }
 }
 
 const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');

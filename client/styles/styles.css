@@ -34,40 +34,42 @@
   }
 
 /* Estilo para las alertas */
-.alert {
-    width: 300px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
+#alert-container {
     z-index: 9999; /* Asegura que esté por encima de otros elementos */
-  }
-  
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  .alert-info {
-    background-color: #cce5ff;
-    color: #004085;
-  }
-  
-
-/* TEMPORAL PARA NO MOSTRAR LOS CONTROLADORES DE UP & DOWN
-    LUEGO DEBEMOS ACTIVARLOS PARA CANTIDADES */
-  input[type=number]::-webkit-inner-spin-button, 
-  input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-    margin: 0; 
+    .alert {
+        width: 300px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        position: absolute;
+      }
+      
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      
+      .alert-info {
+        background-color: #cce5ff;
+        color: #004085;
+      }
+      
+    
+    /* TEMPORAL PARA NO MOSTRAR LOS CONTROLADORES DE UP & DOWN
+        LUEGO DEBEMOS ACTIVARLOS PARA CANTIDADES */
+      input[type=number]::-webkit-inner-spin-button, 
+      input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+        margin: 0; 
+    }
+    
 }
-
 
 /* CLASES INDEX.HTML*/
 
