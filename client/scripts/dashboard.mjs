@@ -3,7 +3,7 @@
 // mostrarAlerta('info', 'Información importante.');
 
 import { createInvoice, getInvoice, getInvoices } from "./services/invoices.js";
-import { getClient } from "./services/client.js";
+import { getClient, getClients } from "./services/client.js";
 import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
 import { createInvoiceProduct } from "./services/invoice-products.js";
@@ -20,52 +20,55 @@ document.addEventListener('DOMContentLoaded', () => {
   mostrarPedidos();
   const nuevoPedido = document.getElementById("nuevo-pedido");
   nuevoPedido.addEventListener("click", async () => {
+    // Fill Products Datalist
     const { data: products } = await getProducts();
     const itemlist = document.getElementById("item");
     itemlist.innerHTML = "";
     products.forEach((product) => {
       const option = document.createElement("option");
       option.value = product.name;
-      option.addEventListener("click", () => {
-        console.log("EAEAEAAE");
-        const itemInput = document.getElementById("item-input");
-        itemInput.dataset.id = product.id;
-      })
       itemlist.appendChild(option);
     })
+    const handleChangeItem = (e) => {
+      const find = products.find((product) => product.name === e.currentTarget.value);
+      if(!find) {
+        return delete e.currentTarget.dataset.id;
+      }
+      e.currentTarget.dataset.id = find.id;
+    }
+    const itemInput = document.getElementById("item-input");
+    itemInput.removeEventListener("change", handleChangeItem)
+    itemInput.addEventListener("change", handleChangeItem)
+
+    // Fill Clients Datalist
+    const { data: clients } = await getClients();
+    
+    const clientlist = document.getElementById("client-list-options");
+    clients.forEach((client) => {
+      const option = document.createElement("option");
+      option.value = client.name;
+      clientlist.appendChild(option);
+    })
+    const handleChangeClient = (e) => {
+      const find = clients.find((client) => client.name === e.currentTarget.value);
+      if(!find) {
+        return delete e.currentTarget.dataset.id;
+      }
+      e.currentTarget.dataset.id = find.id;
+    }
+    const clientInput = document.getElementById("invoice-client");
+    clientInput.removeEventListener("change", handleChangeClient)
+    clientInput.addEventListener("change", handleChangeClient)
   })
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
     if (event.target.matches('.status-button')) {
-      const orderId = event.target.dataset.invoiceId;
+      const orderId = event.target.dataset["invoice-id"];
       obtenerInformacionFactura(orderId);
     }
   });
 });
-
-function consultarClientes() {
-  const urlApi = `${url}clients`;
-
-  fetch(urlApi)
-    .then(respuesta => respuesta.json())
-    .then(data => {
-      if (Array.isArray(data)) {
-        const dataList = document.getElementById('client-list-options');
-        data.forEach(cliente => {
-          const option = document.createElement('option');
-          option.text = cliente.name;
-          option.value = cliente.id;
-          dataList.appendChild(option);
-        });
-      } else {
-        console.error('Los datos de los clientes no son un array:', data);
-      }
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos de los clientes:', error);
-    });
-}
 
 function eliminarItemPedido(nuevoItem) {
   const index = newInvoice.items.indexOf(nuevoItem);
@@ -74,15 +77,6 @@ function eliminarItemPedido(nuevoItem) {
   }
 
   mostrarAlerta('success', '¡Item eliminado!');
-}
-
-function consultarClientesID(id) {
-  const urlApi = `${url}clients/${id}`;
-
-  return fetch(urlApi)
-    .then(respuesta => respuesta.json())
-    .then(resultado => resultado)
-    .catch(error => console.log(error));
 }
 
 async function mostrarPedidos() {
@@ -166,21 +160,21 @@ const addItem = document.getElementById('save-item-invoice');
 addItem.addEventListener('click', guardarItemPedido);
 
 function guardarItemPedido() {
-  const itemInput = document.getElementById('item-input').value;
+  const itemInput = document.getElementById('item-input');
   const itemNumber = document.getElementById('item-number').value;
   const itemDate = document.getElementById('date-item').value;
 
   const listaItems = document.getElementById('lista-items');
   const itemAdded = itemInput + ` #${itemNumber}`;
 
-  if (itemInput === "" || itemNumber === "" || itemDate === "") {
+  if (!itemInput.dataset.id || itemNumber === "" || itemDate === "") {
     mostrarAlerta('danger', '¡Completa todos los campos.');
     return;
   }
 
   const nuevoItem = {
-    
-    numberId: id,
+    product: Number(itemInput.dataset.id),
+    numberId: Number(itemNumber),
     deliveryDate: itemDate,
   };
 
@@ -223,29 +217,33 @@ const guardarPedidoBtn = document.getElementById('guardar-pedido');
 guardarPedidoBtn.addEventListener('click', guardarPedido);
 
 async function guardarPedido() {
-  const clientId = document.getElementById('invoice-client').value;
+  const clientId = document.getElementById('invoice-client');
   const date = document.getElementById('InvoiceDate').value;
   const deliveryAddress = document.getElementById('deliveryAddress').value;
   const iva = document.getElementById('iva').value;
 
-  if (nuevoId === "" || clientId === "" || date === "" || deliveryAddress === "") {
+  if (clientId === "" || date === "" || deliveryAddress === "") {
     return;
   }
 
-  newInvoice.numberId = 
-  newInvoice.client = clientId;
+  newInvoice.client = Number(clientId.dataset.id);
   newInvoice.date = new Date(date).toISOString();
   newInvoice.address = deliveryAddress;
-  newInvoice.iva = iva;
+  newInvoice.IVA = iva === "on";
   newInvoice.city = "Bahia Blanca";
   newInvoice.postalCode = 8000;
 
   try {
-    const invoice = await createInvoice(newInvoice);
+    const { data: invoice } = await createInvoice(newInvoice);
 
     const promises = newInvoice.items.map(async (item) => {
-      createInvoiceProduct(item)
+      await createInvoiceProduct({
+        ...item,
+        invoice: invoice.id
+      })
     })
+
+    await Promise.all(promises);
 
     mostrarAlerta('success', '¡Pedido Guardado!');
   } catch (error) {
@@ -257,9 +255,8 @@ async function guardarPedido() {
   modalBootstrap.hide();
 }
 
-async function obtenerInformacionFactura(event) {
-  const orderId = event.target.dataset.invoiceId;
-
+async function obtenerInformacionFactura(orderId) {
+  console.log(orderId);
   if (!orderId) {
     console.error('No se pudo obtener el ID del pedido');
     return;

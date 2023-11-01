@@ -1,0 +1,32 @@
+Aplicacion para registrar pedidos
+
+Entidades:
+	Pedidos:
+		id: number
+		address: string
+		IVA: boolean
+		client_id: number # Se relaciona con Cliente
+		created_at: timestamp
+		updated_at: timestamp
+
+	ProductosPedido:
+		id: number # Numero de item
+		invoice_id: number # Se relaciona con Pedidos, un Pedido puede tener muchos Item, y un item solo pertenece a un Pedido
+		delivery_date: timestamp
+		retirement_date: timestamp
+		price:		
+
+	Clientes:
+		id: number
+		name: string
+		email: string
+		phone: string
+		address: string
+		CUIT: string
+		note: string // Notas extras
+		created_at: timestamp
+		updated_at: timestamp
+
+	Producto: 
+		id: number
+		price: number		

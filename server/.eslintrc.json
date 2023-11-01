@@ -1,0 +1,33 @@
+{
+    "env": {
+        "node": true,
+        "es2021": true
+    },
+    "extends": "standard-with-typescript",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": "warn",
+        "@typescript-eslint/quotes": ["warn", "double"],
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "caughtErrorsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-misused-promises": "off",
+        "no-warning-comments": [
+          "warn",
+          {
+            "terms": ["TODO", "FIXME"],
+            "location": "start",
+            "decoration": ["!"]
+          }
+        ]
+    }
+}
