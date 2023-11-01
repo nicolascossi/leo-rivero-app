@@ -2,16 +2,20 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-const url = 'http://localhost:4000/';
+import { getInvoices } from "./services/invoices";
+import { mostrarAlerta } from "./utils/alert";
+import { checkResoulution } from "./utils/resolution";
 
 let newInvoice = {
   items: []
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  consultarResolucion();
+  checkResoulution(1024, null, () => {
+    location.href = "../pages/no-support.html";
+  })
   consultarClientes();
-  consultarPedidos();
+  mostrarPedidos();
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
@@ -21,32 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
-function mostrarAlerta(tipo, mensaje) {
-  const alertaDiv = document.createElement('div');
-  alertaDiv.classList.add('alert', `alert-${tipo}`);
-  alertaDiv.textContent = mensaje;
-  const alertContainer = document.getElementById('alert-container');
-  alertContainer.appendChild(alertaDiv);
-
-  setTimeout(() => {
-    alertContainer.removeChild(alertaDiv);
-  }, 3000);
-}
-
-function consultarResolucion() {
-  if (screen.width < 1024)
-    location.href = "../pages/no-support.html";
-}
-
-function consultarPedidos() {
-  const urlApi = `${url}invoices`;
-
-  fetch(urlApi)
-    .then(respuesta => respuesta.json())
-    .then(resultado => mostrarPedidos(resultado))
-    .catch(error => console.log(error));
-}
 
 function consultarClientes() {
   const urlApi = `${url}clients`;
@@ -89,65 +67,70 @@ function consultarClientesID(id) {
     .catch(error => console.log(error));
 }
 
-async function mostrarPedidos(invoices) {
-  const contenido = document.querySelector('#pedidos');
-
-  const promises = invoices.map(invoice => {
-    const div = document.createElement('div');
-    div.classList.add('invoice');
-
-    const orderNumber = document.createElement('p');
-    orderNumber.classList.add('order-number');
-    orderNumber.textContent = '#' + invoice.id;
-
-    const clientName = document.createElement('p');
-    clientName.classList.add('client-name');
-
-    const invoiceAddress = document.createElement('p');
-    invoiceAddress.classList.add('invoice-address');
-    invoiceAddress.textContent = invoice.delivery_address;
-
-    let totalSum = 0;
-    const checkboxIVA = document.getElementById('iva');
-    const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
-
-    invoice.items.forEach(item => {
-      const itemTotal = item.total_periods * item.period_price;
-      totalSum += itemTotal;
-    });
-
-    if (checkboxIVA.checked) {
-      const ivaAmount = totalSum * ivaPercentage;
-      totalSum += ivaAmount;
-    }
-
-    const invoiceTotal = document.createElement('p');
-    invoiceTotal.classList.add('invoice-total');
-    invoiceTotal.textContent = '$' + parseFloat(totalSum.toFixed(2));
-
-    const infoPedidoBtn = document.createElement('button');
-    infoPedidoBtn.classList.add('status-button');
-    infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
-    infoPedidoBtn.textContent = 'Status';
-
-    return consultarClientesID(invoice.clientId)
-      .then(client => {
-        clientName.textContent = client.name;
-        div.appendChild(orderNumber);
-        div.appendChild(clientName);
-        div.appendChild(invoiceAddress);
-        div.appendChild(invoiceTotal);
-        div.appendChild(infoPedidoBtn);
-        contenido.appendChild(div);
-
-        return infoPedidoBtn;
+async function mostrarPedidos() {
+  try {
+    const { data: invoices } = await getInvoices();
+    const contenido = document.querySelector('#pedidos');
+  
+    const promises = invoices.map((invoice) => {
+      const div = document.createElement('div');
+      div.classList.add('invoice');
+  
+      const orderNumber = document.createElement('p');
+      orderNumber.classList.add('order-number');
+      orderNumber.textContent = '#' + invoice.id;
+  
+      const clientName = document.createElement('p');
+      clientName.classList.add('client-name');
+  
+      const invoiceAddress = document.createElement('p');
+      invoiceAddress.classList.add('invoice-address');
+      invoiceAddress.textContent = invoice.delivery_address;
+  
+      let totalSum = 0;
+      const checkboxIVA = document.getElementById('iva');
+      const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
+  
+      invoice.items.forEach(item => {
+        const itemTotal = item.total_periods * item.period_price;
+        totalSum += itemTotal;
       });
-  });
-
-  const buttons = await Promise.all(promises);
-  buttons.forEach(button => {
-    button.addEventListener('click', obtenerInformacionFactura);
-  });
+  
+      if (checkboxIVA.checked) {
+        const ivaAmount = totalSum * ivaPercentage;
+        totalSum += ivaAmount;
+      }
+  
+      const invoiceTotal = document.createElement('p');
+      invoiceTotal.classList.add('invoice-total');
+      invoiceTotal.textContent = '$' + parseFloat(totalSum.toFixed(2));
+  
+      const infoPedidoBtn = document.createElement('button');
+      infoPedidoBtn.classList.add('status-button');
+      infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
+      infoPedidoBtn.textContent = 'Status';
+  
+      return consultarClientesID(invoice.clientId)
+        .then(client => {
+          clientName.textContent = client.name;
+          div.appendChild(orderNumber);
+          div.appendChild(clientName);
+          div.appendChild(invoiceAddress);
+          div.appendChild(invoiceTotal);
+          div.appendChild(infoPedidoBtn);
+          contenido.appendChild(div);
+  
+          return infoPedidoBtn;
+        });
+    });
+  
+    const buttons = await Promise.all(promises);
+    buttons.forEach(button => {
+      button.addEventListener('click', obtenerInformacionFactura);
+    }); 
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 function redireccionarAlSitio() {
@@ -175,16 +158,16 @@ function guardarItemPedido() {
   }
 
   const nuevoItem = {
-    "id": itemInput === "Obrador" ? 1 : 2,
-    "name": itemInput,
-    "item_number": itemNumber,
-    "delivery_date": itemDate,
-    "charged_amount": 0,
-    "total_periods": 0,
-    "total_cost": 0,
-    "period_price": itemInput === "Obrador" ? 15000 : 10000,
-    "period_days": itemInput === "Obrador" ? 15 : 7,
-    "quantity": 1
+    id: itemInput === "Obrador" ? 1 : 2,
+    name: itemInput,
+    item_number: itemNumber,
+    delivery_date: itemDate,
+    charged_amount: 0,
+    total_periods: 0,
+    total_cost: 0,
+    period_price: itemInput === "Obrador" ? 15000 : 10000,
+    period_days: itemInput === "Obrador" ? 15 : 7,
+    quantity: 1
   };
 
   nuevoItem.total_cost = (nuevoItem.period_price * nuevoItem.total_periods) - nuevoItem.charged_amount;
