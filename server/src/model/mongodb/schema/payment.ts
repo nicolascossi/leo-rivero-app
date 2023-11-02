@@ -7,7 +7,7 @@ import type { MongooseIdSchema } from "../types/schema";
 export enum PaymentsMethods {
   cash = "cash",
   transfer = "transfer",
-  cheque = "cheque",
+  credit = "credit",
   canje = "canje",
 }
 

@@ -428,11 +428,9 @@ async function editarPedido(e) {
       button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
         return product.id === Number(e.currentTarget.dataset.invoiceProductId)
       })))
-      button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
-        return product.id === Number(e.target.dataset.invoiceProductId)
-      })))
+      
     })
-    document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
+    
     
 }
 
@@ -486,7 +484,7 @@ function actualizarCliente(e) {
 
 const botonRegistarPago = document.getElementById('registrarPago')
 botonRegistarPago.addEventListener('click', registrarPago )
-
+console.log(botonRegistarPago)
 async function registrarPago() {
   const invoiceProduct = document.getElementById('newclient-name').value;
   const value = document.getElementById('payment-amount').value;
@@ -526,12 +524,31 @@ async function addNewItem(invoiceId) {
 
 async function addPayment(invoiceProduct) {
   const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
-
+  const registrarPagoBtn = document.getElementById('registrarPago')
+  registrarPagoBtn.dataset.invoiceProductId = invoiceProduct.id
   const spanData1 = document.getElementById('ItemData')
   spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
-
+  console.log(registrarPagoBtn)
   modal.show();
 }
+
+const registrarPagoBtn = document.getElementById('registrarPago')
+registrarPagoBtn.addEventListener('click', async ()=>{
+
+  const metodo = document.getElementById('payment-options-input').value
+  const paymentValue = Number(document.getElementById('item-value-amount').value)
+  const date = document.getElementById('date-payment-item').value
+
+  const pago = {
+    method: metodo,
+    paymentDate: getActualDate(date),
+    value: paymentValue,
+    invoiceProduct: Number(registrarPagoBtn.dataset.invoiceProductId),
+
+  }
+
+  await createPayment(pago)
+})
 
 async function retireInvoiceProduct(invoiceProduct) {
   const modal = new bootstrap.Modal("#invoiceRetire");

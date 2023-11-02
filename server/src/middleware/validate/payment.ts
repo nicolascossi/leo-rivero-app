@@ -12,9 +12,9 @@ export const createPayment = (
   try {
     const Schema = z.object({
       invoiceProduct: z.number(),
-      method: z.enum(["cash", "transfer", "cheque", "canje"]),
+      method: z.enum(["cash", "transfer", "credit", "canje"]),
       value: z.number(),
-      paymentDate: z.string().datetime(),
+      paymentDate: z.string().datetime()
     });
 
     Schema.parse(req.body);
