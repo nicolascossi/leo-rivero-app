@@ -8,6 +8,7 @@ import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
 import { createInvoiceProduct } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js"; 
+import { createPayment } from "./services/payments.js"; 
 import { calcPeriods } from "./utils/product.js";
 
 let newInvoice = {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
     if (event.target.matches('.status-button')) {
-      const orderId = event.target.dataset.invoiceId;
+      const orderId = event.target.dataset["invoice-id"];
       obtenerInformacionFactura(orderId);
     }
   });
@@ -137,8 +138,7 @@ async function mostrarPedidos() {
 
       return infoPedidoBtn;
     });
-  
-    const buttons = await Promise.all(promises);
+
   } catch (error) {
     console.error(error)
   }
@@ -274,6 +274,7 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('client-name').textContent = cliente.name;
     document.getElementById('client-phone').textContent = cliente.phone;
     document.getElementById('client-email').textContent = cliente.email;
+    console.error('Error al obtener los datos del cliente:', error);
 
     let totalSumEl = 0;
     let itemNamesAndNumbersEl = '';
@@ -455,4 +456,34 @@ function actualizarCliente(e) {
     .catch(error => {
       console.error('Error al enviar la solicitud de actualización:', error);
     });
+}
+
+const botonRegistarPago = document.getElementById('registrarPago')
+botonRegistarPago.addEventListener('click', registrarPago )
+
+async function registrarPago() {
+  const invoiceProduct = document.getElementById('newclient-name').value;
+  const value = document.getElementById('payment-amount').value;
+  const method = document.getElementById('payment-method').value;
+  const paymentDate = document.getElementById('payment-date').value;
+
+
+  const nuevoPago = {
+    invoiceProduct: invoiceProduct,
+    paymentMethod: method,
+    value: value,
+    paymentDate: paymentDate,
+
+  };
+
+  try {
+    const client = await createPayment(nuevoPago);
+    console.log(client);
+  } catch (error) {    
+    console.error('Error:', error);
+  }
+
+  const modal = document.getElementById('newPaymentModal');
+  const modalBootstrap = bootstrap.Modal.getInstance(modal);
+  modalBootstrap.hide();
 }
