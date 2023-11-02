@@ -391,12 +391,14 @@
         </div>
       </div>
     </div>
+
+
     <!-- NEW ITEM MODAL -->
     <div class="modal fade" id="invoiceNewItemModal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="retire-modal">
-            <h1 class="title-modal">Registre un nuevo producto en el pedido {Pedido #80}</h1>
+            <h1 class="title-modal">Registre un nuevo producto en el pedido</h1>
             <p class="indicaiones">Indique la fecha en la que se entrego este producto.</p>
             <div class="inputs-new-item-information">
                 <input
@@ -428,25 +430,37 @@
       </div>
     </div>
 
+    <!-- payment modal -->
     <!-- HTML del modal nuevo pago -->
     <div class="modal fade" id="invoiceNewPaymentModal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="retire-modal">
-            <h1 class="title-modal">Registre el cobro del {Item/Producto #80}</h1>
+            <h1 class="title-modal">Registre el cobro de un item</h1>
             <p class="indicaiones">Indique la fecha en la que el pago fue efectuado.</p>
-            <input type="date" id="payment-date">
-            <p class="indicaiones">Indique la cantidad cobrada en $.</p>
-            <input type="number" placeholder="$" id="payment-amount">
-            <p class="indicaiones">Indique le metodo de pago.</p>
-            <input type="data" list="payment-options" id="payment-method">
-            <datalist id="payment-options">
+            <div class="inputs-new-item-information">
+              <input
+                type="text"
+                placeholder="Metodo de pago"
+                list="payment-options"
+                class="item-input"
+                id="payment-options-input"
+              />
+              <datalist id="payment-options">
                 <option value="Contado">Contado</option>
                 <option value="Canje">Canje</option>
                 <option value="Credito">Credito</option>
                 <option value="Transferencia">Transferencia</option>
-      
-            </datalist>
+              </datalist>
+
+              <input
+                type="number"
+                placeholder="Monto abonado"
+                class="number-input"
+                id="item-number-new-item"
+              />
+              <input type="date" class="date-input" id="date-payment-item" />
+              </div>
             <button id="registrarPago">Confirmar</button>
           </div>
         </div>
