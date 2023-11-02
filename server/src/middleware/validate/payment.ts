@@ -15,7 +15,6 @@ export const createPayment = (
       method: z.enum(["cash", "transfer", "cheque", "canje"]),
       value: z.number(),
       paymentDate: z.string().datetime(),
-      note: z.optional(z.string())
     });
 
     Schema.parse(req.body);
@@ -41,12 +40,6 @@ export const updatePayment = (
   next: NextFunction
 ): void => {
   try {
-    const Schema = z.object({
-      note: z.optional(z.string())
-    });
-
-    Schema.parse(req.body);
-
     next();
   } catch (error) {
     const HttpError: CustomHttpError<400> = createHttpError.BadRequest();

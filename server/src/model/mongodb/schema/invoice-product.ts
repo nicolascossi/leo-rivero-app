@@ -15,6 +15,8 @@ export interface InvoiceProduct {
   payments?: Array<MongooseIdSchema<Payment>>
   deliveryDate?: Date
   retirementDate?: Date
+  createdAt?: string
+  updatedAt?: string
 }
 
 const invoiceProductSchema = new Schema<MongooseIdSchema<InvoiceProduct>>({

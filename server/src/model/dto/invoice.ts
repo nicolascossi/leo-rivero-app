@@ -12,6 +12,8 @@ class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
   isArchived: boolean;
   status: InvoiceStatus;
   products?: InvoiceProductDTO[];
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor (invoice: MongooseIdSchema<Invoice>) {
     this.id = invoice._id;
@@ -25,6 +27,8 @@ class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
     if (invoice.products !== undefined) {
       this.products = invoice.products.map((product) => new InvoiceProductDTO(product));
     }
+    this.createdAt = invoice.createdAt;
+    this.updatedAt = invoice.updatedAt;
   }
 }
 

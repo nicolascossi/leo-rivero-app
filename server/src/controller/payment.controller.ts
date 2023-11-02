@@ -43,7 +43,6 @@ class PaymentController {
       const {
         invoiceProduct,
         method,
-        note,
         paymentDate,
         value
       } = req.body as Payment;
@@ -51,7 +50,6 @@ class PaymentController {
       const payment = await paymentService.create({
         invoiceProduct,
         method,
-        note,
         paymentDate,
         value
       });
@@ -66,27 +64,27 @@ class PaymentController {
     }
   }
 
-  async update (req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-      const {
-        note
-      } = req.body as Payment;
+  // async update (req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   try {
+  //     const {
+  //       note
+  //     } = req.body as Payment;
 
-      const paymentId = req.params.id;
+  //     const paymentId = req.params.id;
 
-      const payment = await paymentService.update(paymentId, {
-        note
-      });
+  //     const payment = await paymentService.update(paymentId, {
+  //       note
+  //     });
 
-      void res.json({
-        status: 201,
-        message: "Payment has been updated succesfully",
-        data: payment
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     void res.json({
+  //       status: 201,
+  //       message: "Payment has been updated succesfully",
+  //       data: payment
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {

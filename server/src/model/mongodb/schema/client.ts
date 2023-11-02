@@ -10,6 +10,8 @@ export interface Client {
   postalCode?: number
   CUIT: string
   note?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 const clientSchema = new Schema<MongooseIdSchema<Client>>({

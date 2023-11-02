@@ -8,7 +8,7 @@ export enum PaymentsMethods {
   cash = "cash",
   transfer = "transfer",
   cheque = "cheque",
-  canje = "canje"
+  canje = "canje",
 }
 
 export interface Payment {
@@ -16,38 +16,41 @@ export interface Payment {
   method: PaymentsMethods
   value: number
   paymentDate: Date
-  note: string
+  createdAt?: string
+  updatedAt?: string
 }
 
-const paymentSchema = new Schema<MongooseIdSchema<Payment>>({
-  _id: {
-    type: Number
+const paymentSchema = new Schema<MongooseIdSchema<Payment>>(
+  {
+    _id: {
+      type: Number
+    },
+    invoiceProduct: {
+      type: Number,
+      ref: "invoice_products",
+      name: "invoice_product",
+      required: true
+    },
+    method: {
+      type: String,
+      enum: PaymentsMethods,
+      required: true
+    },
+    value: {
+      type: Number,
+      required: true
+    },
+    paymentDate: {
+      type: Date,
+      required: true
+    }
   },
-  invoiceProduct: {
-    type: Number,
-    ref: "invoice_products",
-    name: "invoice_product",
-    required: true
-  },
-  method: {
-    type: String,
-    enum: PaymentsMethods,
-    required: true
-  },
-  value: {
-    type: Number,
-    required: true
-  },
-  paymentDate: {
-    type: Date,
-    required: true
-  },
-  note: String
-}, {
-  _id: false,
-  id: true,
-  timestamps: true
-});
+  {
+    _id: false,
+    id: true,
+    timestamps: true
+  }
+);
 
 paymentSchema.post("save", async function () {
   await InvoiceProductModel.updateOne(
@@ -66,6 +69,9 @@ paymentSchema.pre("save", async function (next) {
   next();
 });
 
-const PaymentModel = model<MongooseIdSchema<Payment>>("payments", paymentSchema);
+const PaymentModel = model<MongooseIdSchema<Payment>>(
+  "payments",
+  paymentSchema
+);
 
 export default PaymentModel;

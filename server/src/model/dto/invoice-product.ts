@@ -16,6 +16,8 @@ class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" 
   deliveryDate?: Date | undefined;
   retirementDate?: Date | undefined;
   payments?: PaymentDTO[] | number[];
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor (invoiceProduct: MongooseIdSchema<InvoiceProduct>) {
     this.id = invoiceProduct._id;
@@ -37,6 +39,8 @@ class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" 
           : new PaymentDTO(payment);
       });
     }
+    this.createdAt = invoiceProduct.createdAt;
+    this.updatedAt = invoiceProduct.updatedAt;
   }
 }
 

@@ -6,12 +6,16 @@ class ProductDTO implements MongooseDTO<Product> {
   name: string;
   period: number;
   price: number;
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor (product: MongooseIdSchema<Product>) {
     this.id = product._id;
     this.name = product.name;
     this.period = product.period;
     this.price = product.price;
+    this.createdAt = product.createdAt;
+    this.updatedAt = product.updatedAt;
   }
 }
 

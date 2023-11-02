@@ -16,6 +16,8 @@ export interface Invoice {
   client: Client | number
   status: InvoiceStatus
   products?: Array<MongooseIdSchema<InvoiceProduct>>
+  createdAt?: string
+  updatedAt?: string
 }
 
 const invoiceSchema = new Schema<MongooseIdSchema<Invoice>>({

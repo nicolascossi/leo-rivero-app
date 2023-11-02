@@ -10,6 +10,8 @@ class ClientDTO implements MongooseDTO<Client> {
   name: string;
   note?: string;
   phone: string;
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor (client: MongooseIdSchema<Client>) {
     this.id = client._id;
@@ -20,6 +22,8 @@ class ClientDTO implements MongooseDTO<Client> {
     this.name = client.name;
     this.note = client.note;
     this.phone = client.phone;
+    this.createdAt = client.createdAt;
+    this.updatedAt = client.updatedAt;
   }
 }
 

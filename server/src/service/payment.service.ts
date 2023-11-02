@@ -26,14 +26,12 @@ class PaymentService {
   async create ({
     invoiceProduct,
     method,
-    note,
     paymentDate,
     value
   }: Payment): Promise<PaymentDTO> {
     const payment = new PaymentModel({
       invoiceProduct,
       method,
-      note,
       paymentDate,
       value
     });
@@ -43,11 +41,12 @@ class PaymentService {
     return new PaymentDTO(newPayment);
   }
 
+  /*
   async update (
     id: string,
     {
       note
-    }: Pick<Payment, "note">
+    }: <Payment, "note">
   ): Promise<PaymentDTO | null> {
     const updatedPayment = await PaymentModel.findByIdAndUpdate(
       { _id: id },
@@ -58,6 +57,7 @@ class PaymentService {
     );
     return updatedPayment !== null ? new PaymentDTO(updatedPayment) : null;
   }
+  */
 
   async delete (id: string): Promise<void> {
     const payment = await PaymentModel.findById({ id });

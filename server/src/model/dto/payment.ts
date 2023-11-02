@@ -7,17 +7,19 @@ class PaymentDTO implements Omit<MongooseDTO<Payment>, "invoiceProduct"> {
   id: number;
   invoiceProduct: number | InvoiceProductDTO;
   method: PaymentsMethods;
-  note: string;
   paymentDate: Date;
   value: number;
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor (payment: MongooseIdSchema<Payment>) {
     this.id = payment._id;
     this.invoiceProduct = typeof payment.invoiceProduct === "number" ? payment.invoiceProduct : new InvoiceProductDTO(payment.invoiceProduct as MongooseIdSchema<InvoiceProduct>);
     this.method = payment.method;
-    this.note = payment.note;
     this.paymentDate = payment.paymentDate;
     this.value = payment.value;
+    this.createdAt = payment.createdAt;
+    this.updatedAt = payment.updatedAt;
   }
 }
 

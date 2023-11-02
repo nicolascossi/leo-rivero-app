@@ -6,6 +6,8 @@ export interface Product {
   name: string
   price: number
   period: number
+  createdAt?: string
+  updatedAt?: string
 }
 
 const productSchema = new Schema<MongooseIdSchema<Product>>({
