@@ -391,7 +391,7 @@ async function editarPedido(e) {
   let rows = "";
 
   InfoPedido.products.forEach(item => {
-    const name = `${item.product.name} #${item.id}`;
+    const name = `${item.product.name} #${item.numberId}`;
     const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
     const total = totalPeriods * item.price;
     totalSumEl += total;
@@ -425,6 +425,9 @@ async function editarPedido(e) {
       })))
     })
     retireButton.forEach((button) => {
+      button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
       button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
         return product.id === Number(e.target.dataset.invoiceProductId)
       })))
@@ -522,12 +525,19 @@ async function addNewItem(invoiceId) {
 }
 
 async function addPayment(invoiceProduct) {
-  console.log(invoiceProduct);
   const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
+
+  const spanData1 = document.getElementById('ItemData')
+  spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
+
   modal.show();
 }
 
-async function retireInvoiceProduct(invoiceProductId) {
+async function retireInvoiceProduct(invoiceProduct) {
   const modal = new bootstrap.Modal("#invoiceRetire");
+
+  const spanData2 = document.getElementById('ItemData2')
+  spanData2.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
+  
   modal.show();
 }
