@@ -307,29 +307,8 @@
 
               <div class="items-rent">
                 <div class="items-resume" id="item-list">
-                  <div class="parent-items-resume">
-                    <div class="div1">
-                      <p class="title-column">Item</p>
-                      <p id="itemnameandnumber"></p>
-                    </div>
-
-                    <div class="div2">
-                      <p class="title-column">Dia de entrega</p>
-                      <p id="delivery_date"></p>
-                    </div>
-
-                    <div class="div3">
-                      <p class="title-column">Periodos</p>
-                      <p id="total_periods"></p>
-                    </div>
-                    <div class="div4">
-                      <p class="title-column">Precio x Perido</p>
-                      <p id="period_price"></p>
-                    </div>
-                    <div class="div5">
-                      <p class="title-column">Total</p>
-                      <p id="total"></p>
-                    </div>
+                  <div class="parent-items-resume" id="parent-items-table">
+                    
                   </div>
                 </div>
               </div>
@@ -385,31 +364,19 @@
               </div>
 
               <div class="items-resume">
-                <div class="parent-items-resume">
-                  <div class="div1" id="itemnameandnumber-ed">
-                  
-                    
-                  </div>
-                  <div class="div2" id="delivery_date-ed">
-                  
-
-                  </div>
-                  <div class="div3" id="total_periods-ed">
-                    
-                    
-                  </div>
-                  <div class="div4" id="period_price-ed">
-                 
-                    
-                  </div>
-                  <div class="div5" id="total-ed">
-                    
-                    
+                <div class="parent-items-resume" id="parent-items-table-ed">
+                  <div class="parent-items-resume--head parent-items-row">
+                    <p>Item</p>
+                    <p>Dia de entrega</p>
+                    <p>Periodos</p>
+                    <p>Controles</p>
+                    <p>Total</p>
+                  </div>                    
                     <p class="pending-total" id="total-ed"></p>
                   </div>
                 </div>
               </div>
-              <button class="save-invoice-changes">Agregar Item Nuevo</button>
+              <button class="save-invoice-changes" id="invoice-add-item">Agregar Item Nuevo</button>
               <div class="amount-due-resume">
                 <p class="">Total confirmado</p>
                 <p>$10000</p>
@@ -427,11 +394,50 @@
         </div>
       </div>
     </div>
+    <!-- NEW ITEM MODAL -->
+    <!-- HTML del modal resumen pedido -->
+    <div class="modal fade" id="invoiceNewItemModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="retire-modal">
+            <h1 class="title-modal">Registre un nuevo producto en el pedido {Pedido #80}</h1>
+            <p class="indicaiones">Indique la fecha en la que se entrego este producto.</p>
+            <div class="inputs-new-item-information">
+                <input
+                  type="text"
+                  placeholder="Item"
+                  list="item"
+                  class="item-input"
+                  id="item-input"
+                />
+                <datalist id="item">
+                  <option value="Volquete"></option>
+                  <option value="Obrador"></option>
+                </datalist>
+
+                <input
+                  type="number"
+                  placeholder="N°"
+                  class="number-input"
+                  id="item-number"
+                />
+                <input type="date" class="date-input" id="date-item" />
+
+              </div>
+
+            
+            <button id="registrarPago">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Agrega un contenedor para mostrar las alertas -->
     <div
       id="alert-container"
       class="position-fixed top-0 start-50 translate-middle-x mt-2"
     ></div>
+
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

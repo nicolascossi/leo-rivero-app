@@ -920,10 +920,6 @@ height: 55px;
     margin: 15px 20px;
 }
 
-.modal-resume-invoice p{
-    margin-bottom: 5px !important;
-}
-
 .left-heading-content {
     display: flex;
     flex-direction: row;
@@ -1012,11 +1008,6 @@ height: 55px;
 
 
 .parent-items-resume {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
     background-color: #F8F9FE;
     border-radius: 8px;
     width: 100%;
@@ -1024,10 +1015,16 @@ height: 55px;
     height: auto;
     padding: 15px 40px;
     margin-top: 20px;
-    }
+}
 
-.parent-items-resume p {
-    margin-bottom: 10px !important;
+.parent-items-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 5px;
+}
+
+.parent-items-row p {
+    margin-bottom: 0;
 }
 
 .title-column {
@@ -1124,8 +1121,8 @@ height: 55px;
     cursor: pointer;
 }
 
-.client-info {
-
+.client-info p{
+    margin-bottom: 5px;
 }
 
 .info-client-title {
@@ -1452,11 +1449,6 @@ height: 55px;
     margin-bottom: 0px !important;
 }
 
-.div1 p,.div2 p,.div3 p,.div4 p,.div5 p {
-    margin-bottom: 0px !important;
-}
-
-
 .inputs-new-item-information {
     display: flex;
     flex-direction: row;
@@ -1465,4 +1457,8 @@ height: 55px;
 
 .inputs-new-item-information input{
     width: 32%;
+}
+
+#invoiceNewItemModal.modal {
+    z-index: 9999 !important;
 }

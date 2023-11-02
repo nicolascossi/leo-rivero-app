@@ -86,7 +86,7 @@ async function mostrarPedidos() {
     const { data: invoices } = await getInvoices();
     const contenido = document.querySelector('#pedidos');
   
-    const promises = invoices.map(async (invoice) => {
+    invoices.map(async (invoice) => {
       const div = document.createElement('div');
       div.classList.add('invoice');
   
@@ -114,8 +114,6 @@ async function mostrarPedidos() {
         totalSum += itemTotal;
       });
   
-     
-  
       const invoiceTotal = document.createElement('p');
       invoiceTotal.classList.add('invoice-total');
       invoiceTotal.textContent = '$' + parseFloat(totalSum.toFixed(2));
@@ -132,8 +130,6 @@ async function mostrarPedidos() {
       div.appendChild(invoiceTotal);
       div.appendChild(infoPedidoBtn);
       contenido.appendChild(div);
-
-      return infoPedidoBtn;
     });
 
   } catch (error) {
@@ -275,32 +271,34 @@ async function obtenerInformacionFactura(orderId) {
     
 
     let totalSumEl = 0;
-    let itemNamesAndNumbersEl = '';
-    let totalPeriodsEl = '';
-    let periodPricesEl = '';
-    let itemTotalsEl = '';
-    let deliveryDateEl = '';
+
+    const head = `<div class="parent-items-resume--head parent-items-row">
+    <p>Item</p>
+    <p>Dia de entrega</p>
+    <p>Periodos</p>
+    <p>Precio/Pedido</p>
+    <p>Total</p>
+  </div>`
+
+    let rows = ""
 
     pedido.products.forEach(item => {
-
-      itemNamesAndNumbersEl += `<p>${item.product.name} #${item.id}</p>`;
       const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
-      totalPeriodsEl += `<p>${totalPeriods}</p>`;
-      periodPricesEl += `<p>${item.price}</p>`;
       const total = totalPeriods * item.price;
-      itemTotalsEl += `<p>$${total}</p>`;
-      deliveryDateEl += `<p>${new Date(item.deliveryDate).toLocaleDateString(undefined, {
-        dateStyle: "short"
-      })}</p>`;
-
       totalSumEl += total;
+
+      rows += `
+      <div class="parent-items-row">
+        <p>${item.product.name} #${item.numberId}</p>
+        <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
+        <p>${totalPeriods}</p>
+        <p>${item.price}</p>
+        <p>${total}</p>
+      </div>
+      `
     });
 
-    document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbersEl;
-    document.getElementById('delivery_date').innerHTML = deliveryDateEl;
-    document.getElementById('total_periods').innerHTML = totalPeriodsEl;
-    document.getElementById('period_price').innerHTML = periodPricesEl;
-    document.getElementById('total').innerHTML = itemTotalsEl;
+    document.getElementById('parent-items-table').innerHTML = `${head}${rows}`;
     document.getElementById('invoiceTotal').textContent = `$${totalSumEl}`;
 
     const modal = document.getElementById('invoiceResumeModal');
@@ -383,41 +381,42 @@ async function editarPedido(e) {
   document.getElementById('date-ed').textContent = new Date (InfoPedido.createdAt).toLocaleDateString()
 
   let totalSumEl = 0;
-  let itemNamesAndNumbersEl = '<p class="title-column" id="itemnameandnumber-ed">Item</p>';
-  let totalPeriodsEl = '<p class="title-column" id="total_periods-ed">Periodos</p>';
-  let controlsEl = '<p class="title-column" id="period_price-ed">Controles</p>';
-  let itemTotalsEl = '<p class="title-column">Total</p>';
-  let deliveryDateEl = '<p class="title-column" id="delivery_date-ed">Dia de entrega</p>';
+
+  const head = `<div class="parent-items-resume--head parent-items-row">
+  <p>Item</p>
+  <p>Dia de entrega</p>
+  <p>Periodos</p>
+  <p>Controles</p>
+  <p>Total</p>
+</div>`
+  let rows = "";
 
   InfoPedido.products.forEach(item => {
+    const name = `${item.product.name} #${item.id}`;
+    const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+    const total = totalPeriods * item.price;
+    totalSumEl += total;
 
+    rows += `
+    <div class="parent-items-row">
+      <p>${name}</p>
+      <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
+      <p>${totalPeriods}</p>
+      <p>
+        <button class="control" data-invoice-product-id="${item.id}">
+          <i class="bx bx-money-withdraw icon-control"></i>
+        </button>
+        <button class="control gap-button" data-invoice-product-id="${item.id}">
+          <i class="bx bxs-caret-up-circle icon-control"></i>
+        </button>
+      </p>
+      <p>${total}</p>
+    </div>
+    `
+  });
 
-
-      itemNamesAndNumbersEl += `<p>${item.product.name} #${item.id}</p>`;
-      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
-      totalPeriodsEl += `<p>${totalPeriods}</p>`;
-      const cobrar = `<button class="control">
-      <i class="bx bx-money-withdraw icon-control"></i>
-    </button>`;
-      const retire = `<button class="control gap-button">
-      <i class="bx bxs-caret-up-circle icon-control"></i>
-    </button>`;
-      controlsEl += `<p>${cobrar} ${retire}</p>`
-      const total = totalPeriods * item.price;
-      itemTotalsEl += `<p>$${total}</p>`;
-      deliveryDateEl += `<p>${new Date(item.deliveryDate).toLocaleDateString(undefined, {
-        dateStyle: "short"
-      })}</p>`;
-
-      totalSumEl += total;
-    });
-
-
-    document.getElementById('itemnameandnumber-ed').innerHTML += itemNamesAndNumbersEl;
-    document.getElementById('delivery_date-ed').innerHTML += deliveryDateEl;
-    document.getElementById('total_periods-ed').innerHTML += totalPeriodsEl;
-    document.getElementById('period_price-ed').innerHTML += controlsEl;
-    document.getElementById('total-ed').innerHTML += itemTotalsEl;
+    document.getElementById("invoice-add-item").dataset.invoiceId = pedidoId;
+    document.getElementById('parent-items-table-ed').innerHTML = `${head}${rows}`;
     document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
     
 }
@@ -498,4 +497,14 @@ async function registrarPago() {
   const modal = document.getElementById('newPaymentModal');
   const modalBootstrap = bootstrap.Modal.getInstance(modal);
   modalBootstrap.hide();
+}
+
+const addItemToInvoiceButton = document.getElementById("invoice-add-item");
+addItemToInvoiceButton.addEventListener("click", (e) => {
+  addNewItem(e.currentTarget.dataset.invoiceId);
+})
+
+async function addNewItem(invoiceId) {
+  const modal = new bootstrap.Modal("#invoiceNewItemModal");
+  modal.show();
 }
