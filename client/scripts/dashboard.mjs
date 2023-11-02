@@ -102,7 +102,7 @@ async function mostrarPedidos() {
       invoiceAddress.textContent = invoice.address;
   
       let totalSum = 0;
-      const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
+      const ivaPercentage = 1.21; // El porcentaje de IVA es 21%
   
       invoice.products.forEach(item => {
         const date = new Date(item.deliveryDate);
@@ -114,10 +114,7 @@ async function mostrarPedidos() {
         totalSum += itemTotal;
       });
   
-      if (invoice.IVA) {
-        const ivaAmount = totalSum * ivaPercentage;
-        totalSum += ivaAmount;
-      }
+     
   
       const invoiceTotal = document.createElement('p');
       invoiceTotal.classList.add('invoice-total');
@@ -262,7 +259,7 @@ async function obtenerInformacionFactura(orderId) {
     console.log("PEDIDO:", pedido);
     document.getElementById('id').textContent = `#${pedido.id}`;
     document.getElementById('delivery_address').textContent = pedido.address;
-    document.getElementById('date').textContent = pedido.deliveryDate;
+    document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
 
     const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
     finalizarPedidoBtn.dataset.pedidoId = pedido.id;
@@ -274,6 +271,7 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('client-name').textContent = cliente.name;
     document.getElementById('client-phone').textContent = cliente.phone;
     document.getElementById('client-email').textContent = cliente.email;
+    document.getElementById('client-cuit').textContent = cliente.CUIT;
     
 
     let totalSumEl = 0;
@@ -348,13 +346,13 @@ function eliminarPedido(id) {
 
 
 
-// EDITAR CLIENTE
+// EDITAR pedido
 const botonEditarPedido = document.querySelector('#editar-pedido');
 botonEditarPedido.addEventListener('click', editarPedido);
 
-function editarPedido(e) {
-  const pedidoId = e.target.dataset["pedido-id"]; // Obtener el valor correcto del atributo "data-client-id"
-  console.log(`Editando cliente... ${pedidoId}`);
+async function editarPedido(e) {
+  const pedidoId = e.target.dataset.pedidoId; // Obtener el valor correcto del atributo "data-client-id"
+  console.log(`Editando pedido... ${pedidoId}`);
 
   // Oculta el modal actual (resumeClientModal)
   const resumePedidoModal = document.getElementById('invoiceResumeModal');
@@ -372,42 +370,56 @@ function editarPedido(e) {
   // Muestra el modal de edición
   const editingClientModalInstance = new bootstrap.Modal(editingInvoiceModal);
   editingClientModalInstance.show();
+  
+  const {data: InfoPedido} = await getInvoice(pedidoId)
 
-  // Luego, puedes continuar con la lógica para obtener los datos del cliente y llenar el modal.
-  const urlApi = `${url}clients`;
 
-  // Realiza una solicitud a la API para obtener los datos del cliente
-  fetch(`${urlApi}/${clienteId}`)
-    .then(response => response.json())
-    .then(data => {
-      // Llena los campos del modal con los datos del cliente
-      const nombreInput = document.querySelector('#client-name');
-      const phoneInput = document.querySelector('#client-phone');
-      const cuitInput = document.querySelector('#client-cuit');
-      const emailInput = document.querySelector('#client-email');
-      const adressInput = document.querySelector('#client-adress');
-      const extrasInput = document.querySelector('#client-extras');
+  document.getElementById('date-ed').textContent = new Date (InfoPedido.createdAt).toLocaleDateString()
+  document.getElementById('client-name-ed').textContent = InfoPedido.client.name
+  document.getElementById('client-phone-ed').textContent = InfoPedido.client.phone
+  document.getElementById('client-cuit-ed').textContent = InfoPedido.client.CUIT
+  document.getElementById('client-email-ed').textContent = InfoPedido.client.email
 
-      nombreInput.value = data.name;
-      phoneInput.value = data.phone;
-      cuitInput.value = data.CUIT;
-      emailInput.value = data.email;
-      adressInput.value = data.address;
-      extrasInput.value = data.extras;
+  document.getElementById('date-ed').textContent = new Date (InfoPedido.createdAt).toLocaleDateString()
 
-      // Oculta el modal después de cargar los datos
-      const modal = document.getElementById('editingClientModal');
-      const modalBootstrap = new bootstrap.Modal(modal);
-      modalBootstrap.hide();
+  let totalSumEl = 0;
+  let itemNamesAndNumbersEl = '<p class="title-column" id="itemnameandnumber-ed">Item</p>';
+  let totalPeriodsEl = '<p class="title-column" id="total_periods-ed">Periodos</p>';
+  let controlsEl = '<p class="title-column" id="period_price-ed">Controles</p>';
+  let itemTotalsEl = '<p class="title-column">Total</p>';
+  let deliveryDateEl = '<p class="title-column" id="delivery_date-ed">Dia de entrega</p>';
 
-      // Agregar un manejador de eventos al botón "patch-client-button"
-      const patchClientButton = document.getElementById('patch-client-button');
-      patchClientButton.dataset.clientId = clienteId; // Asignar el ID del cliente al botón
-      patchClientButton.addEventListener('click', actualizarCliente);
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos del cliente:', error);
+  InfoPedido.products.forEach(item => {
+
+
+
+      itemNamesAndNumbersEl += `<p>${item.product.name} #${item.id}</p>`;
+      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+      totalPeriodsEl += `<p>${totalPeriods}</p>`;
+      const cobrar = `<button class="control">
+      <i class="bx bx-money-withdraw icon-control"></i>
+    </button>`;
+      const retire = `<button class="control gap-button">
+      <i class="bx bxs-caret-up-circle icon-control"></i>
+    </button>`;
+      controlsEl += `<p>${cobrar} ${retire}</p>`
+      const total = totalPeriods * item.price;
+      itemTotalsEl += `<p>$${total}</p>`;
+      deliveryDateEl += `<p>${new Date(item.deliveryDate).toLocaleDateString(undefined, {
+        dateStyle: "short"
+      })}</p>`;
+
+      totalSumEl += total;
     });
+
+
+    document.getElementById('itemnameandnumber-ed').innerHTML += itemNamesAndNumbersEl;
+    document.getElementById('delivery_date-ed').innerHTML += deliveryDateEl;
+    document.getElementById('total_periods-ed').innerHTML += totalPeriodsEl;
+    document.getElementById('period_price-ed').innerHTML += controlsEl;
+    document.getElementById('total-ed').innerHTML += itemTotalsEl;
+    document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
+    
 }
 
 // Función para actualizar al cliente

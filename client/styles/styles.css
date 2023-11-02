@@ -706,10 +706,11 @@ height: 55px;
 
 .section-modal-title {
     margin-bottom: 0px;
-}
+}save-discard-buttons
 
 .items-information p {
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .invoice-number {
@@ -807,7 +808,7 @@ height: 55px;
 
 .save-discard-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 20px;
 }
 
@@ -1030,7 +1031,7 @@ height: 55px;
 }
 
 .title-column {
-    color: #8D8D8D;
+    color: black;
     font-weight: 500;
 }
 
@@ -1449,4 +1450,19 @@ height: 55px;
 
 .product p {
     margin-bottom: 0px !important;
+}
+
+.div1 p,.div2 p,.div3 p,.div4 p,.div5 p {
+    margin-bottom: 0px !important;
+}
+
+
+.inputs-new-item-information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.inputs-new-item-information input{
+    width: 32%;
 }
