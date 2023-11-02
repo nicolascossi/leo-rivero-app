@@ -349,7 +349,6 @@ botonEditarPedido.addEventListener('click', editarPedido);
 
 async function editarPedido(e) {
   const pedidoId = e.target.dataset.pedidoId; // Obtener el valor correcto del atributo "data-client-id"
-  console.log(`Editando pedido... ${pedidoId}`);
 
   // Oculta el modal actual (resumeClientModal)
   const resumePedidoModal = document.getElementById('invoiceResumeModal');

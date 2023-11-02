@@ -1447,7 +1447,9 @@ height: 55px;
     border-radius: 8px;
     font-size: 18px;
 }
-
+.modal-content {
+    padding: 10px !important;
+}
 .product-button2:hover {
     border: none;
     background-color: #000000;
