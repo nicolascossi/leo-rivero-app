@@ -403,7 +403,7 @@ async function editarPedido(e) {
       <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
       <p>${totalPeriods}</p>
       <p>
-        <button class="control" data-invoice-product-id="${item.id}">
+        <button class="control add-payment" data-invoice-product-id="${item.id}">
           <i class="bx bx-money-withdraw icon-control"></i>
         </button>
         <button class="control gap-button" data-invoice-product-id="${item.id}">
@@ -416,7 +416,10 @@ async function editarPedido(e) {
   });
 
     document.getElementById("invoice-add-item").dataset.invoiceId = pedidoId;
-    document.getElementById('parent-items-table-ed').innerHTML = `${head}${rows}`;
+    const table = document.getElementById('parent-items-table-ed');
+    table.innerHTML = `${head}${rows}`;
+    const paymentButton = table.querySelector(".add-payment");
+    paymentButton.addEventListener("click", (e) => addPayment(e.currentTarget.dataset.invoiceProductId))
     document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
     
 }
@@ -506,5 +509,10 @@ addItemToInvoiceButton.addEventListener("click", (e) => {
 
 async function addNewItem(invoiceId) {
   const modal = new bootstrap.Modal("#invoiceNewItemModal");
+  modal.show();
+}
+
+async function addPayment(invoiceProductId) {
+  const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
   modal.show();
 }

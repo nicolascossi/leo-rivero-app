@@ -33,6 +33,31 @@
     font-family: 'Poppins', sans-serif;
   }
 
+.modal {
+    z-index: auto;
+    background-color: #00000040;
+}
+
+#newInvoiceModal {
+    z-index: 1100;
+}
+
+#invoiceResumeModal {
+    z-index: 1150;
+}
+
+#editingInvoiceModal {
+    z-index: 1200;
+}
+
+#invoiceNewItemModal {
+    z-index: 1250;
+}
+
+#invoiceNewPaymentModal {
+    z-index: 1300;
+}
+
 /* Estilo para las alertas */
 #alert-container {
     z-index: 9999; /* Asegura que esté por encima de otros elementos */
@@ -1457,8 +1482,4 @@ height: 55px;
 
 .inputs-new-item-information input{
     width: 32%;
-}
-
-#invoiceNewItemModal.modal {
-    z-index: 9999 !important;
 }
