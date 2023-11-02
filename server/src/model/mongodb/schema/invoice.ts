@@ -11,7 +11,7 @@ export enum InvoiceStatus {
 
 export interface Invoice {
   address: string
-  IVA: boolean
+  IVA?: boolean
   isArchived: boolean
   client: Client | number
   status: InvoiceStatus
@@ -30,7 +30,7 @@ const invoiceSchema = new Schema<MongooseIdSchema<Invoice>>({
   },
   IVA: {
     type: Boolean,
-    required: true
+    default: false
   },
   isArchived: {
     type: Boolean,

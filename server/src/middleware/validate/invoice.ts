@@ -12,7 +12,7 @@ export const createInvoice = (
   try {
     const Schema = z.object({
       address: z.string(),
-      IVA: z.boolean(),
+      IVA: z.optional(z.boolean()),
       client: z.number()
     });
 
@@ -41,7 +41,7 @@ export const updateInvoice = (
   try {
     const Schema = z.object({
       address: z.string(),
-      IVA: z.boolean()
+      IVA: z.optional(z.boolean())
     });
 
     Schema.partial().parse(req.body);

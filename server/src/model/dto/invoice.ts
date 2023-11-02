@@ -6,7 +6,7 @@ import type { Client } from "@model/mongodb/schema/client";
 
 class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
   id: number;
-  IVA: boolean;
+  IVA?: boolean;
   address: string;
   client: number | ClientDTO;
   isArchived: boolean;
