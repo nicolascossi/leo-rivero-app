@@ -58,6 +58,10 @@
     z-index: 1300;
 }
 
+#invoiceRetire {
+    z-index: 1300;
+}
+
 /* Estilo para las alertas */
 #alert-container {
     z-index: 9999; /* Asegura que esté por encima de otros elementos */

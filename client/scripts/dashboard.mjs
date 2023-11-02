@@ -10,6 +10,7 @@ import { createInvoiceProduct } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js"; 
 import { createPayment } from "./services/payments.js"; 
 import { calcPeriods } from "./utils/product.js";
+import { getActualDate } from "./utils/date.js";
 
 let newInvoice = {
   items: []
@@ -164,7 +165,7 @@ function guardarItemPedido() {
   const nuevoItem = {
     product: Number(itemInput.dataset.id),
     numberId: Number(itemNumber),
-    deliveryDate: new Date(itemDate).toISOString(),
+    deliveryDate: getActualDate(itemDate)
   };
 
   newInvoice.items.push(nuevoItem);
@@ -209,16 +210,14 @@ async function guardarPedido() {
   const clientId = document.getElementById('invoice-client');
   const date = document.getElementById('InvoiceDate').value;
   const deliveryAddress = document.getElementById('deliveryAddress').value;
-  const iva = document.getElementById('iva').value;
 
   if (clientId === "" || date === "" || deliveryAddress === "") {
     return;
   }
 
   newInvoice.client = Number(clientId.dataset.id);
-  newInvoice.date = new Date(date).toISOString();
+  newInvoice.date = getActualDate(date);
   newInvoice.address = deliveryAddress;
-  newInvoice.IVA = iva === "on";
   newInvoice.city = "Bahia Blanca";
   newInvoice.postalCode = 8000;
 
@@ -403,10 +402,10 @@ async function editarPedido(e) {
       <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
       <p>${totalPeriods}</p>
       <p>
-        <button class="control add-payment" data-invoice-product-id="${item.id}">
+        <button class="control add-payment-button" data-invoice-product-id="${item.id}">
           <i class="bx bx-money-withdraw icon-control"></i>
         </button>
-        <button class="control gap-button" data-invoice-product-id="${item.id}">
+        <button class="control gap-button retire-button" data-invoice-product-id="${item.id}">
           <i class="bx bxs-caret-up-circle icon-control"></i>
         </button>
       </p>
@@ -418,8 +417,14 @@ async function editarPedido(e) {
     document.getElementById("invoice-add-item").dataset.invoiceId = pedidoId;
     const table = document.getElementById('parent-items-table-ed');
     table.innerHTML = `${head}${rows}`;
-    const paymentButton = table.querySelector(".add-payment");
-    paymentButton.addEventListener("click", (e) => addPayment(e.currentTarget.dataset.invoiceProductId))
+    const paymentButton = table.querySelectorAll(".add-payment-button");
+    const retireButton = table.querySelectorAll(".retire-button");
+    paymentButton.forEach((button) => {
+      button.addEventListener("click", (e) => addPayment(e.currentTarget.dataset.invoiceProductId))
+    })
+    retireButton.forEach((button) => {
+      button.addEventListener("click", (e) => retireInvoiceProduct(e.currentTarget.dataset.invoiceProductId))
+    })
     document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
     
 }
@@ -514,5 +519,10 @@ async function addNewItem(invoiceId) {
 
 async function addPayment(invoiceProductId) {
   const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
+  modal.show();
+}
+
+async function retireInvoiceProduct(invoiceProductId) {
+  const modal = new bootstrap.Modal("#invoiceRetire");
   modal.show();
 }
