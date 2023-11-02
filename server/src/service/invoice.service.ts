@@ -12,6 +12,7 @@ class InvoiceService {
     }
   ): Promise<InvoiceDTO[]> {
     const invoices = await InvoiceModel.find(cleanUndefinedValues(query), { __v: 0 })
+      .populate("client")
       .populate({
         path: "products",
         populate: {
@@ -24,6 +25,7 @@ class InvoiceService {
 
   async getById (id: string): Promise<InvoiceDTO | null> {
     const invoice = await InvoiceModel.findById({ _id: id }, { __v: 0 })
+      .populate("client")
       .populate({
         path: "products",
         populate: {
