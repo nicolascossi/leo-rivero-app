@@ -155,7 +155,7 @@ function guardarItemPedido() {
   const itemDate = document.getElementById('date-item').value;
 
   const listaItems = document.getElementById('lista-items');
-  const itemAdded = itemInput + ` #${itemNumber}`;
+  const itemAdded = itemInput.value + ` #${itemNumber}`;
 
   if (!itemInput.dataset.id || itemNumber === "" || itemDate === "") {
     mostrarAlerta('danger', '¡Completa todos los campos.');
@@ -283,6 +283,7 @@ async function obtenerInformacionFactura(orderId) {
 
     pedido.products.forEach(item => {
       const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+      console.log(totalPeriods);
       const total = totalPeriods * item.price;
       totalSumEl += total;
 
@@ -419,10 +420,14 @@ async function editarPedido(e) {
     const paymentButton = table.querySelectorAll(".add-payment-button");
     const retireButton = table.querySelectorAll(".retire-button");
     paymentButton.forEach((button) => {
-      button.addEventListener("click", (e) => addPayment(e.currentTarget.dataset.invoiceProductId))
+      button.addEventListener("click", (e) => addPayment(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
     })
     retireButton.forEach((button) => {
-      button.addEventListener("click", (e) => retireInvoiceProduct(e.currentTarget.dataset.invoiceProductId))
+      button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
+        return product.id === Number(e.target.dataset.invoiceProductId)
+      })))
     })
     document.getElementById('invoiceTotal-ed').textContent = `$${totalSumEl}`;
     
@@ -516,7 +521,8 @@ async function addNewItem(invoiceId) {
   modal.show();
 }
 
-async function addPayment(invoiceProductId) {
+async function addPayment(invoiceProduct) {
+  console.log(invoiceProduct);
   const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
   modal.show();
 }
