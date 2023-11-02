@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
     if (event.target.matches('.status-button')) {
-      const orderId = event.target.dataset["invoice-id"];
+      const orderId = event.target.dataset.invoiceId;
       obtenerInformacionFactura(orderId);
     }
   });
@@ -274,7 +274,7 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('client-name').textContent = cliente.name;
     document.getElementById('client-phone').textContent = cliente.phone;
     document.getElementById('client-email').textContent = cliente.email;
-    console.error('Error al obtener los datos del cliente:', error);
+    
 
     let totalSumEl = 0;
     let itemNamesAndNumbersEl = '';
