@@ -8,6 +8,7 @@ import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
 import { createInvoiceProduct } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js"; 
+import { calcPeriods } from "./utils/product.js";
 
 let newInvoice = {
   items: []
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
     if (event.target.matches('.status-button')) {
-      const orderId = event.target.dataset["invoice-id"];
+      const orderId = event.target.dataset.invoiceId;
       obtenerInformacionFactura(orderId);
     }
   });
@@ -102,8 +103,6 @@ async function mostrarPedidos() {
       let totalSum = 0;
       const ivaPercentage = 0.21; // El porcentaje de IVA es 21%
   
-      console.log(invoice.products);
-
       invoice.products.forEach(item => {
         const date = new Date(item.deliveryDate);
         const difference = new Date().getTime() - date.getTime();
@@ -140,9 +139,6 @@ async function mostrarPedidos() {
     });
   
     const buttons = await Promise.all(promises);
-    buttons.forEach(button => {
-      button.addEventListener('click', obtenerInformacionFactura);
-    }); 
   } catch (error) {
     console.error(error)
   }
@@ -175,7 +171,7 @@ function guardarItemPedido() {
   const nuevoItem = {
     product: Number(itemInput.dataset.id),
     numberId: Number(itemNumber),
-    deliveryDate: itemDate,
+    deliveryDate: new Date(itemDate).toISOString(),
   };
 
   newInvoice.items.push(nuevoItem);
@@ -256,7 +252,6 @@ async function guardarPedido() {
 }
 
 async function obtenerInformacionFactura(orderId) {
-  console.log(orderId);
   if (!orderId) {
     console.error('No se pudo obtener el ID del pedido');
     return;
@@ -264,6 +259,7 @@ async function obtenerInformacionFactura(orderId) {
 
   try {
     const { data: pedido } = await getInvoice(orderId);
+    console.log("PEDIDO:", pedido);
     document.getElementById('id').textContent = `#${pedido.id}`;
     document.getElementById('delivery_address').textContent = pedido.address;
     document.getElementById('date').textContent = pedido.deliveryDate;
@@ -278,31 +274,35 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('client-name').textContent = cliente.name;
     document.getElementById('client-phone').textContent = cliente.phone;
     document.getElementById('client-email').textContent = cliente.email;
-    console.error('Error al obtener los datos del cliente:', error);
 
-    let totalSum = 0;
-    let itemNamesAndNumbers = '';
-    let totalPeriods = '';
-    let periodPrices = '';
-    let itemTotals = '';
-    let deliveryDate = '';
+    let totalSumEl = 0;
+    let itemNamesAndNumbersEl = '';
+    let totalPeriodsEl = '';
+    let periodPricesEl = '';
+    let itemTotalsEl = '';
+    let deliveryDateEl = '';
 
     pedido.products.forEach(item => {
-      totalSum += item.total;
 
-      itemNamesAndNumbers += `<p>${item.name} #${item.id}</p>`;
-      totalPeriods += `<p>${item.total_periods}</p>`;
-      periodPrices += `<p>${item.period_price}</p>`;
-      itemTotals += `<p>$${item.total}</p>`;
-      deliveryDate += `<p>${item.delivery_date}</p>`;
+      itemNamesAndNumbersEl += `<p>${item.product.name} #${item.id}</p>`;
+      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+      totalPeriodsEl += `<p>${totalPeriods}</p>`;
+      periodPricesEl += `<p>${item.price}</p>`;
+      const total = totalPeriods * item.price;
+      itemTotalsEl += `<p>$${total}</p>`;
+      deliveryDateEl += `<p>${new Date(item.deliveryDate).toLocaleDateString(undefined, {
+        dateStyle: "short"
+      })}</p>`;
+
+      totalSumEl += total;
     });
 
-    document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbers;
-    document.getElementById('delivery_date').innerHTML = deliveryDate;
-    document.getElementById('total_periods').innerHTML = totalPeriods;
-    document.getElementById('period_price').innerHTML = periodPrices;
-    document.getElementById('total').innerHTML = itemTotals;
-    document.getElementById('invoiceTotal').textContent = `$${totalSum}`;
+    document.getElementById('itemnameandnumber').innerHTML = itemNamesAndNumbersEl;
+    document.getElementById('delivery_date').innerHTML = deliveryDateEl;
+    document.getElementById('total_periods').innerHTML = totalPeriodsEl;
+    document.getElementById('period_price').innerHTML = periodPricesEl;
+    document.getElementById('total').innerHTML = itemTotalsEl;
+    document.getElementById('invoiceTotal').textContent = `$${totalSumEl}`;
 
     const modal = document.getElementById('invoiceResumeModal');
     const modalBootstrap = new bootstrap.Modal(modal);
