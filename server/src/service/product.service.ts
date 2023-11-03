@@ -41,7 +41,7 @@ class ProductService {
     }: Product
   ): Promise<ProductDTO | null> {
     const updatedProduct = await ProductModel.findOneAndUpdate(
-      { id },
+      { _id: id },
       {
         name,
         period,
@@ -54,13 +54,13 @@ class ProductService {
   }
 
   async delete (id: string): Promise<void> {
-    const product = await ProductModel.findById({ id });
+    const product = await ProductModel.findById({ _id: id });
 
     if (product === null) {
       throw createHttpError.NotFound("Product not founded");
     }
 
-    await ProductModel.deleteOne({ id });
+    await ProductModel.deleteOne({ _id: id });
   }
 }
 

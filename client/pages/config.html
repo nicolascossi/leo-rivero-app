@@ -115,23 +115,7 @@
 
         <div class="products-list" id="productos">
 
-            <div class="producto parent-products">
-                <div class="div1-product">
-                    <p class="product-heading">Producto</p>
-                    <p class="product-name">Volquete</p>
-                </div>
-                <div class="div2-product">
-                    <p class="product-heading">Periodos</p>
-                    <p class="product-name">15 Dias</p>
-                </div>
-                <div class="div3-product">
-                    <p class="product-heading">Precio por Periodo</p>
-                    <p class="product-name">$15000</p>
-                </div>
-                <div class="div4-product">
-                    <button class="editar-producto">Editar Producto</button>
-                </div>
-            </div>
+
 
             
 
@@ -140,7 +124,7 @@
 
       </section>
 
-      <div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newInvoiceModalLabel" aria-hidden="true">
+      <div class="modal z-index-modal" id="newProductModal" tabindex="1" aria-labelledby="newInvoiceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content-new-client">
               <div class="modal-container-newclient">
@@ -165,37 +149,34 @@
       </div>
       </div>
 
-      <!-- EDITANDO CLIENTE -->
-<div class="modal fade" id="editingProductModal" tabindex="-1" aria-labelledby="editingProductModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content-new-client">
-          <div class="modal-container-newclient">
-            <div class="newclient-form">
-                <div class="heading-new-cliente">
-                    <p class="title-modal">
-                        Editando Producto
-                    </p>
+      <div class="modal z-index-modal" id="editingProductModal" tabindex="1" aria-labelledby="editingProductModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content-new-client">
+              <div class="modal-container-newclient">
+                <div class="newclient-form">
+                    <div class="heading-new-cliente">
+                        <p class="title-modal">
+                            Editando Producto
+                        </p>
+                    </div>
+                <div class="inputs-newclient">
+                    <p class="subheading-modal">Informacion del producto</p>
+                    <input type="text" placeholder="Nombre del producto" id="product-name">
+                    <input type="number" placeholder="Precio por periodo" id="product-price">
+                    <input type="text" placeholder="Periodo en dias" id="product-period">
                 </div>
-            <div class="inputs-newclient">
-                <p class="subheading-modal">Informacion del producto</p>
-                <input type="text" placeholder="Nombre del producto" id="product-name">
-                <input type="text" placeholder="Precio por periodo" id="period-price">
-                <input type="text" placeholder="Periodo en dias" id="period-days">
-            </div>
-            <div class="button-save-client">
-                <button class="save-client" id="patch-product-button">Actualizar Producto</button>
-            </div>
-    </div>
+                <div class="button-save-client">
+                    <button class="update-product" id="update-product-button">Actualizar producto</button>
+                </div>
         </div>
-        </div>
-  </div>
-  </div>
-
-
+            </div>
+            </div>
+      </div>
+      </div>
 
 
       <script src="../scripts/navbar.js"></script>
-      <script src="../scripts/product.js"></script>
+      <script type="module" src="../scripts/config.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1489,3 +1489,7 @@ height: 55px;
 .inputs-new-item-information input{
     width: 32%;
 }
+
+.modal-backdrop.show {
+    display: none !important;
+}
