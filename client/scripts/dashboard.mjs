@@ -6,11 +6,12 @@ import { createInvoice, getInvoice, getInvoices } from "./services/invoices.js";
 import { getClient, getClients } from "./services/client.js";
 import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
-import { createInvoiceProduct } from "./services/invoice-products.js";
+import { createInvoiceProduct, updateInvoiceProduct } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js"; 
 import { createPayment } from "./services/payments.js"; 
 import { calcPeriods } from "./utils/product.js";
 import { getActualDate } from "./utils/date.js";
+
 
 let newInvoice = {
   items: []
@@ -106,10 +107,7 @@ async function mostrarPedidos() {
       const ivaPercentage = 1.21; // El porcentaje de IVA es 21%
   
       invoice.products.forEach(item => {
-        const date = new Date(item.deliveryDate);
-        const difference = new Date().getTime() - date.getTime();
-        const days = Math.floor(difference / 1000 / 60 / 60 / 24);
-        const totalPeriods = Math.floor(days / item.period);
+        const totalPeriods = calcPeriods(new Date(item.deliveryDate),item.retirementDate, item.period);
         const itemTotal = totalPeriods * item.price;
 
         totalSum += itemTotal;
@@ -282,7 +280,8 @@ async function obtenerInformacionFactura(orderId) {
     let rows = ""
 
     pedido.products.forEach(item => {
-      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
+      console.log(totalPeriods)
       const subtotal = totalPeriods * item.price;
       const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
       const total = subtotal - payed;
@@ -485,45 +484,13 @@ function actualizarCliente(e) {
     });
 }
 
-const botonRegistarPago = document.getElementById('registrarPago')
-botonRegistarPago.addEventListener('click', registrarPago )
-console.log(botonRegistarPago)
-async function registrarPago() {
-  const invoiceProduct = document.getElementById('newclient-name').value;
-  const value = document.getElementById('payment-amount').value;
-  const method = document.getElementById('payment-method').value;
-  const paymentDate = document.getElementById('payment-date').value;
-
-
-  const nuevoPago = {
-    invoiceProduct: invoiceProduct,
-    paymentMethod: method,
-    value: value,
-    paymentDate: paymentDate,
-
-  };
-
-  try {
-    const client = await createPayment(nuevoPago);
-    console.log(client);
-  } catch (error) {    
-    console.error('Error:', error);
-  }
-
-  const modal = document.getElementById('newPaymentModal');
-  const modalBootstrap = bootstrap.Modal.getInstance(modal);
-  modalBootstrap.hide();
-}
 
 const addItemToInvoiceButton = document.getElementById("invoice-add-item");
 addItemToInvoiceButton.addEventListener("click", (e) => {
   addNewItem(e.currentTarget.dataset.invoiceId);
 })
 
-async function addNewItem(invoiceId) {
-  const modal = new bootstrap.Modal("#invoiceNewItemModal");
-  modal.show();
-}
+
 
 async function addPayment(invoiceProduct) {
   const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
@@ -538,6 +505,8 @@ async function addPayment(invoiceProduct) {
 const registrarPagoBtn = document.getElementById('registrarPago')
 registrarPagoBtn.addEventListener('click', async ()=>{
 
+  const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
+
   const metodo = document.getElementById('payment-options-input').value
   const paymentValue = Number(document.getElementById('item-value-amount').value)
   const date = document.getElementById('date-payment-item').value
@@ -551,13 +520,49 @@ registrarPagoBtn.addEventListener('click', async ()=>{
   }
 
   await createPayment(pago)
+  modal.hide()
 })
+
+
+const fechaRetiroBtn = document.getElementById('FechaRetiroConfirmar')
+fechaRetiroBtn.addEventListener('click', async () =>{
+
+  const modal = new bootstrap.Modal("#invoiceRetire");
+  
+  const fechaInput = document.getElementById('RetiroFecha').value
+
+  const retiro = {
+    retirementDate: getActualDate(fechaInput)
+  }
+
+  await updateInvoiceProduct(fechaRetiroBtn.dataset.invoiceProductId ,retiro)
+  modal.hide()
+} )
+
 
 async function retireInvoiceProduct(invoiceProduct) {
   const modal = new bootstrap.Modal("#invoiceRetire");
-
+  fechaRetiroBtn.dataset.invoiceProductId = invoiceProduct.id
   const spanData2 = document.getElementById('ItemData2')
   spanData2.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
   
+  modal.show();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function addNewItem(invoiceId) {
+  const modal = new bootstrap.Modal("#invoiceNewItemModal");
   modal.show();
 }

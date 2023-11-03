@@ -131,7 +131,7 @@ function ImprimirMapa() {
     map.on('load', function() {
       var marker = new mapboxgl.Marker()
         .setLngLat([-62.235690, -38.689509])
-        .setPopUp(new mapboxgl.Popup().setHTML("Hello world"))
+        .setPopup(new mapboxgl.Popup().setHTML("Hello world"))
         .addTo(map);
 
   
