@@ -131,10 +131,11 @@ function ImprimirMapa() {
     map.on('load', function() {
       var marker = new mapboxgl.Marker()
         .setLngLat([-62.235690, -38.689509])
+        .setPopUp(new mapboxgl.Popup().setHTML("Hello world"))
         .addTo(map);
 
   
-      fetch('  http://localhost:4000/invoices')
+      fetch('http://localhost:4000/invoices')
         .then(response => response.json())
         .then(data => {
           data.forEach(invoice => {

@@ -28,9 +28,14 @@ class InvoiceService {
       .populate("client")
       .populate({
         path: "products",
-        populate: {
-          path: "product"
-        }
+        populate: [
+          {
+            path: "product"
+          },
+          {
+            path: "payments"
+          }
+        ]
       });
 
     return invoice !== null ? new InvoiceDTO(invoice) : null;

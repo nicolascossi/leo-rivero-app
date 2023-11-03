@@ -283,8 +283,9 @@ async function obtenerInformacionFactura(orderId) {
 
     pedido.products.forEach(item => {
       const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
-      console.log(totalPeriods);
-      const total = totalPeriods * item.price;
+      const subtotal = totalPeriods * item.price;
+      const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
+      const total = subtotal - payed;
       totalSumEl += total;
 
       rows += `
@@ -393,7 +394,9 @@ async function editarPedido(e) {
   InfoPedido.products.forEach(item => {
     const name = `${item.product.name} #${item.numberId}`;
     const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
-    const total = totalPeriods * item.price;
+    const subtotal = totalPeriods * item.price;
+    const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
+    const total = subtotal - payed;
     totalSumEl += total;
 
     rows += `
