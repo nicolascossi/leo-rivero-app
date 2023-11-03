@@ -1,208 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../img/whitelogo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="../styles/navbar.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../img/whitelogo.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/navbar.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <title>Leo Rivero | Mapa</title>
-</head>
-<body>
+  </head>
+
+  <body>
     <!-- SIDE BAR -->
 
-      <nav class="sidebar close">
-          <header>
-              <div class="image-text">
-                  <span class="image">
-                        <img src="../img/whitelogo.png" alt="">
-                  </span>
-  
-                  <div class="text logo-text">
-                      <span class="name">Leonardo Rivero</span>
-                      <span class="profession">Administracion</span>
-                  </div>
-              </div>
-  
-              <i class='bx bx-chevron-right toggle'></i>
-          </header>
-  
-          <div class="menu-bar">
-              <div class="menu">
-  
-                  <ul class="menu-links">
-                      <li class="nav-link">
-                          <a href="./dashboard.html">
-                            <i class='bx bxs-dashboard icon'></i>
-                              <span class="text nav-text">Pedidos</span>
-                          </a>
-                      </li>
-  
-                      <li class="nav-link">
-                          <a href="./clients.html">
-                            <i class='bx bxs-user-account icon'></i>
-                              <span class="text nav-text">Clientes</span>
-                          </a>
-                      </li>
-  
-                      <li class="nav-link">
-                          <a href="./map.html">
-                            <i class='bx bxs-map icon'></i>
-                              <span class="text nav-text">Mapa</span>
-                          </a>
-                      </li>
-  
-                      <li class="nav-link">
-                          <a href="./notes.html">
-                            <i class='bx bxs-notepad icon'></i>
-                              <span class="text nav-text">Notas</span>
-                          </a>
-                      </li>
-  
-  
-                  </ul>
-              </div>
-  
-              <div class="bottom-content">
+    <nav class="sidebar close">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="../img/whitelogo.png" alt="" />
+          </span>
 
-                <li class="">
-                    <a href="./config.html">
-                        <i class='bx bx-cog icon'></i>
-                        <span class="text nav-text">Configuracion</span>
-                    </a>
-                </li>
-
-                  <li class="">
-                      <a href="###">
-                          <i class='bx bx-log-out icon' ></i>
-                          <span class="text nav-text">Salir</span>
-                      </a>
-                  </li>
-
-
-
-                  
-              </div>
+          <div class="text logo-text">
+            <span class="name">Leonardo Rivero</span>
+            <span class="profession">Administracion</span>
           </div>
-  
-      </nav>
-  
+        </div>
+
+        <i class="bx bx-chevron-right toggle"></i>
+      </header>
+
+      <div class="menu-bar">
+        <div class="menu">
+          <ul class="menu-links">
+            <li class="nav-link">
+              <a href="./dashboard.html">
+                <i class="bx bxs-dashboard icon"></i>
+                <span class="text nav-text">Pedidos</span>
+              </a>
+            </li>
+
+            <li class="nav-link">
+              <a href="./clients.html">
+                <i class="bx bxs-user-account icon"></i>
+                <span class="text nav-text">Clientes</span>
+              </a>
+            </li>
+
+            <li class="nav-link">
+              <a href="./map.html">
+                <i class="bx bxs-map icon"></i>
+                <span class="text nav-text">Mapa</span>
+              </a>
+            </li>
+
+            <li class="nav-link">
+              <a href="./notes.html">
+                <i class="bx bxs-notepad icon"></i>
+                <span class="text nav-text">Notas</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bottom-content">
+          <li class="">
+            <a href="./config.html">
+              <i class="bx bx-cog icon"></i>
+              <span class="text nav-text">Configuracion</span>
+            </a>
+          </li>
+
+          <li class="">
+            <a href="###">
+              <i class="bx bx-log-out icon"></i>
+              <span class="text nav-text">Salir</span>
+            </a>
+          </li>
+        </div>
+      </div>
+    </nav>
+
     <!-- TODO EL CONTENIDO -->
 
-      <section class="home dashboard">
+    <section class="home dashboard">
+      <!-- TITULO ,FILTER & NUEVO PEDIDO -->
 
-        <!-- TITULO ,FILTER & NUEVO PEDIDO -->
+      <div class="heading-dashboard">
+        <div class="heading">
+          <p class="section-title">Mapa de Items</p>
+        </div>
+        <div class="buttons-heading">
+          <button
+            class="filter btn btn-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Filtros
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Volquetes</a></li>
+            <li><a class="dropdown-item" href="#">Obradores</a></li>
+            <li><a class="dropdown-item" href="#">Todos</a></li>
+          </ul>
+        </div>
+      </div>
 
-          <div class="heading-dashboard">
-            <div class="heading">
-                <p class="section-title">Mapa de Items</p>
-            </div>
-            <div class="buttons-heading">
-              
-                <button class="filter btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtros</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Volquetes</a></li>
-                    <li><a class="dropdown-item" href="#">Obradores</a></li>
-                    <li><a class="dropdown-item" href="#">Todos</a></li>
-                  </ul>
-            </div>
-          </div>
+      <!-- CONTAINER SEARCHBAR -->
 
-        <!-- CONTAINER SEARCHBAR -->
+      <div class="searchbar-container">
+        <input
+          type="text"
+          placeholder="Busca por numero de item o de orden, o nombre de cliente."
+        />
+      </div>
 
-          <div class="searchbar-container">
-            <input type="text" placeholder="Busca por numero de item o de orden, o nombre de cliente." >
-          </div>
+      <div class="mapbox map-container" id="map"></div>
+    </section>
 
-          <div class="mapbox map-container" id="map"></div>
-
-          <!-- HTML del modal resumen pedido -->
-<div class="modal fade" id="invoiceResumeModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <!-- Contenido del modal -->
-      <div class="modal-container">
-        <div class="modal-resume-invoice">
-          <div class="modal-resume-heading">
-            <div class="left-heading-content">
-              <p class="resume-number" id="id"></p>
-              <p class="adress-heading" id="delivery_address"></p>
-            </div>
-            <div>
-              <button class="finish-button" id="finalizar-pedido">Archivar</button>
-              <button class="edit-button" id="editar-pedido">Editar</button>
-            </div>
-            
-          </div>
-          
-              <div class="resume-info">
-                  <div class="paymentdays">
-                    <p class="subtitle-payment">Fecha del Pedido</p>
-                    <p class="date-payment" id="date"></p>
-                  </div>
-                  <div class="client-info">
-                    <p class="subtitle-payment">Informacion del Cliente</p>
-                    <p class="clientinfo" id="client-name"></p>
-                    <p class="clientinfo" id="client-phone"></p>
-                    <p class="clientinfo" id="client-email"></p>
-                  </div>
-                  <div class="items-alquilados">
-                      <p class="subtitle-payment">Items alquilados</p>
-                  </div>
-                  
+    <!-- HTML del modal resumen pedido -->
+    <div class="modal fade" id="invoiceResumeModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Contenido del modal -->
+          <div class="modal-container">
+            <div class="modal-resume-invoice">
+              <div class="modal-resume-heading">
+                <div class="left-heading-content">
+                  <p class="resume-number" id="id"></p>
+                  <p class="adress-heading" id="delivery_address"></p>
                 </div>
-         
-          
-          <div class="items-rent">
-              <div class="items-resume" id="item-list">
-                <div class="parent-items-resume">
-                  <div class="div1">
-                    <p class="title-column">Item</p>
-                    <p id="itemnameandnumber"></p>
-                  </div>
-                  
-                  <div class="div3">
-                    <p class="title-column">Periodos</p>
-                    <p id="total_periods"></p>
-                  </div>
-                  <div class="div4">
-                    <p class="title-column">Precio/Periodo</p>
-                    <p id="period_price"></p>
-                  </div>
-                  <div class="div5">
-                    <p class="title-column">Total</p>
-                    <p id="total"></p>
-                  </div>
-                  <div class="div2" id="controles">
-                    <p class="title-column">Controles</p>
-                    
-                  </div>
+                <div>
+                  <button class="finish-button" id="finalizar-pedido">
+                    Archivar
+                  </button>
+                  <button class="edit-button" id="editar-pedido">Editar</button>
                 </div>
               </div>
+
+              <div class="resume-info">
+                <div class="paymentdays">
+                  <p class="subtitle-payment">Fecha del Pedido</p>
+                  <p class="date-payment" id="date"></p>
+                </div>
+                <div class="client-info">
+                  <p class="subtitle-payment">Informacion del Cliente</p>
+                  <p class="clientinfo" id="client-name"></p>
+                  <p class="clientinfo" id="client-phone"></p>
+                  <p class="clientinfo" id="client-email"></p>
+                  <p class="clientinfo" id="client-cuit"></p>
+                </div>
+                <div class="items-alquilados">
+                  <p class="subtitle-payment">Items alquilados</p>
+                </div>
+              </div>
+
+              <div class="items-rent">
+                <div class="items-resume" id="item-list">
+                  <div
+                    class="parent-items-resume"
+                    id="parent-items-table"
+                  ></div>
+                </div>
+              </div>
+              <div class="amount-due-resume">
+                <p class="">Total confirmado</p>
+                <p id="invoiceTotal">$10000</p>
+              </div>
             </div>
-          <div class="amount-due-resume">
-            <p class="">Total confirmado</p>
-            <p id="invoiceTotal">$10000</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
+    <!-- MODAL EDITANDO PEDIDO -->
 
-      <script src="../scripts/navbar.js"></script>
-      <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-      <script type="module" src="../scripts/map.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-      
-    
-</body>
+    <div
+      class="modal fade"
+      id="editingInvoiceModal"
+      tabindex="-1"
+      aria-labelledby="editingInvoiceModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-resume modal-dialog-centered modal-dialog-scrollable modal-lg"
+      >
+        <div class="modal-content">
+          <div class="modal-container">
+            <div class="modal-resume-invoice">
+              <div class="modal-resume-heading">
+                <div class="left-heading-content">
+                  <p class="resume-number">#0001</p>
+                  <p class="adress-heading" id="delivery_address-ed"></p>
+                </div>
+              </div>
+              <div class="resume-info">
+                <div class="paymentdays">
+                  <p class="subtitle-payment">Fecha del Pedido</p>
+                  <p class="date-payment" id="date-ed"></p>
+                </div>
+                <div class="client-info">
+                  <p class="subtitle-payment">Informacion del Cliente</p>
+                  <p class="clientinfo" id="client-name-ed"></p>
+                  <p class="clientinfo" id="client-phone-ed"></p>
+                  <p class="clientinfo" id="client-email-ed"></p>
+                  <p class="clientinfo" id="client-cuit-ed"></p>
+                </div>
+                <div class="items-rent">
+                  <p class="subtitle-payment">Items alquilados</p>
+                  <p class="date-payment"><s></s></p>
+                </div>
+              </div>
+
+              <div class="items-resume">
+                <div class="parent-items-resume" id="parent-items-table-ed">
+                  <div class="parent-items-resume--head parent-items-row">
+                    <p>Item</p>
+                    <p>Dia de entrega</p>
+                    <p>Periodos</p>
+                    <p>Controles</p>
+                    <p>Total</p>
+                  </div>
+                  <p class="pending-total" id="total-ed"></p>
+                </div>
+              </div>
+            </div>
+            <button class="save-invoice-changes" id="invoice-add-item">
+              Agregar Item Nuevo
+            </button>
+            <div class="amount-due-resume">
+              <p class="">Total confirmado</p>
+              <p id="editar-invoice-confirmado">$10000</p>
+            </div>
+            <div class="buttons-editing-invoice">
+              <button class="save-invoice-changes final-button">
+                Archivar
+              </button>
+              <button class="save-invoice-changes final-button">
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW ITEM MODAL -->
+    <div class="modal fade" id="invoiceNewItemModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="retire-modal">
+            <h1 class="title-modal">Registre un nuevo producto en el pedido</h1>
+            <p class="indicaiones">
+              Indique la fecha en la que se entrego este producto.
+            </p>
+            <div class="inputs-new-item-information">
+              <input
+                type="text"
+                placeholder="Item"
+                list="item"
+                class="item-input"
+                id="item-input-new-item"
+              />
+              <datalist id="item-new-item">
+                <option value="Volquete"></option>
+                <option value="Obrador"></option>
+              </datalist>
+
+              <input
+                type="number"
+                placeholder="N°"
+                class="number-input"
+                id="item-number-new-item"
+              />
+              <input type="date" class="date-input" id="date-item-new-item" />
+            </div>
+
+            <button id="AgregarNuevoItem">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div class="modal fade" id="invoiceNewPaymentModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="retire-modal">
+            <h1 class="title-modal">
+              Registre el cobro del <span id="ItemData"></span>
+            </h1>
+            <p class="indicaiones">
+              Indique la fecha en la que el pago fue efectuado.
+            </p>
+            <div class="inputs-new-item-information">
+              <input
+                type="text"
+                placeholder="Metodo de pago"
+                list="payment-options"
+                class="item-input"
+                id="payment-options-input"
+              />
+              <datalist id="payment-options">
+                <option value="cash">Contado</option>
+                <option value="canje">Canje</option>
+                <option value="credit">Credito</option>
+                <option value="transfer">Transferencia</option>
+              </datalist>
+
+              <input
+                type="number"
+                placeholder="Monto abonado"
+                class="number-input"
+                id="item-value-amount"
+              />
+              <input type="date" class="date-input" id="date-payment-item" />
+            </div>
+            <button id="registrarPago">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HTML del modal retirar producto -->
+
+    <div class="modal fade" id="invoiceRetire">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="retire-modal">
+            <h1 class="title-modal">
+              Esta seguro que el <span id="ItemData2"></span> fue retirado?
+            </h1>
+            <p class="indicaiones">
+              Indique la fecha en la que el producto fue retirado.
+            </p>
+            <input type="date" id="RetiroFecha" />
+            <button id="FechaRetiroConfirmar">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/navbar.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <script type="module" src="../scripts/map.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

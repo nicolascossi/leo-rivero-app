@@ -107,12 +107,16 @@ async function mostrarPedidos() {
       const ivaPercentage = 1.21; // El porcentaje de IVA es 21%
   
       invoice.products.forEach(item => {
-        const totalPeriods = calcPeriods(new Date(item.deliveryDate),item.retirementDate, item.period);
-        const itemTotal = totalPeriods * item.price;
+        const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
+        const subtotal = totalPeriods * item.price;
+        const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
+        const total = subtotal - payed;
 
-        totalSum += itemTotal;
+        totalSum += total;
       });
   
+      console.log(totalSum);
+
       const invoiceTotal = document.createElement('p');
       invoiceTotal.classList.add('invoice-total');
       invoiceTotal.textContent = '$' + parseFloat(totalSum.toFixed(2));
@@ -121,6 +125,10 @@ async function mostrarPedidos() {
       infoPedidoBtn.classList.add('status-button');
       infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
       infoPedidoBtn.textContent = 'Status';
+      if(totalSum > 0) {
+        infoPedidoBtn.classList.add("bg-primary")
+        infoPedidoBtn.textContent = "A Cobrar"
+      }
 
       clientName.textContent = invoice.client.name;
       div.appendChild(orderNumber);
@@ -270,18 +278,18 @@ async function obtenerInformacionFactura(orderId) {
     let totalSumEl = 0;
 
     const head = `<div class="parent-items-resume--head parent-items-row">
-    <p>Item</p>
-    <p>Dia de entrega</p>
-    <p>Periodos</p>
-    <p>Precio/Pedido</p>
-    <p>Total</p>
+    <p class="text-start">Item</p>
+    <p class="text-center">Entrega</p>
+    <p class="text-center">Retiro</p>
+    <p class="text-center">Periodos</p>
+    <p class="text-center">Precio/Pedido</p>
+    <p class="text-end">Total</p>
   </div>`
 
     let rows = ""
 
     pedido.products.forEach(item => {
       const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
-      console.log(totalPeriods)
       const subtotal = totalPeriods * item.price;
       const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
       const total = subtotal - payed;
@@ -289,11 +297,12 @@ async function obtenerInformacionFactura(orderId) {
 
       rows += `
       <div class="parent-items-row">
-        <p>${item.product.name} #${item.numberId}</p>
-        <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
-        <p>${totalPeriods}</p>
-        <p>${item.price}</p>
-        <p>${total}</p>
+        <p class="text-start">${item.product.name} #${item.numberId}</p>
+        <p class="text-center">${new Date(item.deliveryDate).toLocaleDateString()}</p>
+        <p class="text-center">${item.retirementDate ? new Date(item.retirementDate).toLocaleDateString() : "No se retiró"}</p>
+        <p class="text-center">${totalPeriods}</p>
+        <p class="text-center">$${item.price}</p>
+        <p class="text-end">$${total}</p>
       </div>
       `
     });
@@ -382,17 +391,18 @@ async function editarPedido(e) {
   let totalSumEl = 0;
 
   const head = `<div class="parent-items-resume--head parent-items-row">
-  <p>Item</p>
-  <p>Dia de entrega</p>
-  <p>Periodos</p>
-  <p>Controles</p>
-  <p>Total</p>
+  <p class="text-start">Item</p>
+  <p class="text-center">Entrega</p>
+  <p class="text-center">Retiro</p>
+  <p class="text-center">Periodos</p>
+  <p class="text-center">Controles</p>
+  <p class="text-end">Total</p>
 </div>`
   let rows = "";
 
   InfoPedido.products.forEach(item => {
     const name = `${item.product.name} #${item.numberId}`;
-    const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.period);
+    const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
     const subtotal = totalPeriods * item.price;
     const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
     const total = subtotal - payed;
@@ -400,10 +410,11 @@ async function editarPedido(e) {
 
     rows += `
     <div class="parent-items-row">
-      <p>${name}</p>
-      <p>${new Date(item.deliveryDate).toLocaleDateString()}</p>
-      <p>${totalPeriods}</p>
-      <p>
+      <p class="text-start">${name}</p>
+      <p class="text-center">${new Date(item.deliveryDate).toLocaleDateString()}</p>
+      <p class="text-center">${item.retirementDate ? new Date(item.retirementDate).toLocaleDateString() : "No se retiró"}</p>
+      <p class="text-center">${totalPeriods}</p>
+      <p class="text-center">
         <button class="control add-payment-button" data-invoice-product-id="${item.id}">
           <i class="bx bx-money-withdraw icon-control"></i>
         </button>
@@ -411,12 +422,14 @@ async function editarPedido(e) {
           <i class="bx bxs-caret-up-circle icon-control"></i>
         </button>
       </p>
-      <p>${total}</p>
+      <p class="text-end">$${total}</p>
     </div>
     `
   });
 
     document.getElementById("invoice-add-item").dataset.invoiceId = pedidoId;
+    const totalElement = document.getElementById("editar-invoice-confirmado");
+    if(totalElement) totalElement.innerText = `$${totalSumEl}`; 
     const table = document.getElementById('parent-items-table-ed');
     table.innerHTML = `${head}${rows}`;
     const paymentButton = table.querySelectorAll(".add-payment-button");
@@ -549,20 +562,34 @@ async function retireInvoiceProduct(invoiceProduct) {
   modal.show();
 }
 
+const addNewItemButton = document.getElementById("AgregarNuevoItem");
+addNewItemButton.addEventListener("click", async (e) => {
+  const itemInput = document.getElementById("item-input-new-item");
+  const numberInput = document.getElementById("item-number-new-item");
+  const dateInput = document.getElementById("date-item-new-item");
+  const datalist = [...document.querySelectorAll("#item-new-item > option")];
 
 
+  const newItem = {
+    numberId: Number(numberInput.value),
+    product: Number(datalist.find((option) => option.value === itemInput.value)?.dataset?.id),
+    invoice: Number(addNewItemButton.dataset.invoiceId),
+    deliveryDate: getActualDate(dateInput.value)
+  }
 
-
-
-
-
-
-
-
-
-
+  await createInvoiceProduct(newItem);
+})
 
 async function addNewItem(invoiceId) {
   const modal = new bootstrap.Modal("#invoiceNewItemModal");
+
+  const { data: products } = await getProducts();
+
+  const datalistNewItems = document.getElementById("item-new-item");
+  datalistNewItems.innerHTML = products.map((product) => `<option value="${product.name}" data-id="${product.id}">${product.name}</option>`).join("")
+
+  const button = document.getElementById("AgregarNuevoItem");
+  button.dataset.invoiceId = invoiceId
+  
   modal.show();
 }

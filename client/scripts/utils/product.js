@@ -2,8 +2,9 @@ export const calcPeriods = (date, retirementDate, period) => {
   const difference = (retirementDate ? new Date(retirementDate) : new Date()).getTime() - date.getTime();
   const days = Math.floor(difference / 1000 / 60 / 60 / 24);
 
-  const periodos = Math.floor(days / period);
+  const periodos = days / period;
 
+  if(periodos < 0) return 0;
   if (periodos % 1 >= 0.5) {
     // Redondear hacia arriba
     const resultadoRedondeado = Math.ceil(periodos);
@@ -11,9 +12,4 @@ export const calcPeriods = (date, retirementDate, period) => {
   } else {
     return Math.floor(periodos);
   }
-
-
-  
-
-
 }

@@ -15,9 +15,14 @@ class InvoiceService {
       .populate("client")
       .populate({
         path: "products",
-        populate: {
-          path: "product"
-        }
+        populate: [
+          {
+            path: "product"
+          },
+          {
+            path: "payments"
+          }
+        ]
       });
 
     return invoices.map((invoice) => new InvoiceDTO(invoice));
