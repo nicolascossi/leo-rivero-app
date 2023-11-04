@@ -196,7 +196,7 @@ function borrarCliente(e) {
 const botonEditarCliente = document.querySelector('#editar-cliente-modal');
 botonEditarCliente.addEventListener('click', editarCliente);
 
-function editarCliente(e) {
+async function editarCliente(e) {
   const clienteId = e.target.dataset.clientId; // Obtener el valor correcto del atributo "data-client-id"
   console.log(`Editando cliente... ${clienteId}`);
 
@@ -221,6 +221,7 @@ function editarCliente(e) {
 
   try {
     // Realiza una solicitud a la API para obtener los datos del cliente
+    const { data } = await getClient(clienteId);
     // Llena los campos del modal con los datos del cliente
     const nombreInput = document.querySelector('#client-name');
     const phoneInput = document.querySelector('#client-phone');
@@ -229,17 +230,12 @@ function editarCliente(e) {
     const adressInput = document.querySelector('#client-adress');
     const extrasInput = document.querySelector('#client-extras');
   
-    nombreInput.value = data.name;
-    phoneInput.value = data.phone;
-    cuitInput.value = data.CUIT;
-    emailInput.value = data.email;
-    adressInput.value = data.address;
-    extrasInput.value = data.extras;
-  
-    // Oculta el modal después de cargar los datos
-    const modal = document.getElementById('editingClientModal');
-    const modalBootstrap = new bootstrap.Modal(modal);
-    modalBootstrap.hide();
+    nombreInput.value = data.name ?? "";
+    phoneInput.value = data.phone ?? "";
+    cuitInput.value = data.CUIT ?? "";
+    emailInput.value = data.email ?? "";
+    adressInput.value = data.address ?? "";
+    extrasInput.value = data.extras ?? "";
   
     // Agregar un manejador de eventos al botón "patch-client-button"
     const patchClientButton = document.getElementById('patch-client-button');
@@ -262,7 +258,7 @@ async function actualizarCliente(e) {
   const nuevoPhone = document.querySelector('#client-phone').value;
   const nuevoCuit = document.querySelector('#client-cuit').value;
   const nuevoEmail = document.querySelector('#client-email').value;
-  const nuevoAdress = document.querySelector('#client-adress').value;
+  const nuevoAddress = document.querySelector('#client-adress').value;
   const nuevosExtras = document.querySelector('#client-extras').value;
 
   // Crear un objeto con los datos actualizados
@@ -271,21 +267,20 @@ async function actualizarCliente(e) {
     phone: nuevoPhone,
     CUIT: nuevoCuit,
     email: nuevoEmail,
-    address: nuevoAdress,
+    address: nuevoAddress,
     note: nuevosExtras
   };
 
   try {
-    const response = await updateClient(clienteId, datosActualizados)
+    await updateClient(clienteId, datosActualizados)
     // Realizar una solicitud PATCH a la API para actualizar al cliente
-    if (response.ok) {
-      // La actualización fue exitosa
-      console.log('Cliente actualizado correctamente.');
-      // Puedes realizar otras acciones aquí después de la actualización.
-    } else {
-       // Error al actualizar
-      console.error('Error al actualizar el cliente.');
-    }
+    // La actualización fue exitosa
+    console.log('Cliente actualizado correctamente.');
+    // Puedes realizar otras acciones aquí después de la actualización.
+    // Oculta el modal después de cargar los datos
+    const modal = document.getElementById('editingClientModal');
+    const modalBootstrap = new bootstrap.Modal(modal);
+    modalBootstrap.hide();
   } catch (error) {    
     console.error('Error al enviar la solicitud de actualización:', error);
   }
