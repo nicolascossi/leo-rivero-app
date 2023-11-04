@@ -6,8 +6,7 @@ export interface Client {
   name: string
   email: string
   phone: string
-  city?: string
-  postalCode?: number
+  address: string
   CUIT: string
   note?: string
   createdAt?: string
@@ -44,21 +43,12 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
     required: true,
     unique: true
   },
-  city: {
-    type: String
-  },
-  postalCode: {
-    type: Number
+  address: {
+    type: String,
+    required: true
   },
   CUIT: {
     type: String,
-    validate: {
-      validator: function (v: string) {
-        return /^\d{2}-?\d{8}-?\d$/.test(v);
-      },
-      message: "The value is not a valid CUIT"
-    },
-    unique: true,
     required: true
   },
   note: String

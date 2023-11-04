@@ -11,14 +11,13 @@ export const createClient = (
 ): void => {
   try {
     const Schema = z.object({
-      CUIT: z.string().regex(/^\d{2}-?\d{8}-?\d$/),
+      CUIT: z.string(),
       email: z.string().trim().email(),
       name: z.string().max(30),
       phone: z
         .string()
         .regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i),
-      city: z.optional(z.string().trim()),
-      postalCode: z.optional(z.number()),
+      address: z.optional(z.string().trim()),
       note: z.optional(z.string())
     });
 
@@ -45,7 +44,7 @@ export const updateClient = (
 ): void => {
   try {
     const Schema = z.object({
-      CUIT: z.string().regex(/^\d{2}-\d{8}-\d$/),
+      CUIT: z.string(),
       email: z.string().trim().email(),
       name: z.string().max(30),
       phone: z

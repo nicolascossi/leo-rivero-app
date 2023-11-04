@@ -3,8 +3,7 @@ import type { MongooseDTO, MongooseIdSchema } from "@model/mongodb/types/schema"
 
 class ClientDTO implements MongooseDTO<Client> {
   CUIT: string;
-  city?: string;
-  postalCode?: number;
+  address: string;
   email: string;
   id: number;
   name: string;
@@ -16,8 +15,7 @@ class ClientDTO implements MongooseDTO<Client> {
   constructor (client: MongooseIdSchema<Client>) {
     this.id = client._id;
     this.CUIT = client.CUIT;
-    this.city = client.city;
-    this.postalCode = client.postalCode;
+    this.address = client.address;
     this.email = client.email;
     this.name = client.name;
     this.note = client.note;

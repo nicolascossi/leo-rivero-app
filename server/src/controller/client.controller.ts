@@ -39,8 +39,7 @@ class ClientController {
         email,
         CUIT,
         phone,
-        city,
-        postalCode,
+        address,
         note
       } = req.body as Client;
       const client = await clientService.create({
@@ -48,8 +47,7 @@ class ClientController {
         email,
         CUIT,
         phone,
-        city,
-        postalCode,
+        address,
         note
       });
 
@@ -70,8 +68,7 @@ class ClientController {
         email,
         CUIT,
         phone,
-        city,
-        postalCode,
+        address,
         note
       } = req.body as Client;
       const clientId = req.params.id;
@@ -81,8 +78,7 @@ class ClientController {
         email,
         CUIT,
         phone,
-        city,
-        postalCode,
+        address,
         note
       });
 
