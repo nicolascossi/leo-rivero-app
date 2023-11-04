@@ -14,14 +14,13 @@ class ClientService {
     return client !== null ? new ClientDTO(client) : null;
   }
 
-  async create ({ name, email, CUIT, phone, city, postalCode, note }: Client): Promise<Client> {
+  async create ({ name, email, CUIT, phone, address, note }: Client): Promise<Client> {
     const client = new ClientModel({
       name,
       email,
       CUIT,
       phone,
-      city,
-      postalCode,
+      address,
       note
     });
     const newClient = await client.save();
@@ -36,8 +35,7 @@ class ClientService {
       email,
       CUIT,
       phone,
-      city,
-      postalCode,
+      address,
       note
     }: Client
   ): Promise<ClientDTO | null> {
@@ -48,8 +46,7 @@ class ClientService {
         email,
         CUIT,
         phone,
-        city,
-        postalCode,
+        address,
         note
       },
       { new: true }
