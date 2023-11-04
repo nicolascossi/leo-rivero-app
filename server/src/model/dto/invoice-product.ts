@@ -9,8 +9,8 @@ import ProductDTO from "./product";
 class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" | "invoice" | "product"> {
   id: number;
   numberId: number;
-  invoice: number | InvoiceDTO;
-  product: number | ProductDTO;
+  invoice?: number | InvoiceDTO;
+  product?: number | ProductDTO;
   period: number;
   price: number;
   deliveryDate?: Date | undefined;
@@ -22,12 +22,16 @@ class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" 
   constructor (invoiceProduct: MongooseIdSchema<InvoiceProduct>) {
     this.id = invoiceProduct._id;
     this.numberId = invoiceProduct.numberId;
-    this.invoice = typeof invoiceProduct.invoice === "number"
-      ? invoiceProduct.invoice
-      : new InvoiceDTO(invoiceProduct.invoice as MongooseIdSchema<Invoice>);
-    this.product = typeof invoiceProduct.product === "number"
-      ? invoiceProduct.product
-      : new ProductDTO(invoiceProduct.product as MongooseIdSchema<Product>);
+    if (invoiceProduct.invoice !== null) {
+      this.invoice = typeof invoiceProduct.invoice === "number"
+        ? invoiceProduct.invoice
+        : new InvoiceDTO(invoiceProduct.invoice as MongooseIdSchema<Invoice>);
+    }
+    if (invoiceProduct.product !== null) {
+      this.product = typeof invoiceProduct.product === "number"
+        ? invoiceProduct.product
+        : new ProductDTO(invoiceProduct.product as MongooseIdSchema<Product>);
+    }
     this.period = invoiceProduct.period;
     this.price = invoiceProduct.price;
     this.deliveryDate = invoiceProduct.deliveryDate;
