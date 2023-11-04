@@ -54,7 +54,7 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
     type: String,
     validate: {
       validator: function (v: string) {
-        return /^\d{2}-\d{8}-\d$/.test(v);
+        return /^\d{2}-?\d{8}-?\d$/.test(v);
       },
       message: "The value is not a valid CUIT"
     },
