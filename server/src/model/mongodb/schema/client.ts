@@ -4,10 +4,10 @@ import type { MongooseIdSchema } from "../types/schema";
 
 export interface Client {
   name: string
-  email: string
-  phone: string
-  address: string
-  CUIT: string
+  email?: string
+  phone?: string
+  address?: string
+  CUIT?: string
   note?: string
   createdAt?: string
   updatedAt?: string
@@ -23,33 +23,21 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
   },
   email: {
     type: String,
-    validate: {
-      validator: function (v: string) {
-        return /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi.test(v);
-      },
-      message: "The value is not a valid email"
-    },
     unique: true,
-    required: true
+    required: false
   },
   phone: {
     type: String,
-    validate: {
-      validator: function (v: string) {
-        return /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/gi.test(v);
-      },
-      message: "The value is not a valid phone"
-    },
-    required: true,
+    required: false,
     unique: true
   },
   address: {
     type: String,
-    required: true
+    required: false
   },
   CUIT: {
     type: String,
-    required: true
+    required: false
   },
   note: String
 }, {

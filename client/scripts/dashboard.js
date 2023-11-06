@@ -282,7 +282,7 @@ async function obtenerInformacionFactura(orderId) {
     <p class="text-center">Entrega</p>
     <p class="text-center">Retiro</p>
     <p class="text-center">Periodos</p>
-    <p class="text-center">Precio/Pedido</p>
+    <p class="text-center">Precio/Periodo</p>
     <p class="text-end">Total</p>
   </div>`
 
