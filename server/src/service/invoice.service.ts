@@ -17,7 +17,11 @@ class InvoiceService {
         path: "products",
         populate: [
           {
-            path: "product"
+            path: "product",
+            // TODO: MAKE THE PRODUCT GET THE PRICE BY PERIODS
+            match () {
+              return true;
+            }
           },
           {
             path: "payments"
