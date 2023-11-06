@@ -68,11 +68,13 @@ class InvoiceProductController {
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const {
+        manualPeriod,
         retirementDate
       } = req.body as InvoiceProduct;
       const invoiceProductId = req.params.id;
       const doc = await invoiceProductService.update(invoiceProductId, {
-        retirementDate
+        retirementDate,
+        manualPeriod
       });
 
       void res.json({

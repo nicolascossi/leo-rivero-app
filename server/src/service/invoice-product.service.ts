@@ -66,12 +66,14 @@ class InvoiceProductService {
   async update (
     id: string,
     {
+      manualPeriod,
       retirementDate
-    }: Pick<InvoiceProduct, "retirementDate">
+    }: Pick<InvoiceProduct, "retirementDate" | "manualPeriod">
   ): Promise<InvoiceProductDTO | null> {
     const updatedInvoiceProduct = await InvoiceProductModel.findOneAndUpdate(
       { _id: id },
       {
+        manualPeriod,
         retirementDate
       },
       { new: true }

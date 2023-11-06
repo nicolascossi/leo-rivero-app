@@ -1268,7 +1268,7 @@ height: 55px;
 
 .control {
     height: 30px;
-    width: 30px;
+
     border: none;
     background-color: var(--black-color);
     border-radius: 4px;
@@ -1493,4 +1493,28 @@ height: 55px;
 
 .modal-backdrop.show {
     display: none !important;
+}
+
+.modal-pagos-heading{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-pagos-heading p{
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+.ITEMANDNUMBER {
+    text-align: center;
+}
+
+.parent-payments-resume {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.periodos-manual {
+    z-index: 9999;
 }

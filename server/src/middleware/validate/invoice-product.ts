@@ -16,6 +16,7 @@ export const createInvoiceProduct = (
       period: z.optional(z.number()),
       product: z.number(),
       invoice: z.number(),
+      manualPeriod: z.optional(z.number()),
       deliveryDate: z.optional(z.string().datetime()),
       retirementDate: z.optional(z.string().datetime())
     });
@@ -44,7 +45,7 @@ export const updateInvoiceProduct = (
 ): void => {
   try {
     const Schema = z.object({
-      deliveryDate: z.optional(z.string().datetime()),
+      manualPeriod: z.optional(z.number()),
       retirementDate: z.optional(z.string().datetime())
     });
 

@@ -6,7 +6,7 @@ import { createInvoice, getInvoice, getInvoices } from "./services/invoices.js";
 import { getClient, getClients } from "./services/client.js";
 import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
-import { createInvoiceProduct, updateInvoiceProduct } from "./services/invoice-products.js";
+import { createInvoiceProduct, updateInvoiceProduct} from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js"; 
 import { createPayment } from "./services/payments.js"; 
 import { calcPeriods } from "./utils/product.js";
@@ -418,8 +418,14 @@ async function editarPedido(e) {
         <button class="control add-payment-button" data-invoice-product-id="${item.id}">
           <i class="bx bx-money-withdraw icon-control"></i>
         </button>
-        <button class="control gap-button retire-button" data-invoice-product-id="${item.id}">
+        <button class="control retire-button" data-invoice-product-id="${item.id}">
           <i class="bx bxs-caret-up-circle icon-control"></i>
+        </button>
+        <button class="control  period-button" data-invoice-product-id="${item.id}">
+        <i class='bx bx-calendar-exclamation icon-control'></i>
+        </button>
+        <button class="control  pagos-button" data-invoice-product-id="${item.id}">
+        <i class='bx bx-history icon-control' ></i>
         </button>
       </p>
       <p class="text-end">$${total}</p>
@@ -432,15 +438,36 @@ async function editarPedido(e) {
     if(totalElement) totalElement.innerText = `$${totalSumEl}`; 
     const table = document.getElementById('parent-items-table-ed');
     table.innerHTML = `${head}${rows}`;
+
     const paymentButton = table.querySelectorAll(".add-payment-button");
-    const retireButton = table.querySelectorAll(".retire-button");
     paymentButton.forEach((button) => {
       button.addEventListener("click", (e) => addPayment(InfoPedido.products.find((product) => {
         return product.id === Number(e.currentTarget.dataset.invoiceProductId)
       })))
     })
+
+    const retireButton = table.querySelectorAll(".retire-button");
+
     retireButton.forEach((button) => {
       button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
+      
+    })
+
+    const periodosManualButton = table.querySelectorAll(".period-button");
+
+    periodosManualButton.forEach((button) => {
+      button.addEventListener("click", (e) => PeriodosManual(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
+      
+    })
+
+    const HistorialPagosButton = table.querySelectorAll(".pagos-button");
+
+    HistorialPagosButton.forEach((button) => {
+      button.addEventListener("click", (e) => PeriodosManual(InfoPedido.products.find((product) => {
         return product.id === Number(e.currentTarget.dataset.invoiceProductId)
       })))
       
@@ -449,60 +476,51 @@ async function editarPedido(e) {
     
 }
 
-// Función para actualizar al cliente
-function actualizarCliente(e) {
-  e.preventDefault(); // Evitar que el formulario se envíe si estás usando un formulario
 
-  // Obtener el ID del cliente
-  const clienteId = e.target.dataset.clientId;
 
-  // Obtener los valores actualizados de los campos del modal
-  const nuevoNombre = document.querySelector('#client-name').value;
-  const nuevoPhone = document.querySelector('#client-phone').value;
-  const nuevoCuit = document.querySelector('#client-cuit').value;
-  const nuevoEmail = document.querySelector('#client-email').value;
-  const nuevoAdress = document.querySelector('#client-adress').value;
-  const nuevosExtras = document.querySelector('#client-extras').value;
-
-  // Crear un objeto con los datos actualizados
-  const datosActualizados = {
-    name: nuevoNombre,
-    phone: nuevoPhone,
-    CUIT: nuevoCuit,
-    email: nuevoEmail,
-    address: nuevoAdress,
-    extras: nuevosExtras
-  };
-
-  // Realizar una solicitud PATCH a la API para actualizar al cliente
-  fetch(`${url}clients/${clienteId}`, {
-    method: 'PATCH', // Usa el método PATCH para actualizar
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datosActualizados)
-  })
-    .then(response => {
-      if (response.ok) {
-        // La actualización fue exitosa
-        console.log('Cliente actualizado correctamente.');
-        // Puedes realizar otras acciones aquí después de la actualización.
-      } else {
-        // Error al actualizar
-        console.error('Error al actualizar el cliente.');
-      }
-    })
-    .catch(error => {
-      console.error('Error al enviar la solicitud de actualización:', error);
-    });
+async function PeriodosManual(invoiceProduct) {
+  const modal = new bootstrap.Modal("#PeriodosManual");
+  const registrarPeriodosManualBtn = document.getElementById('registrarPeriodos')
+  console.log(invoiceProduct)
+  registrarPeriodosManualBtn.dataset.invoiceProductId = invoiceProduct.id
+  const spanData1 = document.getElementById('item')
+  spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.product.numberId}`
+  modal.show();
 }
 
+const registrarPeriodosBtn = document.getElementById('registrarPeriodos')
+registrarPeriodosBtn.addEventListener('click', async ()=>{
 
-const addItemToInvoiceButton = document.getElementById("invoice-add-item");
+  const modal = new bootstrap.Modal("#PeriodosManual");
+  const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId
+  console.log(invoiceProductId)
+  const periodosInput = document.getElementById('periodos-manual').value
+
+
+  const periodoManual = {
+
+    manualPeriod: Number(periodosInput),
+
+  }
+
+  await updateInvoiceProduct(invoiceProductId, periodoManual) /* NO ESTA HECHO ASI LOS PERIODOS SE CUENTA EN EL FRONTEND */
+  modal.hide()
+})
+
+
+
+
+  /*    */
+  /*    */
+  /*    */
+  /*    */
+  /*    */
+  /*    */
+
+  const addItemToInvoiceButton = document.getElementById("invoice-add-item");
 addItemToInvoiceButton.addEventListener("click", (e) => {
   addNewItem(e.currentTarget.dataset.invoiceId);
 })
-
 
 
 async function addPayment(invoiceProduct) {

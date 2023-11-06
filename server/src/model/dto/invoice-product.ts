@@ -9,6 +9,7 @@ import ProductDTO from "./product";
 class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" | "invoice" | "product"> {
   id: number;
   numberId: number;
+  manualPeriod?: number;
   invoice: number | InvoiceDTO;
   product: number | ProductDTO;
   period: number;
@@ -22,6 +23,7 @@ class InvoiceProductDTO implements Omit<MongooseDTO<InvoiceProduct>, "payments" 
   constructor (invoiceProduct: MongooseIdSchema<InvoiceProduct>) {
     this.id = invoiceProduct._id;
     this.numberId = invoiceProduct.numberId;
+    this.manualPeriod = invoiceProduct.manualPeriod;
     this.invoice = typeof invoiceProduct.invoice === "number"
       ? invoiceProduct.invoice
       : new InvoiceDTO(invoiceProduct.invoice as MongooseIdSchema<Invoice>);

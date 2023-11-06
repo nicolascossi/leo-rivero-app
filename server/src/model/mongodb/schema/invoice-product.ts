@@ -9,6 +9,7 @@ import type { Product } from "./product";
 export interface InvoiceProduct {
   numberId: number
   price: number
+  manualPeriod?: number
   period: number
   product: Product | number
   invoice: Invoice | number
@@ -21,6 +22,9 @@ export interface InvoiceProduct {
 
 const invoiceProductSchema = new Schema<MongooseIdSchema<InvoiceProduct>>({
   _id: {
+    type: Number
+  },
+  manualPeriod: {
     type: Number
   },
   numberId: {
