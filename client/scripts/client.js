@@ -36,11 +36,11 @@ async function guardarCliente() {
 
   const nuevoCliente = {
     name: name,
-    email: email,
-    phone: phone,
-    address: address,
-    CUIT: cuit,
-    note: extras
+    email: email || undefined,
+    phone: phone || undefined,
+    address: address || undefined,
+    CUIT: cuit || undefined,
+    note: extras || undefined
   };
 
   try {

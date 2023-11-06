@@ -16,7 +16,6 @@ export const createClient = (
       name: z.string().max(30),
       phone: z.optional(
         z.string()
-          .regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i)
       ),
       address: z.optional(z.string().trim()),
       note: z.optional(z.string())
@@ -45,13 +44,13 @@ export const updateClient = (
 ): void => {
   try {
     const Schema = z.object({
-      CUIT: z.string(),
-      email: z.string().trim().email(),
+      CUIT: z.optional(z.string()),
+      email: z.optional(z.string().trim().email()),
       name: z.string().max(30),
-      phone: z
-        .string()
-        .regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i),
-      address: z.string().trim(),
+      phone: z.optional(
+        z.string()
+      ),
+      address: z.optional(z.string().trim()),
       note: z.optional(z.string())
     });
 
