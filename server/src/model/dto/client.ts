@@ -2,13 +2,13 @@ import type { Client } from "@model/mongodb/schema/client";
 import type { MongooseDTO, MongooseIdSchema } from "@model/mongodb/types/schema";
 
 class ClientDTO implements MongooseDTO<Client> {
-  CUIT: string;
-  address: string;
-  email: string;
+  CUIT?: string;
+  address?: string;
+  email?: string;
   id: number;
   name: string;
   note?: string;
-  phone: string;
+  phone?: string;
   createdAt?: string;
   updatedAt?: string;
 
