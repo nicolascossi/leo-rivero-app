@@ -19,7 +19,7 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
   },
   name: {
     type: String,
-    required: true
+    required: false
   },
   email: {
     type: String,
@@ -30,7 +30,7 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
       message: "The value is not a valid email"
     },
     unique: true,
-    required: true
+    required: false
   },
   phone: {
     type: String,
@@ -40,16 +40,16 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
       },
       message: "The value is not a valid phone"
     },
-    required: true,
+    required: false,
     unique: true
   },
   address: {
     type: String,
-    required: true
+    required: false
   },
   CUIT: {
     type: String,
-    required: true
+    required: false
   },
   note: String
 }, {
