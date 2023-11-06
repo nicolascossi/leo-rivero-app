@@ -23,23 +23,11 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
   },
   email: {
     type: String,
-    validate: {
-      validator: function (v: string) {
-        return /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi.test(v);
-      },
-      message: "The value is not a valid email"
-    },
     unique: true,
     required: false
   },
   phone: {
     type: String,
-    validate: {
-      validator: function (v: string) {
-        return /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/gi.test(v);
-      },
-      message: "The value is not a valid phone"
-    },
     required: false,
     unique: true
   },
