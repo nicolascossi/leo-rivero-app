@@ -1,5 +1,5 @@
-import { createClient, deleteClient, getClient, getClients, updateClient, getInvoicesByClient } from "./services/client.js";
-import { getInvoices } from "./services/invoices.js";
+import { createClient, deleteClient, getClient, getClients, updateClient } from "./services/client.js";
+import { getInvoices, getInvoicesByClient } from "./services/invoices.js";
 import { checkResoulution } from "./utils/resolution.js";
 
 const url = 'http://localhost:4000/'

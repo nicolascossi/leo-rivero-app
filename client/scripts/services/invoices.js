@@ -20,7 +20,7 @@ export const getInvoice = (id) => {
     });
 }
 
-export const getInvoiceByClient = (id) => {
+export const getInvoicesByClient = (id) => {
   return fetch(`${INVOICE_URL}?clientId=${id}`)
     .then((response) => response.json())
     .catch((error) => {

@@ -1,1 +1,1 @@
-export const API_URL = "https://leo-rivero-app-production-1096.up.railway.app/api/v1";
+export const API_URL = "https://leo-rivero-app-production.up.railway.app/api/v1";

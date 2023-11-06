@@ -26,6 +26,7 @@ async function obtenerInformacionFactura(invoiceId) {
 
   try {
     const { data: pedido } = await getInvoice(invoiceId);
+    console.log("PEDIDO:", pedido);
     document.getElementById('id').textContent = `#${pedido.id}`;
     document.getElementById('delivery_address').textContent = pedido.address;
     document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
@@ -50,7 +51,7 @@ async function obtenerInformacionFactura(invoiceId) {
     <p class="text-center">Entrega</p>
     <p class="text-center">Retiro</p>
     <p class="text-center">Periodos</p>
-    <p class="text-center">Precio/Pedido</p>
+    <p class="text-center">Precio/Periodo</p>
     <p class="text-end">Total</p>
   </div>`
 
@@ -67,7 +68,7 @@ async function obtenerInformacionFactura(invoiceId) {
       <div class="parent-items-row">
         <p class="text-start">${item.product.name} #${item.numberId}</p>
         <p class="text-center">${new Date(item.deliveryDate).toLocaleDateString()}</p>
-        <p class="text-center">${new Date(item.retirementDate).toLocaleDateString()}</p>
+        <p class="text-center">${item.retirementDate ? new Date(item.retirementDate).toLocaleDateString() : "No se retiró"}</p>
         <p class="text-center">${totalPeriods}</p>
         <p class="text-center">$${item.price}</p>
         <p class="text-end">$${total}</p>
@@ -240,7 +241,7 @@ async function editarPedido(e) {
     <div class="parent-items-row">
       <p class="text-start">${name}</p>
       <p class="text-center">${new Date(item.deliveryDate).toLocaleDateString()}</p>
-      <p class="text-center">${new Date(item.retirementDate).toLocaleDateString()}</p>
+      <p class="text-center">${item.retirementDate ? new Date(item.retirementDate).toLocaleDateString() : "No se retiró"}</p>
       <p class="text-center">${totalPeriods}</p>
       <p class="text-center">
         <button class="control add-payment-button" data-invoice-product-id="${item.id}">
