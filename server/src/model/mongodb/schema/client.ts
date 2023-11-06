@@ -4,10 +4,10 @@ import type { MongooseIdSchema } from "../types/schema";
 
 export interface Client {
   name: string
-  email: string
-  phone: string
-  address: string
-  CUIT: string
+  email?: string
+  phone?: string
+  address?: string
+  CUIT?: string
   note?: string
   createdAt?: string
   updatedAt?: string
@@ -19,7 +19,7 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
   },
   name: {
     type: String,
-    required: false
+    required: true
   },
   email: {
     type: String,
