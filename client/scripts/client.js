@@ -1,4 +1,4 @@
-import { createClient, deleteClient, getClient, getClients, updateClient } from "./services/client.js";
+import { createClient, deleteClient, getClient, getClients, updateClient, getInvoicesByClient } from "./services/client.js";
 import { getInvoices } from "./services/invoices.js";
 import { checkResoulution } from "./utils/resolution.js";
 
@@ -124,7 +124,7 @@ async function obtenerInformacionCliente(clientId) {
     // Asignamos el evento shown.bs.modal para mostrar las facturas del cliente una vez que el modal esté completamente cargado
     modal.addEventListener('shown.bs.modal', async () => {
       // Buscar invoices del cliente
-      const { data: invoices } = await getInvoices()
+      const { data: invoices } = await getInvoicesByClient(clientId)
       // Crear los divs para los invoices y sus detalles
       const invoicesContainer = document.getElementById('invoices-container');
       invoicesContainer.innerHTML = ''; // Limpiar el contenido antes de agregar nuevos divs

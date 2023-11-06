@@ -20,6 +20,15 @@ export const getInvoice = (id) => {
     });
 }
 
+export const getInvoiceByClient = (id) => {
+  return fetch(`${INVOICE_URL}?clientId=${id}`)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+}
+
 export const createInvoice = (data) => {
   return fetch(INVOICE_URL, {
     method: "POST",
