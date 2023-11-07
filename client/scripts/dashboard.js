@@ -262,11 +262,13 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('delivery_address').textContent = pedido.address;
     document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
 
-    const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-    finalizarPedidoBtn.dataset.pedidoId = pedido.id;
+   
 
     const editarPedidoBtn = document.querySelector('#editar-pedido');
     editarPedidoBtn.dataset.pedidoId = pedido.id;
+
+    const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+    archivarPedidoBtn.dataset.pedidoId = pedido.id;
 
     const { client: cliente } = pedido; 
     document.getElementById('client-name').textContent = cliente.name;
@@ -350,7 +352,13 @@ function eliminarPedido(id) {
   }
 }
 
+const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+archivarPedidoBtn.addEventListener('click', archivarPedido);
 
+function archivarPedido () {
+  const orderId = e.target.dataset.pedidoId;
+  console.log(orderId)
+}
 
 
 // EDITAR pedido
