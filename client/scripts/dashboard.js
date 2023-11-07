@@ -18,10 +18,14 @@ let newInvoice = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   checkResoulution(1024, null, () => {
     location.href = "../pages/no-support.html";
   })
-  mostrarPedidos();
+  mostrarPedidos()
+  .then(contarPedidosPorCobrar)
+  .then(contarPedidosActivos);
+  
   const nuevoPedido = document.getElementById("nuevo-pedido");
   nuevoPedido.addEventListener("click", async () => {
     // Fill Products Datalist
@@ -63,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientInput = document.getElementById("invoice-client");
     clientInput.removeEventListener("change", handleChangeClient)
     clientInput.addEventListener("change", handleChangeClient)
+
+    
   })
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
@@ -72,8 +78,31 @@ document.addEventListener('DOMContentLoaded', () => {
       obtenerInformacionFactura(orderId);
     }
   });
+  
 });
+function contarPedidosPorCobrar() {
+  // Selecciona todos los elementos con la clase "mi-clase"
+  var elementos = document.querySelectorAll('.PorCobrar');
 
+  // Cuenta la cantidad de elementos encontrados
+  var cantidad = elementos.length;
+  console.log(cantidad)
+
+  const contarPedidosPorCobrar = document.getElementById('pedidos-por-cobrar')
+  contarPedidosPorCobrar.innerText = `${cantidad}`
+}
+
+function contarPedidosActivos() {
+  // Selecciona todos los elementos con la clase "mi-clase"
+  var elementos = document.querySelectorAll('.status-button');
+
+  // Cuenta la cantidad de elementos encontrados
+  var cantidad = elementos.length;
+  console.log(cantidad)
+
+  const contarPedidosActivos = document.getElementById('pedidos-activos')
+  contarPedidosActivos.innerText = `${cantidad}`
+}
 function eliminarItemPedido(nuevoItem) {
   const index = newInvoice.items.indexOf(nuevoItem);
   if (index !== -1) {
@@ -124,9 +153,10 @@ async function mostrarPedidos() {
       const infoPedidoBtn = document.createElement('button');
       infoPedidoBtn.classList.add('status-button');
       infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
-      infoPedidoBtn.textContent = 'Status';
+      infoPedidoBtn.textContent = 'Ver Pedido';
       if(totalSum > 0) {
         infoPedidoBtn.classList.add("bg-primary")
+        infoPedidoBtn.classList.add("PorCobrar")
         infoPedidoBtn.textContent = "A Cobrar"
       }
 

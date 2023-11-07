@@ -103,9 +103,6 @@ async function editarProducto(e) {
   updateProductButton.dataset.productid = productoId;
   updateProductButton.addEventListener('click', actualizarProducto);
 
-  const modal = document.getElementById('editingProductModal');
-  const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
-  modalBootstrap.hide();
 }
 
 async function actualizarProducto(e) {
