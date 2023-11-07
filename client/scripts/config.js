@@ -21,7 +21,7 @@ async function guardarProducto() {
   await createProduct(nuevoProducto);
 
   const modal = document.getElementById('newProductModal');
-  const modalBootstrap = new bootstrap.Modal(modal);
+  const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
   modalBootstrap.hide();
 }
 
@@ -88,7 +88,7 @@ async function editarProducto(e) {
     editingProductModal.classList.add('show');
   });
 
-  const editingProductModalInstance = new bootstrap.Modal(editingProductModal);
+  const editingProductModalInstance = bootstrap.Modal.getOrCreateInstance(editingProductModal);
   editingProductModalInstance.show();
 
   const nombreInput = document.querySelector('#product-name');
@@ -104,7 +104,7 @@ async function editarProducto(e) {
   updateProductButton.addEventListener('click', actualizarProducto);
 
   const modal = document.getElementById('editingProductModal');
-  const modalBootstrap = new bootstrap.Modal(modal);
+  const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
   modalBootstrap.hide();
 }
 

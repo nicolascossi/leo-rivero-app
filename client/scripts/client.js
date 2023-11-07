@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   // Inicializar el modal
   const resumeClientModal = document.getElementById('resumeClientModal');
-  const modalBootstrap = new bootstrap.Modal(resumeClientModal);
+  const modalBootstrap = bootstrap.Modal.getOrCreateInstance(resumeClientModal);
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
   document.addEventListener('click', (event) => {
@@ -214,7 +214,7 @@ async function editarCliente(e) {
   });
 
   // Muestra el modal de edición
-  const editingClientModalInstance = new bootstrap.Modal(editingClientModal);
+  const editingClientModalInstance = bootstrap.Modal.getOrCreateInstance(editingClientModal);
   editingClientModalInstance.show();
 
   // Luego, puedes continuar con la lógica para obtener los datos del cliente y llenar el modal.
@@ -279,7 +279,7 @@ async function actualizarCliente(e) {
     // Puedes realizar otras acciones aquí después de la actualización.
     // Oculta el modal después de cargar los datos
     const modal = document.getElementById('editingClientModal');
-    const modalBootstrap = new bootstrap.Modal(modal);
+    const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
     modalBootstrap.hide();
   } catch (error) {    
     console.error('Error al enviar la solicitud de actualización:', error);

@@ -80,7 +80,7 @@ async function obtenerInformacionFactura(invoiceId) {
     document.getElementById('invoiceTotal').textContent = `$${totalSumEl}`;
 
     const modal = document.getElementById('invoiceResumeModal');
-    const modalBootstrap = new bootstrap.Modal(modal);
+    const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
     modalBootstrap.show();
   } catch (error) { 
     console.error('Error al obtener los datos de la factura:', error);
@@ -203,7 +203,7 @@ async function editarPedido(e) {
   });
 
   // Muestra el modal de edición
-  const editingClientModalInstance = new bootstrap.Modal(editingInvoiceModal);
+  const editingClientModalInstance = bootstrap.Modal.getOrCreateInstance(editingInvoiceModal);
   editingClientModalInstance.show();
   
   const {data: InfoPedido} = await getInvoice(pedidoId)
@@ -359,7 +359,7 @@ addItemToInvoiceButton.addEventListener("click", (e) => {
 
 
 async function addPayment(invoiceProduct) {
-  const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
+  const modal = bootstrap.Modal.getOrCreateInstance("#invoiceNewPaymentModal");
   const registrarPagoBtn = document.getElementById('registrarPago')
   registrarPagoBtn.dataset.invoiceProductId = invoiceProduct.id
   const spanData1 = document.getElementById('ItemData')
@@ -370,7 +370,7 @@ async function addPayment(invoiceProduct) {
 const registrarPagoBtn = document.getElementById('registrarPago')
 registrarPagoBtn.addEventListener('click', async ()=>{
 
-  const modal = new bootstrap.Modal("#invoiceNewPaymentModal");
+  const modal = bootstrap.Modal.getOrCreateInstance("#invoiceNewPaymentModal");
 
   const metodo = document.getElementById('payment-options-input').value
   const paymentValue = Number(document.getElementById('item-value-amount').value)
@@ -392,7 +392,7 @@ registrarPagoBtn.addEventListener('click', async ()=>{
 const fechaRetiroBtn = document.getElementById('FechaRetiroConfirmar')
 fechaRetiroBtn.addEventListener('click', async () =>{
 
-  const modal = new bootstrap.Modal("#invoiceRetire");
+  const modal = bootstrap.Modal.getOrCreateInstance("#invoiceRetire");
   
   const fechaInput = document.getElementById('RetiroFecha').value
 
@@ -406,7 +406,7 @@ fechaRetiroBtn.addEventListener('click', async () =>{
 
 
 async function retireInvoiceProduct(invoiceProduct) {
-  const modal = new bootstrap.Modal("#invoiceRetire");
+  const modal = bootstrap.Modal.getOrCreateInstance("#invoiceRetire");
   fechaRetiroBtn.dataset.invoiceProductId = invoiceProduct.id
   const spanData2 = document.getElementById('ItemData2')
   spanData2.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
@@ -416,7 +416,7 @@ async function retireInvoiceProduct(invoiceProduct) {
 
 
 async function PeriodosManual(invoiceProduct) {
-  const modal = new bootstrap.Modal("#PeriodosManual");
+  const modal = bootstrap.Modal.getOrCreateInstance("#PeriodosManual");
   const registrarPeriodosManualBtn = document.getElementById('registrarPeriodos')
   console.log(invoiceProduct)
   registrarPeriodosManualBtn.dataset.invoiceProductId = invoiceProduct.id
@@ -428,7 +428,7 @@ async function PeriodosManual(invoiceProduct) {
 const registrarPeriodosBtn = document.getElementById('registrarPeriodos')
 registrarPeriodosBtn.addEventListener('click', async ()=>{
 
-  const modal = new bootstrap.Modal("#PeriodosManual");
+  const modal = bootstrap.Modal.getOrCreateInstance("#PeriodosManual");
   const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId
   console.log(invoiceProductId)
   const periodosInput = document.getElementById('periodos-manual').value
@@ -445,7 +445,7 @@ registrarPeriodosBtn.addEventListener('click', async ()=>{
 })
 
 async function VerHistorialPagos(invoiceProduct) {
-  const modal = new bootstrap.Modal("#HistorialPagos");
+  const modal = bootstrap.Modal.getOrCreateInstance("#HistorialPagos");
   console.log(invoiceProduct)
   const spanData1 = document.getElementById('ITEMANDNUMBER')
   spanData1.textContent = ` ${invoiceProduct.product.name} #${invoiceProduct.numberId}`
