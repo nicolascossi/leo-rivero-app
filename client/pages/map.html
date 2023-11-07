@@ -360,6 +360,61 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade periodos-manual" id="PeriodosManual">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content z-3 position-absolute" >
+          <!-- Contenido del modal -->
+          <div class="modal-container">
+            <div class="modal-resume-invoice">
+              <div class="retire-modal">
+                <h1 class="title-modal">Registre la cantidad de periodos del <span id="item-periodos"></span></h1>
+                <p class="indicaiones">Indique la cantidad de periodos que quiere contabilizar.</p>
+                <input type="number" id="periodos-manual" placeholder="Cantidad de Periodos">
+                <button id="registrarPeriodos">Confirmar</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- MODAL periodos manual SOBRE ITEM-->
+
+        <div class="modal fade periodos-manual" id="HistorialPagos">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Contenido del modal -->
+              <div class="modal-container">
+                <div class="modal-resume-invoice">
+                  <div class="modal-pagos-heading">
+                    
+                    <P class="TITLE">Pagos registrados sobre el<SPAN id="ITEMANDNUMBER"></SPAN></P>
+                  </div>
+  
+                  <div class="items-rent">
+                    <div class="items-resume" id="item-list">
+                      <div class="parent-items-resume parent-payments-resume parent-pagos" id="parent-payments-table">
+                        <div class="div1-pagos" id="div1-pagos"><p>Fecha del pago</p></div> 
+                        <div class="div2-pagos" id="div2-pagos"><p>Metodo de pago</p></div> 
+                        <div class="div3-pagos" id="div3-pagos"><p>Monto abonado</p></div> 
+                        
+                         
+                         
+                      </div>
+                    </div>
+                  </div>
+                  <div class="amount-due-resume">
+                    <p class="">Total pagado</p>
+                    <p id="pagosTotales">$10000</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
     <script src="../scripts/navbar.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
     <script type="module" src="../scripts/map.js"></script>

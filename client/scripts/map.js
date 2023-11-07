@@ -247,8 +247,14 @@ async function editarPedido(e) {
         <button class="control add-payment-button" data-invoice-product-id="${item.id}">
           <i class="bx bx-money-withdraw icon-control"></i>
         </button>
-        <button class="control gap-button retire-button" data-invoice-product-id="${item.id}">
+        <button class="control retire-button" data-invoice-product-id="${item.id}">
           <i class="bx bxs-caret-up-circle icon-control"></i>
+        </button>
+        <button class="control  period-button" data-invoice-product-id="${item.id}">
+        <i class='bx bx-calendar-exclamation icon-control'></i>
+        </button>
+        <button class="control  pagos-button" data-invoice-product-id="${item.id}">
+        <i class='bx bx-history icon-control' ></i>
         </button>
       </p>
       <p class="text-end">$${total}</p>
@@ -270,6 +276,24 @@ async function editarPedido(e) {
     })
     retireButton.forEach((button) => {
       button.addEventListener("click", (e) => retireInvoiceProduct(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
+      
+    })
+
+    const periodosManualButton = table.querySelectorAll(".period-button");
+
+    periodosManualButton.forEach((button) => {
+      button.addEventListener("click", (e) => PeriodosManual(InfoPedido.products.find((product) => {
+        return product.id === Number(e.currentTarget.dataset.invoiceProductId)
+      })))
+      
+    })
+
+    const HistorialPagosButton = table.querySelectorAll(".pagos-button");
+
+    HistorialPagosButton.forEach((button) => {
+      button.addEventListener("click", (e) => VerHistorialPagos(InfoPedido.products.find((product) => {
         return product.id === Number(e.currentTarget.dataset.invoiceProductId)
       })))
       
@@ -387,5 +411,101 @@ async function retireInvoiceProduct(invoiceProduct) {
   const spanData2 = document.getElementById('ItemData2')
   spanData2.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
   
+  modal.show();
+}
+
+
+async function PeriodosManual(invoiceProduct) {
+  const modal = new bootstrap.Modal("#PeriodosManual");
+  const registrarPeriodosManualBtn = document.getElementById('registrarPeriodos')
+  console.log(invoiceProduct)
+  registrarPeriodosManualBtn.dataset.invoiceProductId = invoiceProduct.id
+  const spanData1 = document.getElementById('item-periodos')
+  spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
+  modal.show();
+}
+
+const registrarPeriodosBtn = document.getElementById('registrarPeriodos')
+registrarPeriodosBtn.addEventListener('click', async ()=>{
+
+  const modal = new bootstrap.Modal("#PeriodosManual");
+  const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId
+  console.log(invoiceProductId)
+  const periodosInput = document.getElementById('periodos-manual').value
+
+
+  const periodoManual = {
+
+    manualPeriod: Number(periodosInput),
+
+  }
+
+  await updateInvoiceProduct(invoiceProductId, periodoManual) /* NO ESTA HECHO ASI LOS PERIODOS SE CUENTA EN EL FRONTEND */
+  modal.hide()
+})
+
+async function VerHistorialPagos(invoiceProduct) {
+  const modal = new bootstrap.Modal("#HistorialPagos");
+  console.log(invoiceProduct)
+  const spanData1 = document.getElementById('ITEMANDNUMBER')
+  spanData1.textContent = ` ${invoiceProduct.product.name} #${invoiceProduct.numberId}`
+
+  const div1 = document.getElementById('div1-pagos')
+  const div2 = document.getElementById('div2-pagos')
+  const div3 = document.getElementById('div3-pagos')
+
+    div1.innerHTML = ''
+    div2.innerHTML = ''
+    div3.innerHTML = ''
+    const titleColum1 = document.createElement('P')
+    titleColum1.textContent = 'Fecha de Pago'
+    const titleColum2 = document.createElement('P')
+    titleColum2.textContent = 'Metodo de Pago'
+    const titleColum3 = document.createElement('P')
+    titleColum3.textContent = 'Monto abonado'
+    div1.append(titleColum1)
+    div2.append(titleColum2)
+    div3.append(titleColum3)
+
+    
+    let total = 0
+
+  invoiceProduct.payments.forEach ((payment) =>  {
+    const container = document.getElementById('parent-payments-table')
+
+
+  total += payment.value
+
+    const payDate = document.createElement('P')
+    payDate.textContent = new Date(payment.createdAt).toLocaleDateString()
+
+    const payMethod = document.createElement('P')
+    payMethod.textContent = `${payment.method}`
+
+    const payAmount = document.createElement('P')
+    payAmount.textContent = `$${payment.value}`
+
+    container.appendChild(div1)
+   
+    div1.appendChild(payDate)
+    container.appendChild(div2)
+    
+    div2.appendChild(payMethod)
+    container.appendChild(div3)
+    
+    div3.appendChild(payAmount)
+
+
+  }
+  
+  )
+
+  pagosTotales.textContent = `$${total}`
+
+    
+  
+  
+  
+
   modal.show();
 }

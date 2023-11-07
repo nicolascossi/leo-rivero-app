@@ -107,7 +107,7 @@ async function mostrarPedidos() {
       const ivaPercentage = 1.21; // El porcentaje de IVA es 21%
   
       invoice.products.forEach(item => {
-        const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
+        const totalPeriods = item.manualPeriod ?? calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
         const subtotal = totalPeriods * item.price;
         const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
         const total = subtotal - payed;
@@ -289,7 +289,7 @@ async function obtenerInformacionFactura(orderId) {
     let rows = ""
 
     pedido.products.forEach(item => {
-      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
+      const totalPeriods = item.manualPeriod ?? calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
       const subtotal = totalPeriods * item.price;
       const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
       const total = subtotal - payed;
@@ -402,7 +402,7 @@ async function editarPedido(e) {
 
   InfoPedido.products.forEach(item => {
     const name = `${item.product.name} #${item.numberId}`;
-    const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
+    const totalPeriods = item.manualPeriod ?? calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
     const subtotal = totalPeriods * item.price;
     const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
     const total = subtotal - payed;
@@ -467,7 +467,7 @@ async function editarPedido(e) {
     const HistorialPagosButton = table.querySelectorAll(".pagos-button");
 
     HistorialPagosButton.forEach((button) => {
-      button.addEventListener("click", (e) => PeriodosManual(InfoPedido.products.find((product) => {
+      button.addEventListener("click", (e) => VerHistorialPagos(InfoPedido.products.find((product) => {
         return product.id === Number(e.currentTarget.dataset.invoiceProductId)
       })))
       
@@ -483,8 +483,8 @@ async function PeriodosManual(invoiceProduct) {
   const registrarPeriodosManualBtn = document.getElementById('registrarPeriodos')
   console.log(invoiceProduct)
   registrarPeriodosManualBtn.dataset.invoiceProductId = invoiceProduct.id
-  const spanData1 = document.getElementById('item')
-  spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.product.numberId}`
+  const spanData1 = document.getElementById('item-periodos')
+  spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`
   modal.show();
 }
 
@@ -507,15 +507,72 @@ registrarPeriodosBtn.addEventListener('click', async ()=>{
   modal.hide()
 })
 
+async function VerHistorialPagos(invoiceProduct) {
+  const modal = new bootstrap.Modal("#HistorialPagos");
+  console.log(invoiceProduct)
+  const spanData1 = document.getElementById('ITEMANDNUMBER')
+  spanData1.textContent = ` ${invoiceProduct.product.name} #${invoiceProduct.numberId}`
+
+  const div1 = document.getElementById('div1-pagos')
+  const div2 = document.getElementById('div2-pagos')
+  const div3 = document.getElementById('div3-pagos')
+
+    div1.innerHTML = ''
+    div2.innerHTML = ''
+    div3.innerHTML = ''
+    const titleColum1 = document.createElement('P')
+    titleColum1.textContent = 'Fecha de Pago'
+    const titleColum2 = document.createElement('P')
+    titleColum2.textContent = 'Metodo de Pago'
+    const titleColum3 = document.createElement('P')
+    titleColum3.textContent = 'Monto abonado'
+    div1.append(titleColum1)
+    div2.append(titleColum2)
+    div3.append(titleColum3)
+
+    
+    let total = 0
+
+  invoiceProduct.payments.forEach ((payment) =>  {
+    const container = document.getElementById('parent-payments-table')
 
 
+  total += payment.value
 
-  /*    */
-  /*    */
-  /*    */
-  /*    */
-  /*    */
-  /*    */
+    const payDate = document.createElement('P')
+    payDate.textContent = new Date(payment.createdAt).toLocaleDateString()
+
+    const payMethod = document.createElement('P')
+    payMethod.textContent = `${payment.method}`
+
+    const payAmount = document.createElement('P')
+    payAmount.textContent = `$${payment.value}`
+
+    container.appendChild(div1)
+   
+    div1.appendChild(payDate)
+    container.appendChild(div2)
+    
+    div2.appendChild(payMethod)
+    container.appendChild(div3)
+    
+    div3.appendChild(payAmount)
+
+
+  }
+  
+  )
+
+  pagosTotales.textContent = `$${total}`
+
+    
+  
+  
+  
+
+  modal.show();
+}
+
 
   const addItemToInvoiceButton = document.getElementById("invoice-add-item");
 addItemToInvoiceButton.addEventListener("click", (e) => {
