@@ -1,4 +1,5 @@
 import { API_URL } from "../config/const.js"
+import { mostrarAlerta } from "../utils/alert.js"
 
 const CLIENT_URL = `${API_URL}/clients`;
 
@@ -30,7 +31,7 @@ export const createClient = (data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo crear el cliente');
       throw error;
     });
 }
@@ -45,7 +46,7 @@ export const updateClient = (id, data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo actualizar el cliente');
       throw error;
     });
 }
@@ -58,7 +59,7 @@ export const deleteClient = (id) => {
     } 
   })
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo borrar el cliente');
       throw error;
     });
 }

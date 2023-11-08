@@ -1,4 +1,5 @@
 import { API_URL } from "../config/const.js"
+import { mostrarAlerta } from "../utils/alert.js"
 
 const INVOICE_URL = `${API_URL}/invoice-products`;
 
@@ -30,7 +31,7 @@ export const createInvoiceProduct = (data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo agregar el producto');
       throw error;
     });
 }
@@ -45,7 +46,7 @@ export const updateInvoiceProduct = (id, data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo actualizar el producto');
       throw error;
     });
 }
@@ -59,7 +60,7 @@ export const deleteInvoiceProduct = (id) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo borrar el producto');
       throw error;
     });
 }

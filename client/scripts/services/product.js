@@ -1,4 +1,5 @@
 import { API_URL } from "../config/const.js"
+import { mostrarAlerta } from "../utils/alert.js"
 
 const PRODUCT_URL = `${API_URL}/products`;
 
@@ -30,7 +31,7 @@ export const createProduct = (data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo crear el producto');
       throw error;
     });
 }
@@ -45,7 +46,7 @@ export const updateProduct = (id, data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo actualizar el producto');
       throw error;
     });
 }
@@ -58,7 +59,7 @@ export const deleteProduct = (id) => {
     } 
   })
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo borrar el producto');
       throw error;
     });
 }

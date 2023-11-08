@@ -271,7 +271,7 @@ async function guardarPedido() {
 
     mostrarAlerta('success', '¡Pedido Guardado!');
   } catch (error) {
-    console.error('Error:', error);    
+    mostrarAlerta('error', 'El pedido no se pudo guardar');    
   }
 
   const modal = document.getElementById('myModal');
@@ -364,16 +364,16 @@ function archivarPedido(id) {
     })
       .then(response => {
         if (response.ok) {
-          console.log(`Pedido con ID ${id} eliminado correctamente.`);
+          mostrarAlerta('success' , `Pedido con ID ${id} eliminado correctamente.`);
         } else {
-          console.error(`Error al eliminar el pedido con ID ${id}.`);
+          mostrarAlerta( error,'Error al eliminar el pedido:');
         }
       })
       .catch(error => {
-        console.error('Error al eliminar el pedido:', error);
+        mostrarAlerta( error,'Error al eliminar el pedido:');
       });
   } catch (error) {
-    console.error('Error al eliminar el pedido:', error);
+    mostrarAlerta( error,'Error al eliminar el pedido:');
   }
 }
 

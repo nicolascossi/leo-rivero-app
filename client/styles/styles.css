@@ -27,6 +27,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.custom-center {
+    left: 50%; /* Centra el elemento horizontalmente en relación con su contenedor */
+    transform: translateX(-50%); /* Corrige el centrado para que esté perfectamente en el medio */
+  }
+  
+
   body {
     min-height: 100vh;
     background-color: var(--background-color);
