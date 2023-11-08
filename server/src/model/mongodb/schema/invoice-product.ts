@@ -5,10 +5,11 @@ import { getCounter } from "./auto-increment";
 import type { MongooseIdSchema } from "../types/schema";
 import type { Payment } from "./payment";
 import type { Product } from "./product";
+import type { ProductPrice } from "./price";
 
 export interface InvoiceProduct {
   numberId: number
-  price: number
+  price: Array<MongooseIdSchema<ProductPrice>>
   manualPeriod?: number
   period: number
   product: Product | number
@@ -29,10 +30,6 @@ const invoiceProductSchema = new Schema<MongooseIdSchema<InvoiceProduct>>({
   },
   numberId: {
     type: Number
-  },
-  price: {
-    type: Number,
-    required: true
   },
   period: {
     type: Number,
@@ -67,15 +64,22 @@ invoiceProductSchema.virtual("payments", {
   foreignField: "invoiceProduct"
 });
 
-invoiceProductSchema.post("save", async function () {
-  await InvoiceModel.updateOne(
-    { id: this.invoice },
-    {
-      $push: {
-        products: this.id
+invoiceProductSchema.virtual("price", {
+  ref: "prices",
+  localField: "product",
+  foreignField: "product",
+  match (invoiceProduct) {
+    const start = new Date(invoiceProduct.createdAt);
+    start.setHours(0);
+    start.setMinutes(0);
+    const end = new Date(invoiceProduct.retirementDate ?? Date.now());
+    return {
+      createdAt: {
+        $gte: start,
+        $lt: end
       }
-    }
-  );
+    };
+  }
 });
 
 invoiceProductSchema.pre("save", async function (next) {

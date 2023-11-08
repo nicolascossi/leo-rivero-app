@@ -16,7 +16,6 @@ class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
   updatedAt?: string;
 
   constructor (invoice: MongooseIdSchema<Invoice>) {
-    console.log(invoice);
     this.id = invoice._id;
     this.IVA = invoice.IVA;
     this.address = invoice.address;

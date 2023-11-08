@@ -13,6 +13,7 @@ class InvoiceProductService {
     }
   ): Promise<InvoiceProductDTO[]> {
     const invoiceProducts = await InvoiceProductModel.find(cleanUndefinedValues(query), { __v: 0 })
+      .populate("price")
       .populate("product")
       .populate("invoice")
       .populate("payments");
@@ -21,6 +22,7 @@ class InvoiceProductService {
 
   async getById (id: string): Promise<InvoiceProductDTO | null> {
     const invoiceProduct = await InvoiceProductModel.findById({ _id: id }, { __v: 0 })
+      .populate("price")
       .populate("product")
       .populate("invoice")
       .populate("payments");
@@ -32,7 +34,6 @@ class InvoiceProductService {
     numberId,
     invoice,
     period,
-    price,
     product,
     deliveryDate,
     retirementDate
@@ -53,14 +54,13 @@ class InvoiceProductService {
       numberId,
       invoice,
       period: period ?? productModel.period,
-      price: price ?? productModel.price,
       product,
       deliveryDate,
       retirementDate
     });
     const newInvoiceProduct = await invoiceProduct.save();
 
-    return new InvoiceProductDTO(newInvoiceProduct);
+    return new InvoiceProductDTO(await newInvoiceProduct.populate("price"));
   }
 
   async update (
@@ -78,7 +78,7 @@ class InvoiceProductService {
       },
       { new: true }
     );
-    return updatedInvoiceProduct !== null ? new InvoiceProductDTO(updatedInvoiceProduct) : null;
+    return updatedInvoiceProduct !== null ? new InvoiceProductDTO(await updatedInvoiceProduct.populate("price")) : null;
   }
 
   async delete (id: string): Promise<void> {

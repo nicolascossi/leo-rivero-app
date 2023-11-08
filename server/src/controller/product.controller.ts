@@ -38,7 +38,7 @@ class ProductController {
         name,
         period,
         price
-      } = req.body as Product;
+      } = req.body as Omit<Product, "price"> & { price: number };
 
       const product = await productService.create({
         name,
@@ -61,7 +61,7 @@ class ProductController {
         name,
         period,
         price
-      } = req.body as Product;
+      } = req.body as Omit<Product, "price"> & { price?: number };
 
       const productId = req.params.id;
 

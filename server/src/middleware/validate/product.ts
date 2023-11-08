@@ -16,7 +16,7 @@ export const createProduct = (
       period: z.number()
     });
 
-    Schema.partial().parse(req.body);
+    Schema.parse(req.body);
 
     next();
   } catch (error) {
@@ -45,7 +45,7 @@ export const updateProduct = (
       period: z.number()
     });
 
-    Schema.parse(req.body);
+    Schema.partial().parse(req.body);
 
     next();
   } catch (error) {
