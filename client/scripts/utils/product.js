@@ -2,11 +2,25 @@ export const calcPeriods = (date, retirementDate, period) => {
   const difference = (retirementDate ? new Date(retirementDate) : new Date()).getTime() - date.getTime();
   const days = difference / 1000 / 60 / 60 / 24;
   const periodos = days / period;
-  return Math.ceil(periodos)
-}
+  
+  if (periodos <= 1 ){
+    return 1
+  }
+  
+  // Comparar el valor fraccional de periodos con 0.5 para redondear
+  if (periodos - Math.floor(periodos) > 0.5) {
+    // Redondear hacia arriba
+    return Math.ceil(periodos);
+  } else {
+    // Redondear hacia abajo
+    return Math.floor(periodos);
+  }
+};
+
 
 export function calcPeriodsPrices(periods, totalPeriods, start, prices) {
   const pricesByPeriods = {};
+  console.log(prices)
   const sortedPricesByDate = prices.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   for (let i = 0; i < totalPeriods; i++) {
     const offsetDays = i * periods;
@@ -16,6 +30,7 @@ export function calcPeriodsPrices(periods, totalPeriods, start, prices) {
 
     for (let j = 0; j < sortedPricesByDate.length; j++) {
       if (date >= new Date(sortedPricesByDate[j].createdAt)) {
+        console.log(sortedPricesByDate[j]);
         priceMoreAssociated = sortedPricesByDate[j].price;
       }
     }
@@ -25,6 +40,6 @@ export function calcPeriodsPrices(periods, totalPeriods, start, prices) {
       date
     }
   }
-
+  console.log(pricesByPeriods);
   return pricesByPeriods;
 }

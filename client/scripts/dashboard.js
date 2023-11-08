@@ -231,7 +231,7 @@ function guardarItemPedido() {
   itemType.textContent = itemAdded;
 
   const dateItem = document.createElement("p");
-  dateItem.textContent = itemDate;
+  dateItem.textContent = getActualDate(itemDate).toLocaleDateString();
 
   div.appendChild(itemType);
   div.appendChild(dateItem);
@@ -336,6 +336,7 @@ async function obtenerInformacionFactura(orderId) {
           item.retirementDate,
           item.period
         );
+        console.log(totalPeriods);
       const periodsByPrices = calcPeriodsPrices(
         item.period,
         totalPeriods,

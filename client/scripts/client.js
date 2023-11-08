@@ -264,11 +264,11 @@ async function actualizarCliente(e) {
   // Crear un objeto con los datos actualizados
   const datosActualizados = {
     name: nuevoNombre,
-    phone: nuevoPhone,
-    CUIT: nuevoCuit,
-    email: nuevoEmail,
-    address: nuevoAddress,
-    note: nuevosExtras
+    phone: nuevoPhone || undefined,
+    CUIT: nuevoCuit || undefined,
+    email: nuevoEmail || undefined,
+    address: nuevoAddress || undefined,
+    note: nuevosExtras || undefined
   };
 
   try {
