@@ -78,8 +78,8 @@ invoiceProductSchema.virtual("price", {
       end.setDate(end.getDate() + invoiceProduct.manualPeriod * invoiceProduct.period);
     }
     return {
+      // TODO: ENCONTRAR MANERA DE QUE AGARRE EL PRIMER PRECIO ANTERIOR A LA FECHA DE DELIVERY
       createdAt: {
-        $gte: start,
         $lt: end
       }
     };
