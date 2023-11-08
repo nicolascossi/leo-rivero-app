@@ -289,6 +289,12 @@ async function guardarPedido() {
   modalBootstrap.hide();
 }
 
+const refreshButton = document.getElementById('refreshButton');
+    refreshButton.addEventListener('click', function() {
+      location.reload();
+    });
+    
+
 async function obtenerInformacionFactura(orderId) {
   if (!orderId) {
     console.error("No se pudo obtener el ID del pedido");

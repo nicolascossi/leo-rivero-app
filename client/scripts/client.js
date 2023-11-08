@@ -246,6 +246,12 @@ async function editarCliente(e) {
   }
 }
 
+const refreshButton = document.getElementById('refreshButton');
+    refreshButton.addEventListener('click', function() {
+      location.reload();
+    });
+    
+
 // Función para actualizar al cliente
 async function actualizarCliente(e) {
   e.preventDefault(); // Evitar que el formulario se envíe si estás usando un formulario
