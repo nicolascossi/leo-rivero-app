@@ -36,15 +36,22 @@ async function mostrarProductos() {
 
     const nombre = document.createElement('P');
     nombre.classList.add('product-name');
+    nombre.classList.add('fw-semibold');
     nombre.textContent = producto.name;
+
+    console.log(producto.price);
 
     const precio = document.createElement('P');
     precio.classList.add('product-price');
-    precio.textContent = producto.price;
+    precio.textContent = `$${producto.price[0].price}`;
 
     const periodo = document.createElement('P');
     periodo.classList.add('product-period');
-    periodo.textContent = producto.period;
+    periodo.textContent = `${producto.period} dias`;
+
+    const ultPrecio = document.createElement('P');
+    ultPrecio.classList.add('product-period');
+    ultPrecio.textContent = `Ult. Actualizacion: ${new Date(producto.price[0].createdAt).toLocaleDateString()}`;
 
     const divBotones = document.createElement('DIV');
     divBotones.classList.add('product-botones');
@@ -60,6 +67,7 @@ async function mostrarProductos() {
     btnBorrarProducto.setAttribute('data-productid', producto.id);
 
     divProducto.appendChild(nombre);
+    divProducto.appendChild(ultPrecio)
     divProducto.appendChild(precio);
     divProducto.appendChild(periodo);
     divBotones.appendChild(btnBorrarProducto);
@@ -96,7 +104,7 @@ async function editarProducto(e) {
   const periodsInput = document.querySelector('#product-period');
 
   nombreInput.value = data.name;
-  priceInput.value = data.price;
+  priceInput.value = data.price[0].price;
   periodsInput.value = data.period;
 
   const updateProductButton = document.getElementById('update-product-button');
