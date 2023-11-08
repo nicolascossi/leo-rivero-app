@@ -72,7 +72,11 @@ invoiceProductSchema.virtual("price", {
     const start = new Date(invoiceProduct.createdAt);
     start.setHours(0);
     start.setMinutes(0);
-    const end = new Date(invoiceProduct.retirementDate ?? Date.now());
+    let end = new Date(invoiceProduct.retirementDate ?? Date.now());
+    if (invoiceProduct.manualPeriod !== undefined) {
+      end = new Date(invoiceProduct.deliveryDate);
+      end.setDate(end.getDate() + invoiceProduct.manualPeriod * invoiceProduct.period);
+    }
     return {
       createdAt: {
         $gte: start,

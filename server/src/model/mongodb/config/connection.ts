@@ -1,7 +1,7 @@
 import { DB_HOST, DB_PASS, DB_PORT, DB_USER } from "@config/consts";
 import mongoose from "mongoose";
 
-const uri = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}${typeof DB_PORT !== "string" ? ":" + DB_PORT : ""}/try?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}${typeof DB_PORT !== "string" ? ":" + DB_PORT : ""}/?retryWrites=true&w=majority`;
 
 mongoose.connect(uri)
   .then((db) => {

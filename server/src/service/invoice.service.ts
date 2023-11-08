@@ -38,6 +38,9 @@ class InvoiceService {
         path: "products",
         populate: [
           {
+            path: "price"
+          },
+          {
             path: "product"
           },
           {
