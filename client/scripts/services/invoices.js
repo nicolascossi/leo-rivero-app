@@ -1,4 +1,5 @@
 import { API_URL } from "../config/const.js"
+import { mostrarAlerta } from "../utils/alert.js"
 
 const INVOICE_URL = `${API_URL}/invoices`;
 
@@ -39,7 +40,7 @@ export const createInvoice = (data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo crear el pedido');
       throw error;
     });
 }
@@ -54,7 +55,7 @@ export const updateInvoice = (id, data) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo actualizar el pedido');
       throw error;
     });
 }
@@ -68,7 +69,7 @@ export const deleteInvoice = (id) => {
   })
     .then((response) => response.json())
     .catch((error) => {
-      console.error(error);
+      mostrarAlerta('error', 'No se pudo borrar el producto');
       throw error;
     });
 }

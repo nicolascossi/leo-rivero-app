@@ -31,11 +31,13 @@ async function obtenerInformacionFactura(invoiceId) {
     document.getElementById('delivery_address').textContent = pedido.address;
     document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
 
-    const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-    finalizarPedidoBtn.dataset.pedidoId = pedido.id;
+    
 
     const editarPedidoBtn = document.querySelector('#editar-pedido');
     editarPedidoBtn.dataset.pedidoId = pedido.id;
+
+    const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+    archivarPedidoBtn.dataset.pedidoId = pedido.id;
 
     const { client: cliente } = pedido; 
     document.getElementById('client-name').textContent = cliente.name;
@@ -303,52 +305,6 @@ async function editarPedido(e) {
 }
 
 // Función para actualizar al cliente
-function actualizarCliente(e) {
-  e.preventDefault(); // Evitar que el formulario se envíe si estás usando un formulario
-
-  // Obtener el ID del cliente
-  const clienteId = e.target.dataset.clientId;
-
-  // Obtener los valores actualizados de los campos del modal
-  const nuevoNombre = document.querySelector('#client-name').value;
-  const nuevoPhone = document.querySelector('#client-phone').value;
-  const nuevoCuit = document.querySelector('#client-cuit').value;
-  const nuevoEmail = document.querySelector('#client-email').value;
-  const nuevoAdress = document.querySelector('#client-adress').value;
-  const nuevosExtras = document.querySelector('#client-extras').value;
-
-  // Crear un objeto con los datos actualizados
-  const datosActualizados = {
-    name: nuevoNombre,
-    phone: nuevoPhone,
-    CUIT: nuevoCuit,
-    email: nuevoEmail,
-    address: nuevoAdress,
-    extras: nuevosExtras
-  };
-
-  // Realizar una solicitud PATCH a la API para actualizar al cliente
-  fetch(`${url}clients/${clienteId}`, {
-    method: 'PATCH', // Usa el método PATCH para actualizar
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datosActualizados)
-  })
-    .then(response => {
-      if (response.ok) {
-        // La actualización fue exitosa
-        console.log('Cliente actualizado correctamente.');
-        // Puedes realizar otras acciones aquí después de la actualización.
-      } else {
-        // Error al actualizar
-        console.error('Error al actualizar el cliente.');
-      }
-    })
-    .catch(error => {
-      console.error('Error al enviar la solicitud de actualización:', error);
-    });
-}
 
 
 const addItemToInvoiceButton = document.getElementById("invoice-add-item");

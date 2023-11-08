@@ -1,4 +1,5 @@
 import { API_URL } from "../config/const.js"
+import { mostrarAlerta } from "../utils/alert.js"
 
 const PAYMENTS_URL = `${API_URL}/payments`;
 
@@ -12,7 +13,7 @@ export const createPayment = (data) => {
     })
       .then((response) => response.json())
       .catch((error) => {
-        console.error(error);
+        mostrarAlerta('error', 'No se pudo agregar el pago');
         throw error;
       });
   }

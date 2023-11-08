@@ -18,10 +18,14 @@ let newInvoice = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   checkResoulution(1024, null, () => {
     location.href = "../pages/no-support.html";
   })
-  mostrarPedidos();
+  mostrarPedidos()
+  .then(contarPedidosPorCobrar)
+  .then(contarPedidosActivos);
+  
   const nuevoPedido = document.getElementById("nuevo-pedido");
   nuevoPedido.addEventListener("click", async () => {
     // Fill Products Datalist
@@ -63,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientInput = document.getElementById("invoice-client");
     clientInput.removeEventListener("change", handleChangeClient)
     clientInput.addEventListener("change", handleChangeClient)
+
+    
   })
 
   // Delegación de eventos para abrir el modal al hacer clic en el botón de "Status"
@@ -72,8 +78,31 @@ document.addEventListener('DOMContentLoaded', () => {
       obtenerInformacionFactura(orderId);
     }
   });
+  
 });
+function contarPedidosPorCobrar() {
+  // Selecciona todos los elementos con la clase "mi-clase"
+  var elementos = document.querySelectorAll('.PorCobrar');
 
+  // Cuenta la cantidad de elementos encontrados
+  var cantidad = elementos.length;
+  console.log(cantidad)
+
+  const contarPedidosPorCobrar = document.getElementById('pedidos-por-cobrar')
+  contarPedidosPorCobrar.innerText = `${cantidad}`
+}
+
+function contarPedidosActivos() {
+  // Selecciona todos los elementos con la clase "mi-clase"
+  var elementos = document.querySelectorAll('.status-button');
+
+  // Cuenta la cantidad de elementos encontrados
+  var cantidad = elementos.length;
+  console.log(cantidad)
+
+  const contarPedidosActivos = document.getElementById('pedidos-activos')
+  contarPedidosActivos.innerText = `${cantidad}`
+}
 function eliminarItemPedido(nuevoItem) {
   const index = newInvoice.items.indexOf(nuevoItem);
   if (index !== -1) {
@@ -124,9 +153,10 @@ async function mostrarPedidos() {
       const infoPedidoBtn = document.createElement('button');
       infoPedidoBtn.classList.add('status-button');
       infoPedidoBtn.setAttribute('data-invoice-id', invoice.id);
-      infoPedidoBtn.textContent = 'Status';
+      infoPedidoBtn.textContent = 'Ver Pedido';
       if(totalSum > 0) {
         infoPedidoBtn.classList.add("bg-primary")
+        infoPedidoBtn.classList.add("PorCobrar")
         infoPedidoBtn.textContent = "A Cobrar"
       }
 
@@ -241,7 +271,7 @@ async function guardarPedido() {
 
     mostrarAlerta('success', '¡Pedido Guardado!');
   } catch (error) {
-    console.error('Error:', error);    
+    mostrarAlerta('error', 'El pedido no se pudo guardar');    
   }
 
   const modal = document.getElementById('myModal');
@@ -262,11 +292,13 @@ async function obtenerInformacionFactura(orderId) {
     document.getElementById('delivery_address').textContent = pedido.address;
     document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
 
-    const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-    finalizarPedidoBtn.dataset.pedidoId = pedido.id;
+   
 
     const editarPedidoBtn = document.querySelector('#editar-pedido');
     editarPedidoBtn.dataset.pedidoId = pedido.id;
+
+    const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+    archivarPedidoBtn.dataset.pedidoId = pedido.id;
 
     const { client: cliente } = pedido; 
     document.getElementById('client-name').textContent = cliente.name;
@@ -318,39 +350,32 @@ async function obtenerInformacionFactura(orderId) {
   }
 }
 
-const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-finalizarPedidoBtn.addEventListener('click', finalizarPedido);
 
-function finalizarPedido(event) {
-  const pedidoId = event.target.dataset.pedidoId;
 
-  const confirmar = confirm('¿Deseas archivar/eliminar este pedido?');
-  if (confirmar) {
-    eliminarPedido(pedidoId);
-  }
-}
 
-function eliminarPedido(id) {
+
+const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+archivarPedidoBtn.addEventListener('click', archivarPedido);
+
+function archivarPedido(id) {
   try {
     fetch(`${url}invoices/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
         if (response.ok) {
-          console.log(`Pedido con ID ${id} eliminado correctamente.`);
+          mostrarAlerta('success' , `Pedido con ID ${id} eliminado correctamente.`);
         } else {
-          console.error(`Error al eliminar el pedido con ID ${id}.`);
+          mostrarAlerta( error,'Error al eliminar el pedido:');
         }
       })
       .catch(error => {
-        console.error('Error al eliminar el pedido:', error);
+        mostrarAlerta( error,'Error al eliminar el pedido:');
       });
   } catch (error) {
-    console.error('Error al eliminar el pedido:', error);
+    mostrarAlerta( error,'Error al eliminar el pedido:');
   }
 }
-
-
 
 
 // EDITAR pedido
@@ -495,6 +520,7 @@ registrarPeriodosBtn.addEventListener('click', async ()=>{
   const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId
   console.log(invoiceProductId)
   const periodosInput = document.getElementById('periodos-manual').value
+  
 
 
   const periodoManual = {
