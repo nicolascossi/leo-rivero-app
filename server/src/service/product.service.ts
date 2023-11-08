@@ -10,10 +10,8 @@ class ProductService {
       .populate({
         path: "price",
         options: {
-          limit: 1,
-          sort: {
-            createdAt: 1
-          }
+          sort: "-createdAt",
+          limit: 1
         }
       });
 
@@ -25,10 +23,8 @@ class ProductService {
       .populate({
         path: "price",
         options: {
-          limit: 1,
-          sort: {
-            createdAt: 1
-          }
+          sort: "-createdAt",
+          limit: 1
         }
       });
 

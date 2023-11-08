@@ -73,9 +73,10 @@ invoiceProductSchema.virtual("price", {
     start.setHours(0);
     start.setMinutes(0);
     let end = new Date(invoiceProduct.retirementDate ?? Date.now());
+    end.setDate(end.getDate() + 1);
     if (invoiceProduct.manualPeriod !== undefined) {
       end = new Date(invoiceProduct.deliveryDate);
-      end.setDate(end.getDate() + invoiceProduct.manualPeriod * invoiceProduct.period);
+      end.setDate(end.getDate() + invoiceProduct.manualPeriod * invoiceProduct.period + 1);
     }
     return {
       // TODO: ENCONTRAR MANERA DE QUE AGARRE EL PRIMER PRECIO ANTERIOR A LA FECHA DE DELIVERY
