@@ -350,19 +350,14 @@ async function obtenerInformacionFactura(orderId) {
   }
 }
 
-const finalizarPedidoBtn = document.querySelector('#finalizar-pedido');
-finalizarPedidoBtn.addEventListener('click', finalizarPedido);
 
-function finalizarPedido(event) {
-  const pedidoId = event.target.dataset.pedidoId;
 
-  const confirmar = confirm('¿Deseas archivar/eliminar este pedido?');
-  if (confirmar) {
-    eliminarPedido(pedidoId);
-  }
-}
 
-function eliminarPedido(id) {
+
+const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+archivarPedidoBtn.addEventListener('click', archivarPedido);
+
+function archivarPedido(id) {
   try {
     fetch(`${url}invoices/${id}`, {
       method: 'DELETE',
@@ -380,14 +375,6 @@ function eliminarPedido(id) {
   } catch (error) {
     console.error('Error al eliminar el pedido:', error);
   }
-}
-
-const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
-archivarPedidoBtn.addEventListener('click', archivarPedido);
-
-function archivarPedido () {
-  const orderId = e.target.dataset.pedidoId;
-  console.log(orderId)
 }
 
 
@@ -533,6 +520,7 @@ registrarPeriodosBtn.addEventListener('click', async ()=>{
   const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId
   console.log(invoiceProductId)
   const periodosInput = document.getElementById('periodos-manual').value
+  
 
 
   const periodoManual = {
