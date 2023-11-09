@@ -12,7 +12,10 @@ class ClientService {
       email?: string
     }
   ): Promise<ClientDTO[]> {
-    const clients = await ClientModel.find(cleanUndefinedValues(query), { __v: 0 });
+    const queryParsed = Object.entries(query).map(([key, value]) => {
+      return [key, value === undefined ? value : new RegExp(value, "ig")];
+    });
+    const clients = await ClientModel.find(cleanUndefinedValues(Object.fromEntries(queryParsed)), { __v: 0 });
 
     return clients.map((client) => new ClientDTO(client));
   }

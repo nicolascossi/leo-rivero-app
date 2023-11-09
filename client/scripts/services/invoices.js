@@ -1,6 +1,7 @@
 import { API_URL } from "../config/const.js"
 import { mostrarAlerta } from "../utils/alert.js"
 
+
 const INVOICE_URL = `${API_URL}/invoices`;
 
 export const getInvoices = (options) => {
@@ -72,6 +73,20 @@ export const deleteInvoice = (id) => {
     .then((response) => response.json())
     .catch((error) => {
       mostrarAlerta('error', 'No se pudo borrar el producto');
+      throw error;
+    });
+}
+
+export const archiveInvoice = (id) => {
+  return fetch(`${INVOICE_URL}/${id}/archive`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      mostrarAlerta('error', 'No se pudo archivar el producto');
       throw error;
     });
 }

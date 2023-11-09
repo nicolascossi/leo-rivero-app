@@ -1,5 +1,12 @@
 import { getNotes, createNote, deleteNote } from "./services/notes.js";
 
+const refreshButton = document.getElementById('refreshButton');
+    refreshButton.addEventListener('click', function() {
+      location.reload();
+    });
+    
+
+    
 document.addEventListener('DOMContentLoaded', function () {
   
   const agregarNotaBtn = document.getElementById('nueva-nota')

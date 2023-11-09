@@ -3,14 +3,16 @@ import { mostrarAlerta } from "../utils/alert.js"
 
 const CLIENT_URL = `${API_URL}/clients`;
 
-export const getClients = () => {
-  return fetch(CLIENT_URL)
+export const getClients = (options) => {
+  const searchParams = new URLSearchParams(options)
+  return fetch(`${CLIENT_URL}?${searchParams.toString()}`)
     .then((response) => response.json())
     .catch((error) => {
       console.error(error);
       throw error;
     });
 }
+
 
 export const getClient = (id) => {
   return fetch(`${CLIENT_URL}/${id}`)
