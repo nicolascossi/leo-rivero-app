@@ -17,9 +17,11 @@ class InvoiceService {
     }
   ): Promise<InvoiceDTO[]> {
     // console.log(query.status === "archived");
-    const status = query.status === "archived"
-      ? { isArchived: true }
-      : { status: query.status, isArchived: false };
+    const status = query.status === undefined
+      ? {}
+      : query.status === "archived"
+        ? { isArchived: true }
+        : { status: query.status, isArchived: false };
     const addressFilter = { ...(options?.address !== undefined ? { address: new RegExp(options?.address, "ig") } : {}) };
     const invoices = await InvoiceModel.find(cleanUndefinedValues({ ...{ client: query.client }, ...status, ...addressFilter }), { __v: 0 })
       .populate("client")
