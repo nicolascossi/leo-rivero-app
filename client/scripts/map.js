@@ -8,7 +8,7 @@ import {
 } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js";
 import { createPayment } from "./services/payments.js";
-import { calcPeriods } from "./utils/product.js";
+import { calcPeriods, calcPeriodsPrices } from "./utils/product.js";
 import { getActualDate } from "./utils/date.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,74 +18,95 @@ document.addEventListener("DOMContentLoaded", () => {
   ImprimirMapa();
 });
 
-async function obtenerInformacionFactura(invoiceId) {
-  if (!invoiceId) {
-    console.error('No se pudo obtener el ID del pedido');
+async function obtenerInformacionFactura(orderId) {
+  if (!orderId) {
+    console.error("No se pudo obtener el ID del pedido");
     return;
   }
 
   try {
-    const { data: pedido } = await getInvoice(invoiceId);
-    console.log("PEDIDO:", pedido);
-    document.getElementById('id').textContent = `#${pedido.id}`;
-    document.getElementById('delivery_address').textContent = pedido.address;
-    document.getElementById('date').textContent = new Date (pedido.createdAt).toLocaleDateString()
+    const { data: pedido } = await getInvoice(orderId);
+    document.getElementById("id").textContent = `#${pedido.id}`;
+    document.getElementById("delivery_address").textContent = pedido.address;
+    document.getElementById("date").textContent = new Date(
+      pedido.createdAt
+    ).toLocaleDateString();
 
-    
-
-    const editarPedidoBtn = document.querySelector('#editar-pedido');
+    const editarPedidoBtn = document.querySelector("#editar-pedido");
     editarPedidoBtn.dataset.pedidoId = pedido.id;
 
-    const archivarPedidoBtn = document.querySelector('#finalizar-pedido');
+    const archivarPedidoBtn = document.querySelector("#finalizar-pedido");
     archivarPedidoBtn.dataset.pedidoId = pedido.id;
 
-    const { client: cliente } = pedido; 
-    document.getElementById('client-name').textContent = cliente.name;
-    document.getElementById('client-phone').textContent = cliente.phone;
-    document.getElementById('client-email').textContent = cliente.email;
-    document.getElementById('client-cuit').textContent = cliente.CUIT;
-    
+    const { client: cliente } = pedido;
+    document.getElementById("client-name").textContent = cliente.name;
+    document.getElementById("client-phone").textContent = cliente.phone;
+    document.getElementById("client-email").textContent = cliente.email;
+    document.getElementById("client-cuit").textContent = cliente.CUIT;
 
     let totalSumEl = 0;
 
     const head = `<div class="parent-items-resume--head parent-items-row">
-    <p class="text-start">Item</p>
-    <p class="text-center">Entrega</p>
-    <p class="text-center">Retiro</p>
-    <p class="text-center">Periodos</p>
-    <p class="text-center">Precio/Periodo</p>
-    <p class="text-end">Total</p>
-  </div>`
+    <p class="fw-semibold text-start align-self-end">Item</p>
+    <p class="fw-semibold text-center align-self-end">Entrega</p>
+    <p class="fw-semibold text-center align-self-end">Retiro</p>
+    <p class="fw-semibold text-center align-self-end">Periodos</p>
+    <p class="fw-semibold text-center align-self-end">Ult.<span class="d-block">Precio/Periodo</span></p>
+    <p class="fw-semibold text-end align-self-end">Total</p>
+  </div>`;
 
-    let rows = ""
+    let rows = "";
 
-    pedido.products.forEach(item => {
-      const totalPeriods = calcPeriods(new Date(item.deliveryDate), item.retirementDate, item.period);
-      const subtotal = totalPeriods * item.price;
-      const payed = item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
+    pedido.products.forEach((item) => {
+      const totalPeriods =
+        item.manualPeriod ??
+        calcPeriods(
+          new Date(item.deliveryDate),
+          item.retirementDate,
+          item.period
+        );
+        console.log(totalPeriods);
+      const periodsByPrices = calcPeriodsPrices(
+        item.period,
+        totalPeriods,
+        item.deliveryDate,
+        item.price
+      );
+      const subtotal = Object.values(periodsByPrices).reduce(
+        (total, { price }) => total + price,
+        0
+      );
+      const payed =
+        item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
       const total = subtotal - payed;
       totalSumEl += total;
 
       rows += `
       <div class="parent-items-row">
         <p class="text-start">${item.product.name} #${item.numberId}</p>
-        <p class="text-center">${new Date(item.deliveryDate).toLocaleDateString()}</p>
-        <p class="text-center">${item.retirementDate ? new Date(item.retirementDate).toLocaleDateString() : "No se retiró"}</p>
+        <p class="text-center">${new Date(
+          item.deliveryDate
+        ).toLocaleDateString()}</p>
+        <p class="text-center">${
+          item.retirementDate
+            ? new Date(item.retirementDate).toLocaleDateString()
+            : "No se retiró"
+        }</p>
         <p class="text-center">${totalPeriods}</p>
-        <p class="text-center">$${item.price}</p>
+        <p class="text-center">$${periodsByPrices[totalPeriods].price}</p>
         <p class="text-end">$${total}</p>
       </div>
-      `
+      `;
     });
 
-    document.getElementById('parent-items-table').innerHTML = `${head}${rows}`;
-    document.getElementById('invoiceTotal').textContent = `$${totalSumEl}`;
+    document.getElementById("parent-items-table").innerHTML = `${head}${rows}`;
+    document.getElementById("invoiceTotal").textContent = `$${totalSumEl}`;
 
-    const modal = document.getElementById('invoiceResumeModal');
+    const modal = document.getElementById("invoiceResumeModal");
     const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
     modalBootstrap.show();
-  } catch (error) { 
-    console.error('Error al obtener los datos de la factura:', error);
+  } catch (error) {
+    console.error("Error al obtener los datos de la factura:", error);
   }
 }
 
