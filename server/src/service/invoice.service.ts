@@ -16,11 +16,12 @@ class InvoiceService {
       address?: string
     }
   ): Promise<InvoiceDTO[]> {
+    // console.log(query.status === "archived");
     const status = query.status === "archived"
       ? { isArchived: true }
       : { status: query.status, isArchived: false };
     const addressFilter = { ...(options?.address !== undefined ? { address: new RegExp(options?.address, "ig") } : {}) };
-    const invoices = await InvoiceModel.find(cleanUndefinedValues({ ...query, ...status, ...addressFilter }), { __v: 0 })
+    const invoices = await InvoiceModel.find(cleanUndefinedValues({ ...{ client: query.client }, ...status, ...addressFilter }), { __v: 0 })
       .populate("client")
       .populate({
         path: "products",
@@ -118,7 +119,7 @@ class InvoiceService {
   }
 
   async delete (id: string): Promise<void> {
-    const invoice = await InvoiceModel.findById({ id });
+    const invoice = await InvoiceModel.findById({ _id: id });
 
     if (invoice === null) {
       throw createHttpError.NotFound("Invoice not founded");
@@ -128,7 +129,7 @@ class InvoiceService {
       throw createHttpError["422"]("Can't delete a completed Invoice");
     }
 
-    await InvoiceModel.deleteOne({ id });
+    await InvoiceModel.deleteOne({ _id: id });
   }
 
   async archive (id: string): Promise<void> {
