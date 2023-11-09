@@ -3,8 +3,10 @@ import { mostrarAlerta } from "../utils/alert.js"
 
 const INVOICE_URL = `${API_URL}/invoices`;
 
-export const getInvoices = () => {
-  return fetch(INVOICE_URL)
+export const getInvoices = (options) => {
+  const searchParams = new URLSearchParams(options)
+
+  return fetch(`${INVOICE_URL}?${searchParams.toString()}`)
     .then((response) => response.json())
     .catch((error) => {
       console.error(error);

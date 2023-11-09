@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   checkResoulution(1024, null, () => {
     location.href = "../pages/no-support.html";
   });
-  mostrarPedidos().then(contarPedidosPorCobrar).then(contarPedidosActivos);
+  mostrarPedidos({status:'pending'}).then(contarPedidosPorCobrar).then(contarPedidosActivos);
 
   const nuevoPedido = document.getElementById("nuevo-pedido");
   nuevoPedido.addEventListener("click", async () => {
@@ -109,11 +109,40 @@ function eliminarItemPedido(nuevoItem) {
 
   mostrarAlerta("success", "¡Item eliminado!");
 }
+const listaDesplegable = document.getElementById('filtros-1');
 
-async function mostrarPedidos() {
+    listaDesplegable.addEventListener('click', function (event) {
+        // Verificar si el clic ocurrió en un elemento de lista
+        if (event.target.tagName === 'A' && event.target.classList.contains('dropdown-item')) {
+            // Obtener el texto del elemento de la lista clicado
+            const opcionSeleccionada = event.target.textContent;
+
+            // Hacer algo con la opción seleccionada
+            console.log('Opción seleccionada:', opcionSeleccionada);
+
+            switch(opcionSeleccionada){
+              case "Activos": mostrarPedidos({status:'pending'})
+              break
+              case "Archivados": mostrarPedidos({status:'archived'})
+              break
+              case "Todos": mostrarPedidos()
+              break
+            }
+        }
+    });
+
+
+
+
+async function mostrarPedidos(options) {
   try {
-    const { data: invoices } = await getInvoices();
+    const { data: invoices } = await getInvoices(options);
+
+    
+
     const contenido = document.querySelector("#pedidos");
+
+    contenido.innerHTML = ''
 
     invoices.map(async (invoice) => {
       const div = document.createElement("div");
@@ -250,7 +279,24 @@ function guardarItemPedido() {
 }
 
 const guardarPedidoBtn = document.getElementById("guardar-pedido");
-guardarPedidoBtn.addEventListener("click", guardarPedido);
+guardarPedidoBtn.addEventListener("click", async (e) => {
+
+e.currentTarget.disabled = true
+await guardarPedido()
+e.currentTarget.disabled = false
+} );
+
+
+
+const botonabrirmodal = document.getElementById('nuevo-pedido')
+botonabrirmodal.addEventListener('click', () => {
+  const modal = document.getElementById("newInvoiceModal");
+  const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
+  modalBootstrap.show();
+})
+
+
+
 
 async function guardarPedido() {
   const clientId = document.getElementById("invoice-client");
@@ -284,7 +330,7 @@ async function guardarPedido() {
     mostrarAlerta("error", "El pedido no se pudo guardar");
   }
 
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById("newInvoiceModal");
   const modalBootstrap = bootstrap.Modal.getOrCreateInstance(modal);
   modalBootstrap.hide();
 }

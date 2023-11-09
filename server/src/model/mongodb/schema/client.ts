@@ -23,13 +23,11 @@ const clientSchema = new Schema<MongooseIdSchema<Client>>({
   },
   email: {
     type: String,
-    unique: true,
     required: false
   },
   phone: {
     type: String,
-    required: false,
-    unique: true
+    required: false
   },
   address: {
     type: String,

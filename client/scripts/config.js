@@ -39,6 +39,9 @@ async function mostrarProductos() {
     nombre.classList.add('fw-semibold');
     nombre.textContent = producto.name;
 
+
+    console.log(producto)
+    
     console.log(producto.price);
 
     const precio = document.createElement('P');
