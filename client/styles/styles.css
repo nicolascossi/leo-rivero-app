@@ -26,7 +26,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
+.shadow {
+    box-shadow: 5px black;
+}
 .custom-center {
     left: 50%; /* Centra el elemento horizontalmente en relación con su contenedor */
     transform: translateX(-50%); /* Corrige el centrado para que esté perfectamente en el medio */
