@@ -13,6 +13,7 @@ class ClientDTO implements MongooseDTO<Client> {
   updatedAt?: string;
 
   constructor (client: MongooseIdSchema<Client>) {
+    console.log(client);
     this.id = client._id;
     this.CUIT = client.CUIT;
     this.address = client.address;

@@ -60,7 +60,7 @@ class PaymentService {
   */
 
   async delete (id: string): Promise<void> {
-    const payment = await PaymentModel.findById({ id });
+    const payment = await PaymentModel.findById({ _id: id });
 
     if (payment === null) {
       throw createHttpError.NotFound("Payment not founded");

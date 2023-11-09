@@ -92,7 +92,7 @@ class InvoiceProductService {
       throw createHttpError["422"]("Can't delete invoice products with payments");
     }
 
-    await InvoiceProductModel.deleteOne({ id });
+    await InvoiceProductModel.deleteOne({ _id: id });
   }
 }
 

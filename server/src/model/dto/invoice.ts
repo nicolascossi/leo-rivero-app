@@ -8,7 +8,7 @@ class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
   id: number;
   IVA?: boolean;
   address: string;
-  client: number | ClientDTO;
+  client?: number | ClientDTO;
   isArchived: boolean;
   status: InvoiceStatus;
   products?: InvoiceProductDTO[];
@@ -19,9 +19,11 @@ class InvoiceDTO implements Omit<MongooseDTO<Invoice>, "products" | "client"> {
     this.id = invoice._id;
     this.IVA = invoice.IVA;
     this.address = invoice.address;
-    this.client = typeof invoice.client === "number"
-      ? invoice.client
-      : new ClientDTO(invoice.client as MongooseIdSchema<Client>);
+    if (invoice.client !== null) {
+      this.client = typeof invoice.client === "number"
+        ? invoice.client
+        : new ClientDTO(invoice.client as MongooseIdSchema<Client>);
+    }
     this.status = invoice.status;
     this.isArchived = invoice.isArchived;
     if (invoice.products !== undefined) {

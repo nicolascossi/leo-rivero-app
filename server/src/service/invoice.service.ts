@@ -18,7 +18,7 @@ class InvoiceService {
   ): Promise<InvoiceDTO[]> {
     const status = query.status === "archived"
       ? { isArchived: true }
-      : { status: query.status };
+      : { status: query.status, isArchived: false };
     const addressFilter = { ...(options?.address !== undefined ? { address: new RegExp(options?.address, "ig") } : {}) };
     const invoices = await InvoiceModel.find(cleanUndefinedValues({ ...query, ...status, ...addressFilter }), { __v: 0 })
       .populate("client")
@@ -97,14 +97,18 @@ class InvoiceService {
     id: string,
     {
       IVA,
-      address
-    }: Pick<Invoice, "IVA" | "address">
+      address,
+      status,
+      isArchived
+    }: Partial<Pick<Invoice, "IVA" | "address" | "status" | "isArchived" >>
   ): Promise<InvoiceDTO | null> {
     const updatedInvoice = await InvoiceModel.findOneAndUpdate(
-      { id },
+      { _id: id },
       {
         IVA,
-        address
+        address,
+        status,
+        isArchived
       },
       {
         new: true
@@ -125,6 +129,10 @@ class InvoiceService {
     }
 
     await InvoiceModel.deleteOne({ id });
+  }
+
+  async archive (id: string): Promise<void> {
+    await this.update(id, { isArchived: true });
   }
 }
 

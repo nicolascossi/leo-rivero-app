@@ -9,5 +9,6 @@ InvoiceRouter.get("/:id", invoiceController.getById);
 InvoiceRouter.post("/", createInvoice, invoiceController.create);
 InvoiceRouter.put("/:id", updateInvoice, invoiceController.update);
 InvoiceRouter.delete("/:id", invoiceController.delete);
+InvoiceRouter.post("/:id/archive", invoiceController.archive);
 
 export default InvoiceRouter;

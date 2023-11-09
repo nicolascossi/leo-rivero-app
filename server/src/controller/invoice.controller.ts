@@ -105,6 +105,18 @@ class InvoiceController {
       next(error);
     }
   }
+
+  async archive (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const invoiceId = req.params.id;
+
+      await invoiceService.archive(invoiceId);
+
+      void res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new InvoiceController();
