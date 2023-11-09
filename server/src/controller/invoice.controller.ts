@@ -5,12 +5,21 @@ import invoiceService from "service/invoice.service";
 class InvoiceController {
   async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const clientId = req.query.clientId as string;
-      const status = req.query.status as InvoiceStatus;
+      const {
+        clientId,
+        address,
+        client,
+        item
+      } = req.query as Record<string, string>;
+      const status = req.query.status as InvoiceStatus | "archived";
 
       const invoices = await invoiceService.getAll({
         client: clientId,
         status
+      }, {
+        clientName: client,
+        address,
+        orderItemId: item
       });
 
       void res.json({

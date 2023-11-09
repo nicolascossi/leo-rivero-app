@@ -1,10 +1,18 @@
 import ClientDTO from "@model/dto/client";
 import ClientModel from "@model/mongodb/schema/client";
+import { cleanUndefinedValues } from "utils/validations";
 import type { Client } from "@model/mongodb/schema/client";
 
 class ClientService {
-  async getAll (): Promise<ClientDTO[]> {
-    const clients = await ClientModel.find({}, { __v: 0 });
+  async getAll (
+    query: {
+      address?: string
+      name?: string
+      phone?: string
+      email?: string
+    }
+  ): Promise<ClientDTO[]> {
+    const clients = await ClientModel.find(cleanUndefinedValues(query), { __v: 0 });
 
     return clients.map((client) => new ClientDTO(client));
   }

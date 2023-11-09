@@ -5,7 +5,19 @@ import clientService from "service/client.service";
 class ClientController {
   async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const clients = await clientService.getAll();
+      const {
+        address,
+        name,
+        phone,
+        email
+      } = req.query as Record<string, string | undefined>;
+
+      const clients = await clientService.getAll({
+        email,
+        address,
+        name,
+        phone
+      });
 
       void res.json({
         status: 200,

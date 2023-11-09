@@ -7,11 +7,20 @@ import { cleanUndefinedValues } from "utils/validations";
 class InvoiceService {
   async getAll (
     query: {
-      status?: InvoiceStatus
+      status?: InvoiceStatus | "archived"
       client?: string
+    },
+    options?: {
+      orderItemId?: string
+      clientName?: string
+      address?: string
     }
   ): Promise<InvoiceDTO[]> {
-    const invoices = await InvoiceModel.find(cleanUndefinedValues(query), { __v: 0 })
+    const status = query.status === "archived"
+      ? { isArchived: true }
+      : { status: query.status };
+    const addressFilter = { ...(options?.address !== undefined ? { address: new RegExp(options?.address, "ig") } : {}) };
+    const invoices = await InvoiceModel.find(cleanUndefinedValues({ ...query, ...status, ...addressFilter }), { __v: 0 })
       .populate("client")
       .populate({
         path: "products",
@@ -28,7 +37,25 @@ class InvoiceService {
         ]
       });
 
-    return invoices.map((invoice) => new InvoiceDTO(invoice));
+    if (options?.orderItemId !== undefined) {
+      return invoices
+        .filter((invoice) => {
+          return invoice.products?.some((invoiceProduct) => invoiceProduct._id === Number(options.orderItemId));
+        })
+        .map((invoice) => new InvoiceDTO(invoice));
+    }
+
+    if (options?.clientName !== undefined) {
+      const regex = new RegExp(options.clientName, "ig");
+      return invoices
+        .filter((invoice) => {
+          return typeof invoice.client !== "number" && regex.test(invoice.client.name);
+        })
+        .map((invoice) => new InvoiceDTO(invoice));
+    }
+
+    return invoices
+      .map((invoice) => new InvoiceDTO(invoice));
   }
 
   async getById (id: string): Promise<InvoiceDTO | null> {
