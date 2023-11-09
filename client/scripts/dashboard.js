@@ -2,13 +2,13 @@
 // mostrarAlerta('danger', '¡Error! Algo salió mal.');
 // mostrarAlerta('info', 'Información importante.');
 
-import { createInvoice, getInvoice, getInvoices } from "./services/invoices.js";
+import { createInvoice, getInvoice, getInvoices,archiveInvoice } from "./services/invoices.js";
 import { getClients } from "./services/client.js";
 import { mostrarAlerta } from "./utils/alert.js";
 import { checkResoulution } from "./utils/resolution.js";
 import {
   createInvoiceProduct,
-  updateInvoiceProduct,
+  updateInvoiceProduct
 } from "./services/invoice-products.js";
 import { getProducts } from "./services/product.js";
 import { createPayment } from "./services/payments.js";
@@ -18,6 +18,16 @@ import { getActualDate } from "./utils/date.js";
 let newInvoice = {
   items: [],
 };
+
+const filters = {
+  status: {
+    status: 'pending'
+  },
+  fields: {
+    input: 'client',
+    data: {}
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   checkResoulution(1024, null, () => {
@@ -101,6 +111,7 @@ function contarPedidosActivos() {
   const contarPedidosActivos = document.getElementById("pedidos-activos");
   contarPedidosActivos.innerText = `${cantidad}`;
 }
+
 function eliminarItemPedido(nuevoItem) {
   const index = newInvoice.items.indexOf(nuevoItem);
   if (index !== -1) {
@@ -109,6 +120,7 @@ function eliminarItemPedido(nuevoItem) {
 
   mostrarAlerta("success", "¡Item eliminado!");
 }
+
 const listaDesplegable = document.getElementById('filtros-1');
 
     listaDesplegable.addEventListener('click', function (event) {
@@ -121,11 +133,53 @@ const listaDesplegable = document.getElementById('filtros-1');
             console.log('Opción seleccionada:', opcionSeleccionada);
 
             switch(opcionSeleccionada){
-              case "Activos": mostrarPedidos({status:'pending'})
+              case "Activos":
+                filters.status = {status:'pending'}
+                mostrarPedidos({...filters.status,...filters.fields.data})
               break
-              case "Archivados": mostrarPedidos({status:'archived'})
+              case "Archivados":
+                filters.status = {status:'archived'}
+                mostrarPedidos({...filters.status,...filters.fields.data})
+              break 
+              case "Todos":
+              filters.status = {}
+              mostrarPedidos({...filters.status,...filters.fields.data})
               break
-              case "Todos": mostrarPedidos()
+            }
+        }
+    });
+
+
+  const listaDesplegable2 = document.getElementById('filtros-2');
+  const filtrosInput = document.getElementById('filtro-input')
+
+  filtrosInput.addEventListener('keydown', async (e) => {
+    const valor = filtrosInput.value
+    console.log(e.key);
+    if(e.key === "Enter"){
+    
+      filters.fields.data = {[filters.fields.input]:valor}
+      await mostrarPedidos({...filters.status,...filters.fields.data})
+    }
+    
+  })
+
+    listaDesplegable2.addEventListener('click', function (event) {
+        // Verificar si el clic ocurrió en un elemento de lista
+        if (event.target.tagName === 'A' && event.target.classList.contains('dropdown-item')) {
+            // Obtener el texto del elemento de la lista clicado
+            const opcionSeleccionada = event.target.textContent;
+
+            // Hacer algo con la opción seleccionada
+            console.log('Opción seleccionada:', opcionSeleccionada);
+
+
+            switch(opcionSeleccionada){
+              case "Clientes":
+                filters.fields.input  = 'client'
+              break
+              case "Direccion":
+                filters.fields.input = 'address'
               break
             }
         }
@@ -281,9 +335,9 @@ function guardarItemPedido() {
 const guardarPedidoBtn = document.getElementById("guardar-pedido");
 guardarPedidoBtn.addEventListener("click", async (e) => {
 
-e.currentTarget.disabled = true
+
 await guardarPedido()
-e.currentTarget.disabled = false
+
 } );
 
 
@@ -434,30 +488,13 @@ async function obtenerInformacionFactura(orderId) {
 }
 
 const archivarPedidoBtn = document.querySelector("#finalizar-pedido");
-archivarPedidoBtn.addEventListener("click", archivarPedido);
+archivarPedidoBtn.addEventListener("click", async(e) => {
+  const id = e.currentTarget.dataset.pedidoId 
+  
+  await archiveInvoice(id)
+  
+});
 
-function archivarPedido(id) {
-  try {
-    fetch(`${url}invoices/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          mostrarAlerta(
-            "success",
-            `Pedido con ID ${id} eliminado correctamente.`
-          );
-        } else {
-          mostrarAlerta(error, "Error al eliminar el pedido:");
-        }
-      })
-      .catch((error) => {
-        mostrarAlerta(error, "Error al eliminar el pedido:");
-      });
-  } catch (error) {
-    mostrarAlerta(error, "Error al eliminar el pedido:");
-  }
-}
 
 // EDITAR pedido
 const botonEditarPedido = document.querySelector("#editar-pedido");
@@ -641,16 +678,17 @@ async function editarPedido(e) {
 
 async function PeriodosManual(invoiceProduct) {
   const modal = bootstrap.Modal.getOrCreateInstance("#PeriodosManual");
-  const registrarPeriodosManualBtn =
-    document.getElementById("registrarPeriodos");
+  const registrarPeriodosManualBtn = document.getElementById("registrarPeriodos");
   registrarPeriodosManualBtn.dataset.invoiceProductId = invoiceProduct.id;
   const spanData1 = document.getElementById("item-periodos");
   spanData1.textContent = `${invoiceProduct.product.name} #${invoiceProduct.numberId}`;
   modal.show();
 }
 
+
+
 const registrarPeriodosBtn = document.getElementById("registrarPeriodos");
-registrarPeriodosBtn.addEventListener("click", async () => {
+registrarPeriodosBtn.addEventListener("click", async (e) => {
   const modal = bootstrap.Modal.getOrCreateInstance("#PeriodosManual");
   const invoiceProductId = registrarPeriodosBtn.dataset.invoiceProductId;
   console.log(invoiceProductId);
@@ -659,11 +697,13 @@ registrarPeriodosBtn.addEventListener("click", async () => {
   const periodoManual = {
     manualPeriod: Number(periodosInput),
   };
-
+  
   await updateInvoiceProduct(
     invoiceProductId,
     periodoManual
-  ); /* NO ESTA HECHO ASI LOS PERIODOS SE CUENTA EN EL FRONTEND */
+  );
+  
+  /* NO ESTA HECHO ASI LOS PERIODOS SE CUENTA EN EL FRONTEND */
   modal.hide();
 });
 
@@ -736,7 +776,7 @@ async function addPayment(invoiceProduct) {
 }
 
 const registrarPagoBtn = document.getElementById("registrarPago");
-registrarPagoBtn.addEventListener("click", async () => {
+registrarPagoBtn.addEventListener("click", async (e) => {
   const modal = bootstrap.Modal.getOrCreateInstance("#invoiceNewPaymentModal");
 
   const metodo = document.getElementById("payment-options-input").value;
@@ -751,24 +791,59 @@ registrarPagoBtn.addEventListener("click", async () => {
     value: paymentValue,
     invoiceProduct: Number(registrarPagoBtn.dataset.invoiceProductId),
   };
-
+  
   await createPayment(pago);
+  
   modal.hide();
 });
 
 const fechaRetiroBtn = document.getElementById("FechaRetiroConfirmar");
-fechaRetiroBtn.addEventListener("click", async () => {
-  const modal = bootstrap.Modal.getOrCreateInstance("#invoiceRetire");
 
-  const fechaInput = document.getElementById("RetiroFecha").value;
+fechaRetiroBtn.addEventListener("click", async (e) => {
+  // Almacena una referencia al botón antes de deshabilitarlo
+  const botonRetiro = e.currentTarget;
 
-  const retiro = {
-    retirementDate: getActualDate(fechaInput),
-  };
+  // Deshabilitar el botón mientras se realiza la operación
+  botonRetiro.disabled = true;
+  botonRetiro.classList.add('btn-light')
 
-  await updateInvoiceProduct(fechaRetiroBtn.dataset.invoiceProductId, retiro);
-  modal.hide();
+  try {
+    const modal = new bootstrap.Modal(document.getElementById("invoiceRetire"));
+
+    // Obtener el valor de la fecha correctamente
+    const fechaInput = document.getElementById("RetiroFecha").value;
+
+    // Verificar si la fechaInput tiene un valor válido antes de continuar
+    if (!fechaInput) {
+      throw new Error("La fecha de retiro no puede estar vacía.");
+    }
+
+    const retiro = {
+      retirementDate: getActualDate(fechaInput),
+    };
+
+    // Actualizar el producto de la factura
+    await updateInvoiceProduct(botonRetiro.dataset.invoiceProductId, retiro);
+
+    // Ocultar el modal después de la operación
+    modal.hide();
+  } catch (error) {
+    console.error("Error:", error.message);
+  } finally {
+    // Habilitar el botón nuevamente, independientemente de si hay un error o no
+    if (botonRetiro) {
+      botonRetiro.disabled = false;
+      botonRetiro.classList.remove('btn-light')
+    }
+  }
 });
+
+// Resto del código...
+
+
+
+
+
 
 async function retireInvoiceProduct(invoiceProduct) {
   const modal = bootstrap.Modal.getOrCreateInstance("#invoiceRetire");
@@ -794,8 +869,9 @@ addNewItemButton.addEventListener("click", async (e) => {
     invoice: Number(addNewItemButton.dataset.invoiceId),
     deliveryDate: getActualDate(dateInput.value),
   };
-
+  e.currentTarget.disabled = true
   await createInvoiceProduct(newItem);
+  e.currentTarget.disabled = false
 });
 
 async function addNewItem(invoiceId) {

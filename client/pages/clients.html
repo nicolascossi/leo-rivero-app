@@ -109,21 +109,28 @@
             </div>
           </div>
 
-        <!-- CONTAINER SEARCHBAR 
-
           <div class="searchbar-container">
-            <button class="filter btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtros</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Direccion</a></li>
-                    <li><a class="dropdown-item" href="#">Nombre</a></li>
-                    <li><a class="dropdown-item" href="#">Telefono</a></li>
-                    <li><a class="dropdown-item" href="#">Mail</a></li>
-
-                  </ul>
-
-            <input type="text" placeholder="Busca por numero de item o de orden, o nombre de cliente." >
+            <button
+              class="filter btn btn-secondary dropdown-toggle"
+              type="button"
+              id=""
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Filtros
+            </button>
+            <ul class="dropdown-menu" id="filtros-2">
+              <li><a class="dropdown-item" href="#">Nombre</a></li>
+              <li><a class="dropdown-item" href="#">Direccion</a></li>
+              <li><a class="dropdown-item" href="#">Telefono</a></li>
+              <li><a class="dropdown-item" href="#">Email</a></li>
+            </ul>
+            <input
+              type="text"
+              id="filtro-input"
+              placeholder="Busca por direccion del cliente, o nombre de cliente, telefono o email."
+            />
           </div>
--->
         <!-- LISTA DE CLIENTES -->
 
         <div class="clients-list" id="clients-list">

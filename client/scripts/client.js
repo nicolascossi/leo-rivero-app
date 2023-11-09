@@ -2,7 +2,53 @@ import { createClient, deleteClient, getClient, getClients, updateClient } from 
 import { getInvoices, getInvoicesByClient } from "./services/invoices.js";
 import { checkResoulution } from "./utils/resolution.js";
 
-const url = 'http://localhost:4000/'
+const filters = {
+  fields: {
+    input: 'name',
+    data: {}
+  }
+}
+
+const listaDesplegable2 = document.getElementById('filtros-2');
+const filtrosInput = document.getElementById('filtro-input')
+
+filtrosInput.addEventListener('keydown', async (e) => {
+  const valor = filtrosInput.value
+  console.log(e.key);
+  if(e.key === "Enter"){
+  
+    filters.fields.data = {[filters.fields.input]:valor}
+    await mostrarClientes({...filters.fields.data})
+  }
+  
+})
+
+  listaDesplegable2.addEventListener('click', function (event) {
+      // Verificar si el clic ocurrió en un elemento de lista
+      if (event.target.tagName === 'A' && event.target.classList.contains('dropdown-item')) {
+          // Obtener el texto del elemento de la lista clicado
+          const opcionSeleccionada = event.target.textContent;
+
+          // Hacer algo con la opción seleccionada
+          console.log('Opción seleccionada:', opcionSeleccionada);
+
+
+          switch(opcionSeleccionada){
+            case "Nombre":
+              filters.fields.input  = 'name'
+            break
+            case "Direccion":
+              filters.fields.input = 'address'
+            break
+            case "Telefono":
+              filters.fields.input = 'phone'
+            break
+            case "Email":
+              filters.fields.input = 'email'
+            break
+          }
+      }
+  });
 
 document.addEventListener('DOMContentLoaded', () => {
   // Resto de tu código...
@@ -55,10 +101,12 @@ async function guardarCliente() {
   modalBootstrap.hide();
 }
 
-async function mostrarClientes() {
-  const { data: clientes } = await getClients();
+async function mostrarClientes(options) {
+
+  const { data: clientes } = await getClients(options);
   const container = document.querySelector('.clients-list');
 
+  container.innerHTML = ''
   clientes.forEach(cliente => {
     const divCliente = document.createElement('DIV');
     divCliente.classList.add('client');

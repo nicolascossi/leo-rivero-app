@@ -17,3 +17,13 @@ export const createPayment = (data) => {
         throw error;
       });
   }
+
+
+  export const getPayments = () => {
+    return fetch(`${PAYMENTS_URL}`)
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  }
