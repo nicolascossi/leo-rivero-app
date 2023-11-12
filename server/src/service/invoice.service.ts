@@ -49,9 +49,9 @@ class InvoiceService {
     }
 
     if (options?.clientName !== undefined) {
-      const regex = new RegExp(options.clientName, "ig");
       return invoices
         .filter((invoice) => {
+          const regex = new RegExp((options.clientName as string), "ig");
           return typeof invoice.client !== "number" && regex.test(invoice.client.name);
         })
         .map((invoice) => new InvoiceDTO(invoice));
