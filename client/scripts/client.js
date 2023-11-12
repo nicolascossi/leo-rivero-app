@@ -172,7 +172,8 @@ async function obtenerInformacionCliente(clientId) {
     // Asignamos el evento shown.bs.modal para mostrar las facturas del cliente una vez que el modal esté completamente cargado
     modal.addEventListener('shown.bs.modal', async () => {
       // Buscar invoices del cliente
-      const { data: invoices } = await getInvoicesByClient(clientId)
+      const { data: invoices } = await getInvoicesByClient(clientId )
+      console.log(invoices)
       // Crear los divs para los invoices y sus detalles
       const invoicesContainer = document.getElementById('invoices-container');
       invoicesContainer.innerHTML = ''; // Limpiar el contenido antes de agregar nuevos divs
@@ -198,26 +199,28 @@ async function obtenerInformacionCliente(clientId) {
 
       invoicesContainer.appendChild(columnsDiv);
 
-
       invoices.forEach(invoice => {
-        const invoiceDiv = document.createElement('div');
-        invoiceDiv.classList.add('row-list-invoices');
+        // Agregar una condición para verificar isArchived antes de crear y agregar elementos al DOM
+        if (!invoice.isArchived) {
+            const invoiceDiv = document.createElement('div');
+            invoiceDiv.classList.add('row-list-invoices');
 
-        const invoiceIdP = document.createElement('p');
-        invoiceIdP.textContent = `#${invoice.id}`;
+            const invoiceIdP = document.createElement('p');
+            invoiceIdP.textContent = `#${invoice.id}`;
 
-        const deliveryAddressP = document.createElement('p');
-        deliveryAddressP.textContent = invoice.address;
+            const deliveryAddressP = document.createElement('p');
+            deliveryAddressP.textContent = invoice.address;
 
-        const itemsP = document.createElement('p');
-        itemsP.textContent = invoice.products.length;
+            const itemsP = document.createElement('p');
+            itemsP.textContent = invoice.products.length;
 
-        invoiceDiv.appendChild(invoiceIdP);
-        invoiceDiv.appendChild(deliveryAddressP);
-        invoiceDiv.appendChild(itemsP);
+            invoiceDiv.appendChild(invoiceIdP);
+            invoiceDiv.appendChild(deliveryAddressP);
+            invoiceDiv.appendChild(itemsP);
 
-        invoicesContainer.appendChild(invoiceDiv);
-      });
+            invoicesContainer.appendChild(invoiceDiv);
+        }
+    });
     })
     const modalBootstrap = bootstrap.Modal.getInstance(modal);
     modalBootstrap.show();
