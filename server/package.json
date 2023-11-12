@@ -17,6 +17,7 @@
     "http-errors": "^2.0.0",
     "mongoose": "^7.6.0",
     "morgan": "^1.10.0",
+    "pdfjs": "^2.5.2",
     "tsconfig-paths": "^4.2.0",
     "zod": "^3.22.4"
   },
