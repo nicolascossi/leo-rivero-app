@@ -1562,7 +1562,7 @@ height: 55px;
         }
         .home {
         left: 40px !important;
-        background-color: white;
+        background-color: white !important;
           
         }
         body {
@@ -1577,7 +1577,7 @@ height: 55px;
     }
     .PDF {
         background-color: white;
-        height: 100vh;
+        height: auto;
     }
     .itemList {
         display: flex;
@@ -1599,7 +1599,7 @@ height: 55px;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        margin-left: 80px;
+        
     }
 
 .header-left img {
@@ -1639,9 +1639,35 @@ height: 55px;
 }
 
 .DIVS-RESUMEN {
+    margin-bottom: 50px;
     width: 80%;
 }
 
 .MASANCHO {
     width: 150px;
+}
+
+.cajaPedido {
+    width: 800px;
+}
+.cajaItems {
+    display: flex;
+        column-gap: 20px;
+        width: auto;
+        align-items: center;
+        justify-content: center;
+        background-color: #F8F9FE;
+        padding: 30px 50px;
+        border-radius: 8px;
+        margin-bottom: 50px;
+        
+}
+
+.TITLE {
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.totalxcliente{
+    width: 500px !important;
 }

@@ -30,7 +30,7 @@ async function ImprimirMapa() {
   });
 
   map.on("load", async function () {
-    var marker = new mapboxgl.Marker()
+    var marker = new mapboxgl.Marker({ color: "yellow" })
       .setLngLat([-62.23569, -38.689509])
       .setPopup(new mapboxgl.Popup().setHTML("Deposito"))
       .addTo(map);

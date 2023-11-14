@@ -111,6 +111,10 @@ async function mostrarClientes(options) {
     const divCliente = document.createElement('DIV');
     divCliente.classList.add('client');
 
+    const id = document.createElement('P');
+    id.classList.add('client-name');
+    id.textContent = `#${cliente.id}`;
+
     const nombre = document.createElement('P');
     nombre.classList.add('client-name');
     nombre.textContent = cliente.name;
@@ -129,6 +133,7 @@ async function mostrarClientes(options) {
     btnInfoClient.textContent = 'Informacion del Cliente';
     btnInfoClient.setAttribute('data-client-id', cliente.id);
 
+    divCliente.appendChild(id)
     divCliente.appendChild(nombre);
     divCliente.appendChild(telefono);
     divCliente.appendChild(email);
