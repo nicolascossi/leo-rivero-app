@@ -8,89 +8,63 @@ import { getActualDate } from "./utils/date.js";
 
 
 
-export async function exportarPDF(datos) {
+async function exportarPDF(datos) {
     try {
         const pdf = new jsPDF();
         let plantillaHTML = `
             <h1>Información del Usuario</h1>
-            <p><strong>Nombre del cliente:</strong> ${datos.client.name}</p>
-            <p><strong>Direccion del pedido:</strong> ${datos.address}</p>
-            <p><strong>Numero de pedido:</strong> ${datos.id}</p>
-
-            
+            <p><strong>Nombre del cliente:</strong> ${datos[0].client.name}</p>
         `;
-        let rows = "";
 
-        datos.products.forEach((item) => {
-            const totalPeriods =
-              item.manualPeriod ??
-              calcPeriods(
-                new Date(item.deliveryDate),
-                item.retirementDate,
-                item.period
-              );
-              console.log(totalPeriods);
-            const periodsByPrices = calcPeriodsPrices(
-              item.period,
-              totalPeriods,
-              item.deliveryDate,
-              item.price
-            );
-            const subtotal = Object.values(periodsByPrices).reduce(
-              (total, { price }) => total + price,
-              0
-            );
-            
-            const total = subtotal
-            
-            
-            rows += `
-            <div class="parent-items-row">
-              <p class="text-start">${item.product.name} #${item.numberId}</p>
-              <p class="text-start">${subtotal}</p>
-              <p class="text-center">${new Date(
-                item.deliveryDate
-              ).toLocaleDateString()}</p>
-              <p class="text-center">${
-                item.retirementDate
-                  ? new Date(item.retirementDate).toLocaleDateString()
-                  : "No se retiró"
-              }</p>
-              <p class="text-center">${totalPeriods}</p>
-              <p class="text-center">$${periodsByPrices[totalPeriods].price}</p>
-              <p class="text-end">$${total}</p>
-            </div>
+        let plantillaPedidoHTML = `
+            <h1>Información de los Pedidos</h1>
+        `;
+
+        // Filtrar los pedidos con isArchived: false
+        const pedidosNoArchivados = datos.filter(pedido => !pedido.isArchived);
+
+        // Agregar información de pedidos no archivados a la plantilla
+        pedidosNoArchivados.forEach(pedido => {
+            plantillaPedidoHTML += `
+                <p><strong>Dirección del pedido:</strong> ${pedido.address}</p>
             `;
-          });
+        });
 
-          plantillaHTML += rows
-      
+        plantillaHTML += plantillaPedidoHTML;
 
         pdf.fromHTML(plantillaHTML, 15, 15);
-        pdf.output('save', 'filename.pdf')
+        pdf.output('save', 'filename.pdf');
     } catch (error) {
         console.error('Error al exportar a PDF:', error);
     }
 }
 
 
+
+
 const imprimirResumen = document.getElementById('nuevo-pdf');
 
 imprimirResumen.addEventListener('click', async () => {
     try {
-        const numeroPedido = document.getElementById('numberId').value;
-        console.log('Número de Pedido:', numeroPedido);
+        const numeroCliente = document.getElementById('numberId').value;
 
-        const { data: invoiceData } = await getInvoicesByClient(numeroPedido);
-        console.log(numeroPedido);
-        if (invoiceData) {
-            console.log('Data de la factura:', invoiceData);
+        if (!numeroCliente) {
+            console.log('Ingresa un número de cliente válido.');
+            return;
+        }
 
-            await exportarPDF(invoiceData);
+        console.log('Número de Pedido:', numeroCliente);
+
+        const { data: pedidosCliente } = await getInvoicesByClient(numeroCliente.toString());
+
+        if (pedidosCliente && pedidosCliente.length > 0) {
+            console.log('Datos de la factura:', pedidosCliente);
+
+            await exportarPDF(pedidosCliente);
         } else {
-            console.log('No se encontró la factura con el número de pedido especificado.');
+            console.log('No se encontraron facturas para el cliente con el número:', numeroCliente);
         }
     } catch (error) {
-        console.error('Error al obtener la factura:', error);
+        console.error('Error al obtener los pedidos:', error);
     }
 });

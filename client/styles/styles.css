@@ -1546,3 +1546,98 @@ height: 55px;
     .div3-pagos { grid-area: 1 / 3 / 2 / 4; }
     .div2-pagos p { text-align: center; }
     .div3-pagos p { text-align: end; }
+
+
+    /* LISTA RESUMEN POR PEDIDO ESTILOS */
+
+    @media print {
+        /* Oculta el elemento con la clase 'ocultar-en-impresion' */
+        .menu-bar,.section-title,.number,.nuevo-pedido, nav  {
+          display: none;
+        
+        }
+        .dashboard {
+            padding-top: 0px !important;
+            margin-top: 0px !important;
+        }
+        .home {
+        left: 40px !important;
+        background-color: white;
+          
+        }
+        body {
+            background-color: white !important;
+        }
+        .PDF {
+            position: absolute;
+            top: 10px;
+        }
+
+
+    }
+    .PDF {
+        background-color: white;
+        height: 100vh;
+    }
+    .itemList {
+        display: flex;
+        column-gap: 20px;
+        width: auto;
+        align-items: center;
+        justify-content: center;
+        background-color: #F8F9FE;
+        padding: 30px 50px;
+        border-radius: 8px;
+        margin-left: 100px;
+        margin-right: 100px;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+
+    .header-left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 80px;
+    }
+
+.header-left img {
+    width: 150px;
+    height: auto;
+}
+
+.subHeader {
+    width: 800px;
+    margin-left: 100px;
+    
+    
+
+}
+
+.subHeader p {
+    margin-bottom: 0px !important;
+}
+
+.title {
+    font-weight: 600;
+}
+.TOTAL-RESUMEN {
+    background-color: var(--black-color);
+    margin: 0px 150px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+.TOTAL-RESUMEN P {
+    color: white;
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.DIVS-RESUMEN {
+    width: 80%;
+}
