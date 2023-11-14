@@ -136,6 +136,7 @@ async function generarResumen(datos) {
   listaItems.classList.add('itemList')
 
   const primeraColumna = document.createElement('DIV')
+  primeraColumna.classList.add('MASANCHO')
   const titlePrimeraColumna = document.createElement('P')
   titlePrimeraColumna.classList.add('title')
   titlePrimeraColumna.textContent = 'Producto'
@@ -147,6 +148,7 @@ async function generarResumen(datos) {
 
   const terceraColumna = document.createElement('DIV')
   const titleTerceraColumna = document.createElement('P')
+  terceraColumna.classList.add('MASANCHO')
   titleTerceraColumna.classList.add('title' ,'text-center')
   titleTerceraColumna.textContent = 'Retiro'
 
@@ -212,6 +214,7 @@ async function generarResumen(datos) {
     segundaColumna.appendChild(entrega)
 
     const retiro = document.createElement('P')
+    retiro.classList.add('text-center')
     retiro.textContent = `${
       item.retirementDate
         ? new Date(item.retirementDate).toLocaleDateString()
