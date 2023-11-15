@@ -234,12 +234,15 @@
 .noteinnote p {
     margin-bottom: 0px;
 }
+.BorrarNota {
+    margin: 10px 10px;
+}
 .nota {
     padding-left: 50px;
     padding-right: 50px;
     background-color: white;
     width: 80%;
-    height: 70px;
+    height: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1670,4 +1673,10 @@ height: 55px;
 
 .totalxcliente{
     width: 500px !important;
+}
+
+
+#monto-por-cobrar {
+    color: var(--title-status);
+    font-weight: 500;
 }

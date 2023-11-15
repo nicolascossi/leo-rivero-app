@@ -240,6 +240,46 @@ async function mostrarPedidos(options) {
         totalSum += total;
       });
 
+      let totalSumOfAllOrders = 0;
+
+      invoices.forEach((invoice) => {
+        let totalSum = 0;
+      
+        invoice.products.forEach((item) => {
+          const totalPeriods =
+            item.manualPeriod ??
+            calcPeriods(
+              new Date(item.deliveryDate),
+              item.retirementDate,
+              item.period
+            );
+          const periodsByPrices = calcPeriodsPrices(
+            item.period,
+            totalPeriods,
+            item.deliveryDate,
+            item.price
+          );
+          const subtotal = Object.values(periodsByPrices).reduce(
+            (total, { price }) => total + price,
+            0
+          );
+          const payed =
+            item.payments?.reduce((total, { value }) => total + value, 0) ?? 0;
+          const totalForProduct = subtotal - payed;
+          totalSum += totalForProduct;
+        });
+      
+        totalSumOfAllOrders += totalSum;
+      });
+      
+      
+      // Muestra el total de todas las facturas
+      const faltaCobrar = document.getElementById('monto-por-cobrar');
+      faltaCobrar.textContent = ` ($${totalSumOfAllOrders})`;
+      
+
+
+
       const invoiceTotal = document.createElement("p");
       invoiceTotal.classList.add("invoice-total");
       invoiceTotal.textContent = "$" + parseFloat(totalSum.toFixed(2));

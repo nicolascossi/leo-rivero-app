@@ -89,7 +89,9 @@ async function generarResumen(datos) {
     container.appendChild(header);
     container.appendChild(subHeader);
 
-    datos.forEach((pedido) => {
+    const pedidosActivos = datos.filter((pedido) => !pedido.isArchived);
+
+    pedidosActivos.forEach((pedido) => {
         const cajaPedido = document.createElement('DIV');
         cajaPedido.classList.add('cajaPedido');
 
