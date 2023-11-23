@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>Leo Rivero | Notas</title>
+    <title>Leo Rivero | Ubicacion items</title>
 </head>
 <body>
     <!-- SIDE BAR -->
@@ -82,18 +82,20 @@
                       <span class="text nav-text">Resumenes Pedido</span>
                     </a>
                   </li>
-                  <li class="">
+                  
+                <li class="">
                     <a href="./statusitem.html">
                       <i class='bx bx-current-location icon'></i>
                         <span class="text nav-text">Lista Direccion</span>
                     </a>
                 </li>
+
                 <li class="">
-                    <a href="./config.html">
-                        <i class='bx bx-cog icon'></i>
-                        <span class="text nav-text">Configuracion</span>
-                    </a>
-                </li>
+                  <a href="./config.html">
+                      <i class='bx bx-cog icon'></i>
+                      <span class="text nav-text">Configuracion</span>
+                  </a>
+              </li>
 
                   <li class="">
                       <a href="###">
@@ -120,19 +122,29 @@
 
           <div class="heading-dashboard margin-bottom-2 ">
             <div class="heading">
-                <p class="section-title">Notas</p>
+                <p class="section-title">Obtener ubicacion (Items sin retiro)</p>
+                <p>Esta funcion te trae todos los productos que no tienen fecha de retiro, lo cual se supone que estan todavia en esa direccion mientras tanto. (Obviamente para el optimo funcionamiento tiene que estar al dia el registro de pedidos e items)</p>
             </div>
           </div>
 
         <!-- nueva nota -->
-        <div class="heading-dashboard margin-bottom-2 center-all agregar-nota-clase">
-                <input type="text" id="nota" placeholder="Ingresa aca tu nota">
-                <button id="nueva-nota" class="alto-button nuevo-pedido">Agregar Nota</button>
+        <div class="subtitle">
 
-           
+                <button id="obtener-ubicacion" class="nuevo-pedido">Obtener la ubicaciones</button>
+            
+            
           </div>
 
           <div class="notes-list">
+            <div class="TITLES-COLUMNS">
+              <div class="oka"><p class="text-start">PRODUCTO</p></div>
+              <div class="oka"><p class="text-center">CLIENTE</p></div>
+              <div class="oka"><p class="text-center">DIRECCION</p></div>
+              <div class="oka"><p class="text-end">FECHA DE ENTREGA</p></div>
+            </div>
+          </div>
+          
+          <div class="notes-list" id="ubicaciones">
 
             
 
@@ -142,12 +154,10 @@
 
 
 
-      <div class="position-fixed bottom-0 end-0 p-3 ">
-        <button id="refreshButton" class="shadow btn btn-dark fs-1 d-flex justify-content-center align-items-center p-3"><i class='bx bx-refresh'></i></button>
-      </div>
+
 
       <script src="../scripts/navbar.js"></script>
-      <script type="module" src="../scripts/notes.js"></script>
+      <script type="module" src="../scripts/statusitems.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
