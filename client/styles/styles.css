@@ -1575,6 +1575,9 @@ height: 55px;
             position: absolute;
             top: 10px;
         }
+        .obtener-ubicacion{
+            
+        }
 
 
     }
@@ -1602,6 +1605,7 @@ height: 55px;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
+        
         
     }
 
@@ -1644,39 +1648,4 @@ height: 55px;
 .DIVS-RESUMEN {
     margin-bottom: 50px;
     width: 80%;
-}
-
-.MASANCHO {
-    width: 150px;
-}
-
-.cajaPedido {
-    width: 800px;
-}
-.cajaItems {
-    display: flex;
-        column-gap: 20px;
-        width: auto;
-        align-items: center;
-        justify-content: center;
-        background-color: #F8F9FE;
-        padding: 30px 50px;
-        border-radius: 8px;
-        margin-bottom: 50px;
-        
-}
-
-.TITLE {
-    font-weight: 600;
-    margin-bottom: 0px;
-}
-
-.totalxcliente{
-    width: 500px !important;
-}
-
-
-#monto-por-cobrar {
-    color: var(--title-status);
-    font-weight: 500;
 }
