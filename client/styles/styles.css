@@ -1649,3 +1649,43 @@ height: 55px;
     margin-bottom: 50px;
     width: 80%;
 }
+
+.lista-ubicaciones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 1rem;
+    border-bottom: 1px solid var(--black-color);
+}
+.primera {
+    width: 33%;
+}
+.segunda {
+    width: 33%;
+}
+.tercera {
+    width: 33%;
+}
+
+.TITLES-COLUMNS {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.oka p{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.subtitle {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.subtitle button{
+    padding: 10px 20px !important;
+    width: auto !important;
+}
